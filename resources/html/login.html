@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="content">
+    <h2>Login</h2>
+    <form method='post'>
+      {% csrf-field %}
+      <input name='login' placeholder='login'>
+      <input name='password' placeholder='password'>
+      <input type='submit' value='login'>
+    </form>
+  </div>
+{% endblock %}
