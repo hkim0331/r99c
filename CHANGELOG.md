@@ -2,17 +2,20 @@
 
 ## Unreleased
 * define tables. problems, answers, comments.
-* password hash
 * post logout
-* error messsages when register/login errors. flash?
+* flash for errors when register/login
 
 
-## 0.2.0-SNAPSHOT
+## 0.2.0 - 2021-10-04
 ### Added
 * register
+* password hash
+* Logout
+### Changed
+* git unignore *.sql
 
 
-## 0.1.1
+## 0.1.1 - 2021-10-04
 ### Added
 * gitignore .vsode/
 * authentication
