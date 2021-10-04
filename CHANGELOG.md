@@ -1,12 +1,14 @@
 # CHANGELOG.md
 
 ## Unreleased
-* define problems
 * define answers
 * define comments
 * post logout
 * flash for errors when register/login
 
+## 0.3.0-SNAPSHOT
+### Added
+* define problems
 
 ## 0.2.0 - 2021-10-04
 ### Added
