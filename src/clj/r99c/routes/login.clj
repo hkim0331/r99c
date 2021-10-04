@@ -7,12 +7,13 @@
    [ring.util.response :refer [redirect]] ;; add
    [ring.util.http-response :as response]))
 
+
 (defn login [request]
   (layout/render request "login.html"))
 
 (defn login-post [{{:keys [login password]} :params}]
   (let [user (db/get-user {:login login})]
-    (println "user" user)
+    ;;(println "user" user)
     (if (and (seq user)
              (= (:login user) login)
              (= (:password user) password))
@@ -24,11 +25,25 @@
   (-> (redirect "/")
       (assoc :session {})))
 
+(defn register [request]
+  (layout/render request "register.html"))
+
+(defn register-post [{params :params}]
+  ;; need verification
+  (try
+    (db/create-user! params)
+    (redirect "/login")
+    (catch Exception e
+     (redirect "/register"))))
+
 (defn login-routes []
-  [ ""
+  [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
-   ["/login" {:get login
+   ["/login" {:get  login
               :post login-post}]
    ;; FIXME: post
-   ["/logout" {:get logout}]])
+   ["/logout" {:get logout}]
+   ["/register" {:get  register
+                 :post register-post}]])
+
