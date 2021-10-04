@@ -1,7 +1,9 @@
 # CHANGELOG.md
 
 ## Unreleased
-* define tables. problems, answers, comments.
+* define problems
+* define answers
+* define comments
 * post logout
 * flash for errors when register/login
 
