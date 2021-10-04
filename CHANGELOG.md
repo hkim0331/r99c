@@ -4,15 +4,20 @@
 * define tables. problems, answers, comments.
 * password hash
 * post logout
+* error messsages when register/login errors. flash?
 
 
 ## 0.2.0-SNAPSHOT
+### Added
+* register
+
 
 ## 0.1.1
 ### Added
 * gitignore .vsode/
 * authentication
 * access restriction
+
 ### Changed
 * lein angient upgrade
 
