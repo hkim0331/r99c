@@ -9,7 +9,28 @@
     [r99c.config :refer [env]]
     [ring.middleware.flash :refer [wrap-flash]]
     [ring.adapter.undertow.middleware.session :refer [wrap-session]]
-    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]))
+    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
+    ;;
+    [buddy.auth :refer [authenticated? throw-unauthorized]]
+    [buddy.auth.accessrules :refer [restrict]]
+    [buddy.auth.backends.session :refer [session-backend]]
+    [buddy.auth.middleware :refer [wrap-authorization wrap-authentication]]
+    [ring.util.response :refer [redirect]]))
+
+(defn unauthorized-handler
+  [request _]
+  (if (authenticated? request)
+    (throw-unauthorized)
+    (redirect "/login")))
+
+(def auth-backend
+  (session-backend {:unauthorized-handler unauthorized-handler}))
+
+(defn auth [handler]
+  (-> handler
+      (restrict {:handler authenticated?})
+      (wrap-authorization  auth-backend)
+      (wrap-authentication auth-backend)))
 
 (defn wrap-internal-error [handler]
   (fn [req]

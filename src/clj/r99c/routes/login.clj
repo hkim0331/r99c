@@ -11,12 +11,16 @@
   (layout/render request "login.html"))
 
 (defn login-post [{{:keys [login password]} :params}]
-  (if (= login "hkimura")
-    (-> (redirect "/")
-        (assoc-in [:session :identity] (keyword login)))
-    (redirect "/login")))
+  (let [user (db/get-user {:login login})]
+    (println "user" user)
+    (if (and (seq user)
+             (= (:login user) login)
+             (= (:password user) password))
+      (-> (redirect "/")
+          (assoc-in [:session :identity] (keyword login)))
+      (redirect "/login"))))
 
-(defn logout [request]
+(defn logout [_]
   (-> (redirect "/")
       (assoc :session {})))
 

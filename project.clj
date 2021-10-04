@@ -31,8 +31,11 @@
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.9.4"]
                  [ring/ring-defaults "0.3.3"]
-                 [selmer "1.12.44"]]
-
+                 [selmer "1.12.44"]
+                 ;;
+                 [buddy/buddy-auth "3.0.1"]
+                 [buddy/buddy-hashers "1.8.1"]]
+  
   :min-lein-version "2.0.0"
 
   :source-paths ["src/clj"]
@@ -47,13 +50,13 @@
   {:uberjar {:omit-source true
              :aot :all
              :uberjar-name "r99c.jar"
-             :source-paths ["env/prod/clj" ]
+             :source-paths ["env/prod/clj"]
              :resource-paths ["env/prod/resources"]}
 
    :dev           [:project/dev :profiles/dev]
    :test          [:project/dev :project/test :profiles/test]
 
-   :project/dev  {:jvm-opts ["-Dconf=dev-config.edn" ]
+   :project/dev  {:jvm-opts ["-Dconf=dev-config.edn"]
                   :dependencies [[org.clojure/tools.namespace "1.1.0"]
                                  [pjstadig/humane-test-output "0.11.0"]
                                  [prone "2021-04-23"]
@@ -63,13 +66,13 @@
                                  [jonase/eastwood "0.3.5"]
                                  [cider/cider-nrepl "0.26.0"]]
 
-                  :source-paths ["env/dev/clj" ]
+                  :source-paths ["env/dev/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user
                                  :timeout 120000}
                   :injections [(require 'pjstadig.humane-test-output)
                                (pjstadig.humane-test-output/activate!)]}
-   :project/test {:jvm-opts ["-Dconf=test-config.edn" ]
-                  :resource-paths ["env/test/resources"] }
+   :project/test {:jvm-opts ["-Dconf=test-config.edn"]
+                  :resource-paths ["env/test/resources"]}
    :profiles/dev {}
    :profiles/test {}})

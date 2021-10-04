@@ -14,5 +14,8 @@ profiles.clj
 
 /node_modules
 /log
-
+.calva/
+.clj-kondo/
+.lsp/
+.vscode/
 
