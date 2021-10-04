@@ -6,7 +6,7 @@
 * flash for errors when register/login
 
 
-## 0.2.0-SNAPSHOT
+## 0.2.0 - 2021-10-04
 ### Added
 * register
 * password hash
@@ -15,7 +15,7 @@
 * git unignore *.sql
 
 
-## 0.1.1
+## 0.1.1 - 2021-10-04
 ### Added
 * gitignore .vsode/
 * authentication
