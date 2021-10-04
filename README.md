@@ -2,14 +2,16 @@
 
 generated using Luminus version "4.19"
 
-R99 was programmed with COMMON LISP by me in 2017.
+## UNDER CONSTRUCTION!
+
+`R99` was programmed with COMMON LISP by me in 2017.
 I planed to version-up the old R99 to a single page application
-with ClojureScript, but recently gave up since R99 is natural to have
+with Clojure/Script, but recently gave up since R99 is natural to have
 several pages, status, problems, new-answer, others-answers, comments,
 and so on.
 
-I love Duct, and also am interested in `reitit`.
-So, luminus.
+I love `Duct`. Also I am interested in `reitit`.
+This time, I will try `luminus` to extend my Clojure world.
 
 ## Prerequisites
 
