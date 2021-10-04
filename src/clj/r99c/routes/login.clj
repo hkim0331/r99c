@@ -5,7 +5,9 @@
    [clojure.java.io :as io]
    [r99c.middleware :as middleware]
    [ring.util.response :refer [redirect]] ;; add
-   [ring.util.http-response :as response]))
+   [ring.util.http-response :as response]
+   ;;
+   [buddy.hashers :as hashers]))
 
 
 (defn login [request]
@@ -16,7 +18,7 @@
     ;;(println "user" user)
     (if (and (seq user)
              (= (:login user) login)
-             (= (:password user) password))
+             (hashers/check password (:password user)))
       (-> (redirect "/")
           (assoc-in [:session :identity] (keyword login)))
       (redirect "/login"))))
@@ -31,10 +33,11 @@
 (defn register-post [{params :params}]
   ;; need verification
   (try
-    (db/create-user! params)
+    (db/create-user! (assoc (dissoc params :password)
+                            :password (hashers/derive (:password params))))
     (redirect "/login")
     (catch Exception e
-     (redirect "/register"))))
+      (redirect "/register"))))
 
 (defn login-routes []
   [""
