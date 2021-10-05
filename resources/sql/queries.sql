@@ -23,3 +23,30 @@ WHERE login = :login
 -- :name users :? :*
 -- :doc get all users
 SELECT * from users;
+
+
+-- :name create-problem! :! :n
+-- :doc creates a new problem record
+INSERT INTO problems
+(problem, test)
+VALUES (:problem, :test)
+
+-- :name update-problem! :! :n
+-- :doc updates an existing problem record
+UPDATE problems
+SET (problem = :problem, test = :test)
+WHERE id= :id
+
+-- :name get-problem :? :1
+-- :doc retrieves a problem record given the num
+SELECT * FROM users
+WHERE num = :num
+
+-- :name delete-problem! :! :n
+-- :doc deletes a problem record given the num
+DELETE FROM problems
+WHERE num = :num
+
+-- :name problems :? :*
+-- :doc get all problems
+SELECT * from problems;

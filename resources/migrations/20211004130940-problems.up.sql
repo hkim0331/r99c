@@ -1,6 +1,6 @@
 create table problems (
   id serial primary key,
-  num integer,
+  num int,
   is_avail BOOLEAN default false,
   problem text not null,
   test text,
