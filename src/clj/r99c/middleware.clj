@@ -37,8 +37,8 @@
 (defn admin? [request]
   (let [login (name (get-in request [:session :identity]))
         ret (db/get-user {:login login})]
-    (println "login" login "ret" ret "is_admin" (:is_admin ret))
-    true))
+    (println "login" login "ret" ret "is_admin" (boolean (:is_admin ret)))
+    (boolean false)))
 
 ;; Added 2021-10-06
 (defn admin [handler]
