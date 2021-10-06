@@ -1,18 +1,18 @@
-(defproject r99c "0.1.1-SNAPSHOT"
+(defproject r99c "0.3.0"
 
   :description "r99 revised with clojure"
   :url "http://example.com/FIXME"
 
-  :dependencies [[ch.qos.logback/logback-classic "1.2.5"]
+  :dependencies [[ch.qos.logback/logback-classic "1.2.6"]
                  [clojure.java-time "0.3.3"]
                  [conman "0.9.1"]
                  [cprop "0.1.19"]
-                 [expound "0.8.9"]
+                 [expound "0.8.10"]
                  [funcool/struct "1.4.0"]
                  [json-html "0.4.7"]
                  [luminus-migrations "0.7.1"]
                  [luminus-transit "0.1.2"]
-                 [luminus-undertow "0.1.11"]
+                 [luminus-undertow "0.1.12"]
                  [luminus/ring-ttl-session "0.3.3"]
                  [markdown-clj "1.10.6"]
                  [metosin/muuntaja "0.6.8"]
@@ -23,10 +23,10 @@
                  [org.clojure/clojure "1.10.3"]
                  [org.clojure/tools.cli "1.0.206"]
                  [org.clojure/tools.logging "1.1.0"]
-                 [org.postgresql/postgresql "42.2.23"]
-                 [org.webjars.npm/bulma "0.9.2"]
+                 [org.postgresql/postgresql "42.2.24"]
+                 [org.webjars.npm/bulma "0.9.3"]
                  [org.webjars.npm/material-icons "1.0.0"]
-                 [org.webjars/webjars-locator "0.41"]
+                 [org.webjars/webjars-locator "0.42"]
                  [org.webjars/webjars-locator-jboss-vfs "0.1.0"]
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.9.4"]
@@ -35,7 +35,7 @@
                  ;;
                  [buddy/buddy-auth "3.0.1"]
                  [buddy/buddy-hashers "1.8.1"]]
-  
+
   :min-lein-version "2.0.0"
 
   :source-paths ["src/clj"]
