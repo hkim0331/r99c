@@ -9,6 +9,9 @@
    ;;
    [buddy.hashers :as hashers]))
 
+(defn about-page [request]
+  (layout/render request "about.html"))
+
 (defn login [request]
   (layout/render request "login.html"))
 
@@ -42,6 +45,7 @@
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
+   ["/about" {:get about-page}]
    ["/login" {:get  login
               :post login-post}]
    ;; FIXME: post
