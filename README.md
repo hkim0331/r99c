@@ -13,6 +13,11 @@ and so on.
 I love `duct`. Also I am interested in `reitit`.
 This time, I will try `luminus` to extend my Clojure world.
 
+## FIXME
+
+* r99c.seed.core/seed-problems!
+ for だと 45 番で止まってしまう。doseq だとOKその理由は？
+
 ## Prerequisites
 
 You will need [Leiningen][1] 2.0 or above installed.
@@ -30,6 +35,7 @@ or in production.
 To start a web server for the application, run:
 
     lein run
+
 
 ## License
 

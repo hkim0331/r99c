@@ -18,7 +18,7 @@
   "read resources/R99.html, insert the <li>~</li> contents
    into `problems` table"
   []
-  ;; for だと 45 番で止まってしまう。
+  ;; FIXME: why stops at 45 with for? OK using doseq.
   (doseq [s (-> "R99.html"
                 io/resource
                 slurp
