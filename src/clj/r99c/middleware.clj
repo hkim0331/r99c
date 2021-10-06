@@ -1,16 +1,16 @@
 (ns r99c.middleware
   (:require
-   [r99c.env :refer [defaults]]
    [clojure.tools.logging :as log]
-   [r99c.layout :refer [error-page]]
-   [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
-   [r99c.middleware.formats :as formats]
    [muuntaja.middleware :refer [wrap-format wrap-params]]
    [r99c.config :refer [env]]
-   [ring.middleware.flash :refer [wrap-flash]]
+   [r99c.env :refer [defaults]]
+   [r99c.layout :refer [error-page]]
+   [r99c.middleware.formats :as formats]
    [ring.adapter.undertow.middleware.session :refer [wrap-session]]
+   [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
-    ;;
+   [ring.middleware.flash :refer [wrap-flash]]
+   ;;
    [buddy.auth :refer [authenticated? throw-unauthorized]]
    [buddy.auth.accessrules :refer [restrict]]
    [buddy.auth.backends.session :refer [session-backend]]
