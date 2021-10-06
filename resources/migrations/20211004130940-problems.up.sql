@@ -1,6 +1,6 @@
 create table problems (
   id serial primary key,
-  num int,
+  num int, -- 本来 unique だが、順番替えしたくなる時もある。
   is_avail BOOLEAN default false,
   problem text not null,
   test text,
