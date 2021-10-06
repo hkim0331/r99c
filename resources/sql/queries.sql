@@ -24,7 +24,6 @@ WHERE login = :login
 -- :doc get all users
 SELECT * from users;
 
-
 -- :name create-problem! :! :n
 -- :doc creates a new problem record
 INSERT INTO problems
@@ -34,18 +33,19 @@ VALUES (:problem, :test)
 -- :name update-problem! :! :n
 -- :doc updates an existing problem record
 UPDATE problems
-SET (problem = :problem, test = :test)
-WHERE id= :id
+SET (num = :num, is_avail = :is_avail, problem = :problem, test = :test,
+     update_at = now())
+WHERE id = :id
 
 -- :name get-problem :? :1
 -- :doc retrieves a problem record given the num
 SELECT * FROM users
-WHERE num = :num
+WHERE id = :id
 
 -- :name delete-problem! :! :n
 -- :doc deletes a problem record given the num
 DELETE FROM problems
-WHERE num = :num
+WHERE id = :id
 
 -- :name problems :? :*
 -- :doc get all problems
