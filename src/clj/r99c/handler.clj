@@ -20,7 +20,8 @@
   :start
   (ring/ring-handler
     (ring/router
-      [(seed-routes) (login-routes) (home-routes)])
+     ;;;
+     [(seed-routes) (login-routes) (home-routes)])
     (ring/routes
       (ring/create-resource-handler
         {:path "/"})
