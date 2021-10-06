@@ -10,8 +10,13 @@ with Clojure/Script, but recently gave up since R99 is natural to have
 several pages, status, problems, new-answer, others-answers, comments,
 and so on.
 
-I love `Duct`. Also I am interested in `reitit`.
+I love `duct`. Also I am interested in `reitit`.
 This time, I will try `luminus` to extend my Clojure world.
+
+## FIXME
+
+* r99c.seed.core/seed-problems!
+ for だと 45 番で止まってしまう。doseq だとOKその理由は？
 
 ## Prerequisites
 
@@ -19,11 +24,18 @@ You will need [Leiningen][1] 2.0 or above installed.
 
 [1]: https://github.com/technomancy/leiningen
 
+### config.edn
+
+`dev-config.edn` and `test-config-edn` are gitignored.
+must provide them out from git repository before proceed develpment,
+or in production.
+
 ## Running
 
 To start a web server for the application, run:
 
     lein run
+
 
 ## License
 
