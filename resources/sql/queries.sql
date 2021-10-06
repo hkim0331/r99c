@@ -27,7 +27,7 @@ SELECT * from users;
 -- :name create-problem! :! :n
 -- :doc creates a new problem record
 INSERT INTO problems
-(problems)
+(problem)
 VALUES (:problem)
 
 -- :name update-problem! :! :n
@@ -39,7 +39,7 @@ WHERE id = :id
 
 -- :name get-problem :? :1
 -- :doc retrieves a problem record given the num
-SELECT * FROM users
+SELECT * FROM problems
 WHERE id = :id
 
 -- :name delete-problem! :! :n

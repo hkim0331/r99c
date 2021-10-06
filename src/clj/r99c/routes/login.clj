@@ -9,7 +9,6 @@
    ;;
    [buddy.hashers :as hashers]))
 
-
 (defn login [request]
   (layout/render request "login.html"))
 
