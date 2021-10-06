@@ -1,13 +1,13 @@
 (ns r99c.core
   (:require
-    [r99c.handler :as handler]
-    [r99c.nrepl :as nrepl]
-    [luminus.http-server :as http]
-    [luminus-migrations.core :as migrations]
-    [r99c.config :refer [env]]
     [clojure.tools.cli :refer [parse-opts]]
     [clojure.tools.logging :as log]
-    [mount.core :as mount])
+    [luminus-migrations.core :as migrations]
+    [luminus.http-server :as http]
+    [mount.core :as mount]
+    [r99c.config :refer [env]]
+    [r99c.handler :as handler]
+    [r99c.nrepl :as nrepl])
   (:gen-class))
 
 ;; log uncaught exceptions in threads

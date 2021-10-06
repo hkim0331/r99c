@@ -1,11 +1,11 @@
 (ns r99c.routes.seed
   (:require
-   [r99c.layout :as layout]
-   [r99c.db.core :as db]
    [clojure.java.io :as io]
+   [r99c.db.core :as db]
+   [r99c.layout :as layout]
    [r99c.middleware :as middleware]
-   [ring.util.response]
    [ring.util.http-response :as response]
+   [ring.util.response]
    ;;
    [clojure.string :refer [split-lines starts-with? replace-first]]
    [hiccup.core :refer [html]]

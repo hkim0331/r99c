@@ -1,13 +1,13 @@
 (ns r99c.handler
   (:require
-    [r99c.middleware :as middleware]
+    [mount.core :as mount]
+    [r99c.env :refer [defaults]]
     [r99c.layout :refer [error-page]]
+    [r99c.middleware :as middleware]
     [r99c.routes.home :refer [home-routes]]
     [reitit.ring :as ring]
     [ring.middleware.content-type :refer [wrap-content-type]]
     [ring.middleware.webjars :refer [wrap-webjars]]
-    [r99c.env :refer [defaults]]
-    [mount.core :as mount]
     ;;
     [r99c.routes.login :refer [login-routes]]
     [r99c.routes.seed :refer [seed-routes]]))
