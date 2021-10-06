@@ -18,7 +18,8 @@
   "read resources/R99.html, insert the <li>~</li> contents
    into `problems` table"
   []
-  ;; FIXME: why stops at 45 with for? OK using doseq.
+  ;; FIXME: why stops at 45 entries when use for?
+  ;;        Using doseq, no problem.
   (doseq [s (-> "R99.html"
                 io/resource
                 slurp
