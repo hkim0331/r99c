@@ -9,7 +9,8 @@
     [r99c.env :refer [defaults]]
     [mount.core :as mount]
     ;;
-    [r99c.routes.login :refer [login-routes]]))
+    [r99c.routes.login :refer [login-routes]]
+    [r99c.routes.seed :refer [seed-routes]]))
 
 (mount/defstate init-app
   :start ((or (:init defaults) (fn [])))
@@ -19,8 +20,7 @@
   :start
   (ring/ring-handler
     (ring/router
-      ;; add (login-routes)
-      [(login-routes)(home-routes)])
+      [(seed-routes) (login-routes) (home-routes)])
     (ring/routes
       (ring/create-resource-handler
         {:path "/"})

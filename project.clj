@@ -34,7 +34,8 @@
                  [selmer "1.12.44"]
                  ;;
                  [buddy/buddy-auth "3.0.1"]
-                 [buddy/buddy-hashers "1.8.1"]]
+                 [buddy/buddy-hashers "1.8.1"]
+                 [hiccup "1.0.5"]]
 
   :min-lein-version "2.0.0"
 
