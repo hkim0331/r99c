@@ -35,7 +35,7 @@
                  ;;
                  [buddy/buddy-auth "3.0.1"]
                  [buddy/buddy-hashers "1.8.1"]]
-  
+
   :min-lein-version "2.0.0"
 
   :source-paths ["src/clj"]
