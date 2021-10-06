@@ -1,21 +1,22 @@
 (ns r99c.middleware
   (:require
-    [r99c.env :refer [defaults]]
-    [clojure.tools.logging :as log]
-    [r99c.layout :refer [error-page]]
-    [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
-    [r99c.middleware.formats :as formats]
-    [muuntaja.middleware :refer [wrap-format wrap-params]]
-    [r99c.config :refer [env]]
-    [ring.middleware.flash :refer [wrap-flash]]
-    [ring.adapter.undertow.middleware.session :refer [wrap-session]]
-    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
+   [r99c.env :refer [defaults]]
+   [clojure.tools.logging :as log]
+   [r99c.layout :refer [error-page]]
+   [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
+   [r99c.middleware.formats :as formats]
+   [muuntaja.middleware :refer [wrap-format wrap-params]]
+   [r99c.config :refer [env]]
+   [ring.middleware.flash :refer [wrap-flash]]
+   [ring.adapter.undertow.middleware.session :refer [wrap-session]]
+   [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
     ;;
-    [buddy.auth :refer [authenticated? throw-unauthorized]]
-    [buddy.auth.accessrules :refer [restrict]]
-    [buddy.auth.backends.session :refer [session-backend]]
-    [buddy.auth.middleware :refer [wrap-authorization wrap-authentication]]
-    [ring.util.response :refer [redirect]]))
+   [buddy.auth :refer [authenticated? throw-unauthorized]]
+   [buddy.auth.accessrules :refer [restrict]]
+   [buddy.auth.backends.session :refer [session-backend]]
+   [buddy.auth.middleware :refer [wrap-authorization wrap-authentication]]
+   [r99c.db.core :as db]
+   [ring.util.response :refer [redirect]]))
 
 (defn unauthorized-handler
   [request _]
@@ -32,6 +33,21 @@
       (wrap-authorization  auth-backend)
       (wrap-authentication auth-backend)))
 
+;; Added 2021-10-06
+(defn admin? [request]
+  (let [login (name (get-in request [:session :identity]))
+        ret (db/get-user {:login login})]
+    (println "login" login "ret" ret "is_admin" (:is_admin ret))
+    true))
+
+;; Added 2021-10-06
+(defn admin [handler]
+  (-> handler
+      (restrict {:handler admin?})
+      ;;(restrict {:handler authenticated?})
+      (wrap-authorization  auth-backend)
+      (wrap-authentication auth-backend)))
+
 (defn wrap-internal-error [handler]
   (fn [req]
     (try
@@ -44,12 +60,11 @@
 
 (defn wrap-csrf [handler]
   (wrap-anti-forgery
-    handler
-    {:error-response
-     (error-page
-       {:status 403
-        :title "Invalid anti-forgery token"})}))
-
+   handler
+   {:error-response
+    (error-page
+     {:status 403
+      :title "Invalid anti-forgery token"})}))
 
 (defn wrap-formats [handler]
   (let [wrapped (-> handler wrap-params (wrap-format formats/instance))]
@@ -63,7 +78,7 @@
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
       (wrap-defaults
-        (-> site-defaults
-            (assoc-in [:security :anti-forgery] false)
-            (dissoc :session)))
+       (-> site-defaults
+           (assoc-in [:security :anti-forgery] false)
+           (dissoc :session)))
       wrap-internal-error))

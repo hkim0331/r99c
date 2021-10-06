@@ -1,4 +1,4 @@
-(ns r99c.routes.seed
+(ns r99c.routes.admin
   (:require
    [r99c.layout :as layout]
    [r99c.db.core :as db]
@@ -17,7 +17,7 @@
     request
     "home.html"
     {:docs (html
-            (form-to [:post "/seed-problems"]
+            (form-to [:post "/admin/p"]
                      (anti-forgery-field)
                      (submit-button "seed problems")))}))
 
@@ -38,10 +38,10 @@
       (db/create-problem! {:problem (strip-li s)})))
   (layout/render request "home.html" {:docs "seed problems"}))
 
-(defn seed-routes []
-  [ ""
-   {:middleware [middleware/auth
+(defn admin-routes []
+  ["/admin"
+   {:middleware [middleware/admin
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
-   ["/seed-problems" {:get  problems-form
-                      :post insert-problems!}]])
+   ["/p" {:get  problems-form
+          :post insert-problems!}]])

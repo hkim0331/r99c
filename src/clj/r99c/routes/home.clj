@@ -14,7 +14,7 @@
   (layout/render request "about.html"))
 
 (defn home-routes []
-  [ ""
+  [""
    {:middleware [middleware/auth
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
