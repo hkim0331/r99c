@@ -39,7 +39,7 @@
   (layout/render request "home.html" {:docs "seed problems"}))
 
 (defn seed-routes []
-  [ ""
+  [ "/admin"
    {:middleware [middleware/auth
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
