@@ -13,9 +13,9 @@
   (layout/render request "about.html"))
 
 (defn admin-only [request]
-  (layout/render request "error.html" {:status 404
-                                       :title "Admin Only"
-                                       :message "This is admin only page."}))
+  (layout/render request "error.html" {:status 401
+                                       :title "Unauthorized"
+                                       :message "This page is admin only."}))
 
 (defn login [request]
   (layout/render request "login.html"))

@@ -14,19 +14,18 @@
 
 (defn problems-form [request]
   (layout/render
-    request
-    "home.html"
-    {:docs (html
-            (form-to [:post "/admin/p"]
-                     (anti-forgery-field)
-                     (submit-button "seed problems")))}))
+   request
+   "home.html"
+   {:docs (html
+           (form-to [:post "/admin/p"]
+                    (anti-forgery-field)
+                    (submit-button "seed problems")))}))
 
 (defn- strip-li
   "strip <li> and </li> from s"
   [s]
   (replace-first (replace-first s #"^<li>" "") #"</li>$" ""))
 
-;; FIXME: must admin only.
 (defn insert-problems!
   [request]
   (doseq [s (-> "R99.html"
@@ -36,12 +35,15 @@
     (when (starts-with? s "<li>")
       ;;(println s)
       (db/create-problem! {:problem (strip-li s)})))
-  (layout/render request "home.html" {:docs "seed problems"}))
+  (layout/render request "home.html" {:docs "seed problems done"}))
+
+(defn admin-page [request]
+  (layout/render request "home.html" {:docs "admin-page"}))
 
 (defn admin-routes []
   ["/admin"
    {:middleware [middleware/admin
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
-   ["/p" {:get  problems-form
-          :post insert-problems!}]])
+   ["/" {:get  admin-page}]])
+
