@@ -9,6 +9,14 @@
    ;;
    [buddy.hashers :as hashers]))
 
+(defn about-page [request]
+  (layout/render request "about.html"))
+
+(defn admin-only [request]
+  (layout/render request "error.html" {:status 401
+                                       :title "Unauthorized"
+                                       :message "This page is admin only."}))
+
 (defn login [request]
   (layout/render request "login.html"))
 
@@ -42,6 +50,8 @@
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
+   ["/about" {:get about-page}]
+   ["/admin-only" {:get admin-only}]
    ["/login" {:get  login
               :post login-post}]
    ;; FIXME: post
