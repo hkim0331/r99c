@@ -12,6 +12,11 @@
 (defn about-page [request]
   (layout/render request "about.html"))
 
+(defn admin-only [request]
+  (layout/render request "error.html" {:status 404
+                                       :title "Admin Only"
+                                       :message "This is admin only page."}))
+
 (defn login [request]
   (layout/render request "login.html"))
 
@@ -46,6 +51,7 @@
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/about" {:get about-page}]
+   ["/admin-only" {:get admin-only}]
    ["/login" {:get  login
               :post login-post}]
    ;; FIXME: post

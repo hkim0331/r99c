@@ -21,7 +21,8 @@
 (defn unauthorized-handler
   [request _]
   (if (authenticated? request)
-    (throw-unauthorized)
+    ;;(throw-unauthorized)
+    (redirect "/admin-only")
     (redirect "/login")))
 
 (def auth-backend
