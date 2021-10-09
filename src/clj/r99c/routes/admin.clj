@@ -5,45 +5,49 @@
    [r99c.layout :as layout]
    [r99c.middleware :as middleware]
    [ring.util.http-response :as response]
-   [ring.util.response]
+   ;;[ring.util.response]
    ;;
    [clojure.string :refer [split-lines starts-with? replace-first]]
-   [hiccup.core :refer [html]]
-   [hiccup.form :refer [form-to submit-button]]
-   [ring.util.anti-forgery :refer [anti-forgery-field]]))
-
-(defn problems-form [request]
-  (layout/render
-   request
-   "home.html"
-   {:docs (html
-           (form-to [:post "/admin/p"]
-                    (anti-forgery-field)
-                    (submit-button "seed problems")))}))
+   [ring.util.response :refer [redirect]]
+   [clojure.pprint :refer [pprint]]))
 
 (defn- strip-li
   "strip <li> and </li> from s"
   [s]
   (replace-first (replace-first s #"^<li>" "") #"</li>$" ""))
 
-(defn insert-problems!
+(defn seed-problems!
   [request]
-  (doseq [s (-> "R99.html"
-                io/resource
-                slurp
-                split-lines)]
-    (when (starts-with? s "<li>")
+  ;; FIXME: num? atom?
+  (let [num (atom 0)]
+    (doseq [s (-> "R99.html" io/resource slurp split-lines)]
       ;;(println s)
-      (db/create-problem! {:problem (strip-li s)})))
-  (layout/render request "home.html" {:docs "seed problems done"}))
+      (when (starts-with? s "<li>")
+        (db/create-problem! {:problem (strip-li s) :num (swap! num inc)}))))
+  (layout/render request "home.html" {:docs "seed problems done."}))
 
 (defn admin-page [request]
-  (layout/render request "home.html" {:docs "admin-page"}))
+  (layout/render request "admin.html"))
+
+(defn problems-page [request]
+  (layout/render request "problems.html" {:problems (db/problems)}))
+
+(defn update-problem! [request]
+ (pprint request)
+ (redirect "/admin/"))
+
+(defn users-page [request])
+
+(defn comments-page [request])
 
 (defn admin-routes []
   ["/admin"
    {:middleware [middleware/admin
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
-   ["/" {:get  admin-page}]])
-
+   ["/" {:get  admin-page}]
+   ["/problems" {:get problems-page}]
+   ["/problem"  {:post update-problem!}]
+   ["/users"    {:get users-page}]
+   ["/comments" {:get comments-page}]
+   ["/seed-problems" {:post seed-problems!}]])

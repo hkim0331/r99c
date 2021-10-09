@@ -27,8 +27,8 @@ SELECT * from users;
 -- :name create-problem! :! :n
 -- :doc creates a new problem record
 INSERT INTO problems
-(problem)
-VALUES (:problem)
+(num, problem)
+VALUES (:num, :problem)
 
 -- :name update-problem! :! :n
 -- :doc updates an existing problem record

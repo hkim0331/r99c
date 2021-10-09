@@ -5,14 +5,15 @@
 * define comments
 * post logout
 * flash for errors when register/login
-* initdb.d と似たシステム
-* seeding
-* /admin route -- initdb.d や seed route 作戦の代わりに。
-
+* admin を 最初の migration で users テーブルに入れたいが、
+  パスワードハッシュをどうすれば？
+* login せずに /admin/ を叩いた場合。x is null エラー。
 
 ## 0.3.2-SNAPSHOT
 (migrate) や lein run migrate はもちろんやるんだけど、
 テーブルの最初の定義と初期データの種入れは lein の外でできると本番環境が楽か。
+* /admin route -- initdb.d や seed route 作戦の代わりに。
+* seeding
 
 ## 0.3.1 - 2021-10-06
 * deply test onto app.melt.
