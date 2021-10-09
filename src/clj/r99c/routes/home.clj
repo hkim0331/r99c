@@ -17,13 +17,14 @@
 (defn status-page
   "display user's status. how many problems he/she solved?"
   [request]
-  (let [login (name (get-in request [:session :identity]))]
+  (let [login (name (get-in request [:session :identity]))
+        n (:count (db/problems-count))]
     (layout/render
       request
      "status.html"
-     {:user (db/get-user {:login login})}
-     {:range (range 1 (+ 1 (db/problems-count)))}
-     {:solved (db/answers {:login login})})))
+     {:user (db/get-user {:login login})
+      :range (range 1 (+ 1 n))
+      :solved (db/answers {:login login})})))
 
 (defn problems-page
   "display problems."
