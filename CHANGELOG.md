@@ -1,8 +1,8 @@
 # CHANGELOG.md
 
 ## Unreleased
-* define answers
-* define comments
+* define answers table
+* define comments table
 * post logout
 * flash for errors when register/login
 * login せずに /admin/ を叩いた場合に x is null エラー。
@@ -19,7 +19,7 @@ int func_test(void) {
 ## 0.3.3-SNAPSHOT
 ### Added
 * /problems
-
+* /answer/:num
 
 ## 0.3.2 - 2021-10-09
 ### Added
