@@ -11,14 +11,13 @@
 ## 0.3.2 - 2021-10-09
 ### Added
 * /admin/ ... seed problems ボタン。タネいれ。
-(migrate) や lein run migrate はもちろんやるんだけど、
-テーブルの最初の定義と初期データの種入れは lein の外でできると本番環境が楽か。
-本番では lein run migrate の後、
-管理者を作成し、ログイン、
-/admin/ から問題を入れる。
 * /admin/problems ... 問題の表示と編集。
 * /admin route -- initdb.d や seed route 作戦の代わりに。
 * seeding
+
+本番では lein run migrate の後、
+管理者を作成し、ログイン、
+/admin/ から問題を入れる。
 
 ## 0.3.1 - 2021-10-06
 * deply test onto app.melt.
