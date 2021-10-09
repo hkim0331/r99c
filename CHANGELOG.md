@@ -5,14 +5,18 @@
 * define comments
 * post logout
 * flash for errors when register/login
-* admin を 最初の migration で users テーブルに入れたいが、
-  パスワードハッシュをどうすれば？
-* login せずに /admin/ を叩いた場合。x is null エラー。
+* login せずに /admin/ を叩いた場合に x is null エラー。
 * renumber
 
-## 0.3.2-SNAPSHOT
+## 0.3.2 - 2021-10-09
+### Added
+* /admin/ ... seed problems ボタン。タネいれ。
 (migrate) や lein run migrate はもちろんやるんだけど、
 テーブルの最初の定義と初期データの種入れは lein の外でできると本番環境が楽か。
+本番では lein run migrate の後、
+管理者を作成し、ログイン、
+/admin/ から問題を入れる。
+* /admin/problems ... 問題の表示と編集。
 * /admin route -- initdb.d や seed route 作戦の代わりに。
 * seeding
 
