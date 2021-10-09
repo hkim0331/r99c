@@ -18,8 +18,8 @@ int func_test(void) {
 
 ## 0.3.3-SNAPSHOT
 ### Added
-* /problems
-* /answer/:num
+* problems table and /problems
+* answers table and /answer:num
 
 ## 0.3.2 - 2021-10-09
 ### Added
