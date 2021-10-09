@@ -8,6 +8,7 @@
 * admin を 最初の migration で users テーブルに入れたいが、
   パスワードハッシュをどうすれば？
 * login せずに /admin/ を叩いた場合。x is null エラー。
+* renumber
 
 ## 0.3.2-SNAPSHOT
 (migrate) や lein run migrate はもちろんやるんだけど、

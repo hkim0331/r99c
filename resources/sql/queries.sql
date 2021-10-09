@@ -7,7 +7,7 @@ VALUES (:sid, :name, :login, :password)
 -- :name update-user! :! :n
 -- :doc updates an existing user record
 UPDATE users
-SET (password = :password)
+SET password = :password
 WHERE login= :login
 
 -- :name get-user :? :1
@@ -33,8 +33,8 @@ VALUES (:num, :problem)
 -- :name update-problem! :! :n
 -- :doc updates an existing problem record
 UPDATE problems
-SET (num = :num, is_avail = :is_avail, problem = :problem, test = :test,
-     update_at = now())
+SET num = :num, problem = :problem, test = :test,
+     update_at = now()
 WHERE id = :id
 
 -- :name get-problem :? :1
@@ -49,4 +49,4 @@ WHERE id = :id
 
 -- :name problems :? :*
 -- :doc get all problems
-SELECT * from problems;
+SELECT * from problems order by num

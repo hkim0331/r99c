@@ -32,9 +32,15 @@
 (defn problems-page [request]
   (layout/render request "problems.html" {:problems (db/problems)}))
 
-(defn update-problem! [request]
- (pprint request)
- (redirect "/admin/"))
+(defn update-problem! [{:keys [params]}]
+  (let [q (update (update params :id #(Integer/parseInt %))
+                  :num
+                  #(Integer/parseInt %))
+        ret (db/update-problem! q)]
+    (pprint q)
+    (if (= 1 ret)
+      (redirect "/admin/problems")
+      (redirect "/error.html"))))
 
 (defn users-page [request])
 
@@ -46,8 +52,8 @@
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get  admin-page}]
-   ["/problems" {:get problems-page}]
-   ["/problem"  {:post update-problem!}]
+   ["/problems" {:get problems-page
+                 :post update-problem!}]
    ["/users"    {:get users-page}]
    ["/comments" {:get comments-page}]
    ["/seed-problems" {:post seed-problems!}]])
