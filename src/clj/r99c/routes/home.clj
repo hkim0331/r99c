@@ -10,22 +10,41 @@
    [ring.util.http-response :as response]
    [ring.util.response :refer [redirect]]))
 
-(defn home-page [request]
+(defn home-page
+  [request]
   (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
-(defn problems-page [request]
+(defn status-page
+  "display user's status. how many problems he/she solved?"
+  [request]
+  (let [login (name (get-in request [:session :identity]))]
+    (layout/render
+      request
+     "status.html"
+     {:user (db/get-user {:login login})}
+     {:range (range 1 (+ 1 (db/problems-count)))}
+     {:solved (db/answers {:login login})})))
+
+(defn problems-page
+  "display problems."
+  [request]
   (layout/render request "problems.html" {:problems (db/problems)}))
 
-(defn answer-page [request]
+(defn answer-page
+  "take problem number num as path parameter, prep answer to the
+   problem."
+  [request]
   (let [num (get-in request [:path-params :num])
         problem (db/get-problem {:num (Integer/parseInt num)})]
     (layout/render request "answer-form.html" {:problem problem})))
 
 (defn- remove-comments [s]
-  (apply str
-    (remove #(starts-with? % "//") (split-lines s))))
+  (apply str (remove #(starts-with? % "//") (split-lines s))))
 
-(defn create-answer! [{:as request {:keys [num answer]} :params}]
+(defn create-answer!
+  "insert answer into answers table, compare the md5 value
+   with other answers."
+  [{:as request {:keys [num answer]} :params}]
   (let [login (name (get-in request [:session :identity]))
         md5-val (-> (replace answer #"\s" "")
                     remove-comments
@@ -42,7 +61,7 @@
    {:middleware [middleware/auth
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
-   ["/" {:get home-page}]
+   ["/" {:get status-page}]
    ["/problems" {:get problems-page}]
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]])

@@ -1,7 +1,6 @@
 # CHANGELOG.md
 
 ## Unreleased
-* define answers table
 * define comments table
 * post logout
 * flash for errors when register/login
@@ -14,12 +13,14 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
-* answer をボタンに。
+* answer をボタンに。button is-primary is-small でもやや大きすぎ、ブサイク。
+* get-answer :login が複数返ることもある。
+* login/regisger の説明書き
 
 ## 0.3.3-SNAPSHOT
 ### Added
-* problems table and /problems
-* answers table and /answer:num
+* problems ... defined table and a route /problems
+* answers ... defined table and a route /answer:num
 
 ## 0.3.2 - 2021-10-09
 ### Added

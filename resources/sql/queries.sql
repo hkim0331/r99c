@@ -55,6 +55,10 @@ SELECT * from problems order by num
 -- :doc delete all from problems table
 DELETE FROM problems
 
+-- :name problems-count :? :1
+-- :doc returns problems count
+SELECT COUNT(*) FROM problems
+
 -- :name create-answer! :! :n
 -- :doc creates a new problem record
 INSERT INTO answers
@@ -66,3 +70,7 @@ VALUES (:login, :num, :answer, :md5)
 SELECT * FROM answers
 WHERE num = :num and login = :login
 
+-- :name answers :? :*
+-- :doc retrive answers solved by user `login`
+SELECT * from answers
+WHERE login = :login

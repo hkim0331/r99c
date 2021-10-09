@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="content">
+    <h2>Status</h2>
+    <p>sid {{user.sid}}</p>
+    <p>name {{user.name}}</p>
+    <p>login {{user.login}}</p>
+
+    <div class="box">
+    {% for i in range %}
+    <a href="/answer/{{i}}">{{i}}</a>
+    {% endfor %}
+    </div>
+  </div>
+{% endblock %}
