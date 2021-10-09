@@ -59,7 +59,7 @@ DELETE FROM problems
 -- :doc creates a new problem record
 INSERT INTO answers
 (login, num, answer, md5)
-VALUES (:login, :num, :answer, md5)
+VALUES (:login, :num, :answer, :md5)
 
 -- :name get-answer :? :1
 -- :doc retrieves an answer to `num` from user `login`

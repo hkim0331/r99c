@@ -30,8 +30,11 @@
         md5-val (-> (replace answer #"\s" "")
                     remove-comments
                     md5)]
-    (println "md5" md5-val) 
-    (db/create-answer! {:login login :num num :answer answer :md5 md5-val})
+    (println "md5-val" md5-val)
+    (db/create-answer! {:login login
+                        :num (Integer/parseInt num)
+                        :answer answer
+                        :md5 md5-val})
     (redirect "/problems")))
 
 (defn home-routes []
