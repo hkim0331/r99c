@@ -31,7 +31,7 @@
   (layout/render request "admin.html"))
 
 (defn problems-page [request]
-  (layout/render request "problems.html" {:problems (db/problems)}))
+  (layout/render request "edit-problems.html" {:problems (db/problems)}))
 
 (defn update-problem! [{:keys [params]}]
   (let [q (update (update params :id #(Integer/parseInt %))

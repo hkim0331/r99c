@@ -7,8 +7,19 @@
 * flash for errors when register/login
 * login せずに /admin/ を叩いた場合に x is null エラー。
 * renumber
+* problems の表示に、C のソースをデコレートして表示できないか？
+  markdown なら以下ができれば十分だが。
+```c
+int func_test(void) {
+  return 1==1 && 2==2 && 3==3;
+}
+```
+* answer をボタンに。
 
 ## 0.3.3-SNAPSHOT
+### Added
+* /problems
+
 
 ## 0.3.2 - 2021-10-09
 ### Added
