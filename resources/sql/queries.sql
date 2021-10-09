@@ -11,12 +11,12 @@ SET password = :password
 WHERE login= :login
 
 -- :name get-user :? :1
--- :doc retrieves a user record given the id
+-- :doc retrieves a user record given the login
 SELECT * FROM users
 WHERE login = :login
 
 -- :name delete-user! :! :n
--- :doc deletes a user record given the id
+-- :doc deletes a user record given the login
 DELETE FROM users
 WHERE login = :login
 
@@ -40,13 +40,17 @@ WHERE id = :id
 -- :name get-problem :? :1
 -- :doc retrieves a problem record given the num
 SELECT * FROM problems
-WHERE id = :id
+WHERE num = :num
 
 -- :name delete-problem! :! :n
--- :doc deletes a problem record given the num
+-- :doc deletes a problem record given the id
 DELETE FROM problems
 WHERE id = :id
 
 -- :name problems :? :*
 -- :doc get all problems
 SELECT * from problems order by num
+
+-- :name delete-problems-all! :! :n
+-- :doc delete all from problems table
+DELETE FROM problems

@@ -8,6 +8,8 @@
 * login せずに /admin/ を叩いた場合に x is null エラー。
 * renumber
 
+## 0.3.3-SNAPSHOT
+
 ## 0.3.2 - 2021-10-09
 ### Added
 * /admin/ ... seed problems ボタン。タネいれ。
