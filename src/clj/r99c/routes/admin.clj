@@ -17,10 +17,11 @@
   (replace-first (replace-first s #"^<li>" "") #"</li>$" ""))
 
 (defn seed-problems!
+  "rebuild problems table from docs/seed-problems.html."
   [request]
-  ;; FIXME: num? atom?
   (let [num (atom 0)]
-    (doseq [s (-> "R99.html" io/resource slurp split-lines)]
+    (db/delete-problems-all!)
+    (doseq [s (-> "docs/seed-problems.html" io/resource slurp split-lines)]
       ;;(println s)
       (when (starts-with? s "<li>")
         (db/create-problem! {:problem (strip-li s) :num (swap! num inc)}))))
@@ -30,7 +31,7 @@
   (layout/render request "admin.html"))
 
 (defn problems-page [request]
-  (layout/render request "problems.html" {:problems (db/problems)}))
+  (layout/render request "edit-problems.html" {:problems (db/problems)}))
 
 (defn update-problem! [{:keys [params]}]
   (let [q (update (update params :id #(Integer/parseInt %))

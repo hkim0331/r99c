@@ -1,4 +1,4 @@
-(defproject r99c "0.3.2"
+(defproject r99c "0.3.3"
 
   :description "r99 revised with clojure"
   :url "http://example.com/FIXME"
@@ -35,7 +35,9 @@
                  ;;
                  [buddy/buddy-auth "3.0.1"]
                  [buddy/buddy-hashers "1.8.1"]
-                 [hiccup "1.0.5"]]
+                 [digest "1.4.10"]]
+                 ;;[hiccup "1.0.5"]
+
 
   :min-lein-version "2.0.0"
 

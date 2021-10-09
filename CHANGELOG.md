@@ -1,12 +1,29 @@
 # CHANGELOG.md
 
 ## Unreleased
-* define answers
-* define comments
+* define comments table
 * post logout
 * flash for errors when register/login
 * login せずに /admin/ を叩いた場合に x is null エラー。
 * renumber
+* problems の表示に、C のソースをデコレートして表示できないか？
+  markdown なら以下ができれば十分だが。
+```c
+int func_test(void) {
+  return 1==1 && 2==2 && 3==3;
+}
+```
+* answer をボタンに。button is-primary is-small でもやや大きすぎ、ブサイク。
+* get-answer :login が複数返ることもある。
+* login/regisger の説明書き
+* status problems に色つけ
+
+
+## 0.3.3  - 2021-10-10
+### Added
+* problems ... defined table and a route /problems
+* answers ... defined table and a route /answer:num
+* /status
 
 ## 0.3.2 - 2021-10-09
 ### Added
