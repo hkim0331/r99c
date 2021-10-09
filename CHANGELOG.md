@@ -5,8 +5,25 @@
 * define comments
 * post logout
 * flash for errors when register/login
+* login せずに /admin/ を叩いた場合に x is null エラー。
+* renumber
 
-## 0.3.0
+## 0.3.2 - 2021-10-09
+### Added
+* /admin/ ... seed problems ボタン。タネいれ。
+* /admin/problems ... 問題の表示と編集。
+* /admin route -- initdb.d や seed route 作戦の代わりに。
+* seeding
+
+本番では lein run migrate の後、
+管理者を作成し、ログイン、
+/admin/ から問題を入れる。
+
+## 0.3.1 - 2021-10-06
+* deply test onto app.melt.
+
+## 0.3.0 - 2021-10-06
+
 ### Added
 * define problems table
 * seed problems (99) from `R99.html` by r99c.seed.core/seed-problems!
