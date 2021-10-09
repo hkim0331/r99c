@@ -28,7 +28,7 @@
   (let [login (name (get-in request [:session :identity]))
         solved (map #(:num %) (db/answers {:login login}))
         status (map #(solved? solved %) (map :num (db/problems)))]
-    (layout/render request "status.html" {:user login :status status})))
+    (layout/render request "status.html" {:login login :status status})))
 
 (defn problems-page
   "display problems."

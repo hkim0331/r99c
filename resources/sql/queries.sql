@@ -70,6 +70,18 @@ VALUES (:login, :num, :answer, :md5)
 SELECT * FROM answers
 WHERE num = :num and login = :login
 
+-- :name answers-by :? :*
+-- :doc get answers by `login`
+SELECT * FROM ANSWERS
+WHERE login = :login
+ORDER BY create_at
+
+-- :name answers-toy :? :*
+-- :doc get answers to `num`
+SELECT * FROM ANSWERS
+WHERE num = :num
+ORDER BY num
+
 -- :name answers :? :*
 -- :doc retrive answers solved by user `login`
 SELECT * from answers

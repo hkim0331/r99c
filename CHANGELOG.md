@@ -17,7 +17,7 @@ int func_test(void) {
 https://bulma.io/documentation/overview/colors/
 * get-answer :login が複数返ることもある。
 * login/regisger の説明書き
-
+* すでに付けた回答を表示できてない。
 
 ## 0.3.4-SNAPSHOT
 * status problems に色つけ
