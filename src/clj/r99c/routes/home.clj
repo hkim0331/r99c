@@ -14,17 +14,21 @@
   [request]
   (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
+;; https://stackoverflow.com/questions/16264813/clojure-idiomatic-way-to-call-contains-on-a-lazy-sequence
+(defn lazy-contains? [col key]
+  (some #{key} col))
+
+(defn- solved?
+  [col n]
+  {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
+
 (defn status-page
   "display user's status. how many problems he/she solved?"
   [request]
   (let [login (name (get-in request [:session :identity]))
-        n (:count (db/problems-count))]
-    (layout/render
-      request
-     "status.html"
-     {:user (db/get-user {:login login})
-      :range (range 1 (+ 1 n))
-      :solved (map #(:num %) (db/answers {:login login}))})))
+        solved (map #(:num %) (db/answers {:login login}))
+        status (map #(solved? solved %) (map :num (db/problems)))]
+    (layout/render request "status.html" {:user login :status status})))
 
 (defn problems-page
   "display problems."

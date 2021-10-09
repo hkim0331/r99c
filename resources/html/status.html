@@ -6,14 +6,16 @@
     name: {{user.name}}<br>
     login: {{user.login}}</p>
 
-    <p>solved: {{solved}}</p>
-    {% for s in solved %}
+    <!--
+    <p>status: {{status}}</p>
+    {% for s in status %}
     <p>{{s}}</p>
     {% endfor %}
+    -->
     <p><a href="/problems">Problems</a></p>
     <div class="box">
-    {% for i in range %}
-    <a href="/answer/{{i}}">{{i}}</a>
+    {% for s in status %}
+    <a href="/answer/{{s.n}}" class="{{s.stat}}">{{s.n}}</a>
     {% endfor %}
     </div>
 
