@@ -1,4 +1,4 @@
-(defproject r99c "0.3.2"
+(defproject r99c "0.3.3"
 
   :description "r99 revised with clojure"
   :url "http://example.com/FIXME"
