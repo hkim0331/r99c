@@ -24,7 +24,7 @@
      "status.html"
      {:user (db/get-user {:login login})
       :range (range 1 (+ 1 n))
-      :solved (db/answers {:login login})})))
+      :solved (map #(:num %) (db/answers {:login login}))})))
 
 (defn problems-page
   "display problems."

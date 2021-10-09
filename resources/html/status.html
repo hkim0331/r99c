@@ -2,10 +2,14 @@
 {% block content %}
   <div class="content">
     <h2>Status</h2>
-    <p>sid: {{user.sid}}</p>
-    <p>name: {{user.name}}</p>
-    <p>login: {{user.login}}</p>
+    <p>sid: {{user.sid}}<br>
+    name: {{user.name}}<br>
+    login: {{user.login}}</p>
 
+    <p>solved: {{solved}}</p>
+    {% for s in solved %}
+    <p>{{s}}</p>
+    {% endfor %}
     <p><a href="/problems">Problems</a></p>
     <div class="box">
     {% for i in range %}
