@@ -8,6 +8,13 @@ The `home-routes` handler in the `r99c.routes.home` namespace
 defines the route that invokes the `home-page` function whenever an HTTP
 request is made to the `/` URI using the `GET` method.
 
+C-source:
+```c
+int func_test(void) {
+  return 1==1 && 2==2 && 3==3;
+}
+```
+
 ```
 (defn home-routes []
   [""

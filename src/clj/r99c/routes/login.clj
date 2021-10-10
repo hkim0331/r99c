@@ -5,9 +5,17 @@
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
    [ring.util.response :refer [redirect]] ;; add
-   [ring.util.http-response :as response]
+   ;;[ring.util.http-response :as response]
    ;;
    [buddy.hashers :as hashers]))
+
+(defn about-page [request]
+  (layout/render request "about.html"))
+
+(defn admin-only [request]
+  (layout/render request "error.html" {:status 401
+                                       :title "Unauthorized"
+                                       :message "This page is admin only."}))
 
 (defn login [request]
   (layout/render request "login.html"))
@@ -42,10 +50,11 @@
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
+   ["/about" {:get about-page}]
+   ["/admin-only" {:get admin-only}]
    ["/login" {:get  login
               :post login-post}]
    ;; FIXME: post
    ["/logout" {:get logout}]
    ["/register" {:get  register
                  :post register-post}]])
-
