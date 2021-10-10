@@ -52,12 +52,12 @@
         problem (db/get-problem {:num num})]
     (if-let [answer (db/get-answer {:num num :login (login request)})]
       (let [answers (group-by #(= (:md5 answer) (:md5 %))
-                               (db/answers-to {:num num}))]
-         (layout/render request
-                        "answer-form.html"
-                        {:problem problem
-                         :same (answers true)
-                         :differ (answers false)}))
+                              (db/answers-to {:num num}))]
+        (layout/render request
+                       "answer-form.html"
+                       {:problem problem
+                        :same (answers true)
+                        :differ (answers false)}))
       (layout/render request
                      "answer-form.html"
                      {:problem problem
@@ -82,7 +82,22 @@
                         :num (Integer/parseInt num)
                         :answer answer
                         :md5 md5})
-    (redirect "/problems")))
+    ;; CHANGED
+    (redirect "/")))
+
+(defn comment-form
+  "take answer id as path-parameter, show the answer with
+   comment form"
+  [request]
+  (let [id (Integer/parseInt (get-in request [:path-params :id]))
+        answer (db/get-answer-by-id {:id id})
+        problem (db/get-problem {:num (:num answer)})]
+    (layout/render request "comment-form.html"
+                           {:problem problem
+                            :answer answer
+                            :comments []})))
+
+(defn create-comment! [request])
 
 (defn home-routes []
   [""
@@ -92,4 +107,6 @@
    ["/" {:get status-page}]
    ["/problems" {:get problems-page}]
    ["/answer/:num" {:get  answer-page
-                    :post create-answer!}]])
+                    :post create-answer!}]
+   ["/comment/:id" {:get  comment-form
+                    :post create-comment!}]])
