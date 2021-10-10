@@ -1,8 +1,8 @@
 (ns r99c.routes.login
   (:require
+   [clojure.java.io :as io]
    [r99c.layout :as layout]
    [r99c.db.core :as db]
-   [clojure.java.io :as io]
    [r99c.middleware :as middleware]
    [ring.util.response :refer [redirect]] ;; add
    [ring.util.http-response :as response]
