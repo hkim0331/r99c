@@ -7,7 +7,7 @@
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
    ;;[ring.util.response]
-   [ring.util.http-response :as response]
+   ;;[ring.util.http-response :as response]
    [ring.util.response :refer [redirect]]))
 
 (defn login
@@ -84,5 +84,3 @@
    ["/problems" {:get problems-page}]
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]])
-
-
