@@ -19,12 +19,14 @@ https://bulma.io/documentation/overview/colors/
 * すでに付けた回答を表示できてない。
 * syntax check だけする。
 
+## 0.4.0-SNAPSHOT
+comments 方面。
+
 
 ## 0.3.4 - 2021-10-10
 * status problems に色つけ
 * /answer-page: 過去回答を md5 でグルーピング表示。自分の回答は same md5 に入るやろ。
 * 同じ問題への回答の分類は group-by で。
-
 
 ## 0.3.3  - 2021-10-10
 ### Added
