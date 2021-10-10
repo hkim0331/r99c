@@ -22,9 +22,10 @@ https://bulma.io/documentation/overview/colors/
   それとも clojure でフィルタする？
 
 
-## 0.3.4-SNAPSHOT
+## 0.3.4 - 2021-10-10
 * status problems に色つけ
 * /answer-page: 過去回答を md5 でグルーピング表示。自分の回答は same md5 に入るやろ。
+
 
 ## 0.3.3  - 2021-10-10
 ### Added
