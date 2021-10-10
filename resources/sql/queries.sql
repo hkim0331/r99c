@@ -79,6 +79,11 @@ ORDER BY num
 
 -- :name answers-to :? :*
 -- :doc retrieve all answers to `num`, chronological order.
-SELECT * FROM ANSWERS
+SELECT * FROM answers
 WHERE num = :num
 ORDER BY id
+
+-- :name get-answer-by-id :? :1
+-- :doc retrieve answer by `id`
+SELECT * FROM answers
+WHERE id = :id

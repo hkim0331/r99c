@@ -9,19 +9,19 @@
     <textarea name='answer' class='textarea'></textarea><br>
     <p>test code:</p>
     <pre>{{problem.test}}</pre>
-    <input type='submit' value='submit'>
+    <input type='submit' value='submit' class='button is-warning is-small'>
   </form>
 
-  <h3>Other Answers</h3>
+  <h3>Answers</h3>
 
   {% for a in same %}
-  <a href='/comment-to/{{a.login}}'>{{a.login}}</a>
+  <a href='/comment/{{a.id}}'>{{a.login}}</a>
   {% endfor %}
 
   <hr>
 
   {% for a in differ %}
-  <a href='/comment-to/{{a.login}}'>{{a.login}}</a>
+  <a href='/comment/{{a.id}}'>{{a.login}}</a>
   {% endfor %}
 
   </div>
