@@ -66,23 +66,19 @@ INSERT INTO answers
 VALUES (:login, :num, :answer, :md5)
 
 -- :name get-answer :? :1
--- :doc retrieves an answer to `num` from user `login`
+-- :doc retrieves the most recent answer to `num` from user `login`
 SELECT * FROM answers
 WHERE num = :num and login = :login
+ORDER BY id DESC
 
 -- :name answers-by :? :*
--- :doc get answers by `login`
-SELECT * FROM ANSWERS
+-- :doc retrieve all answers solved by user `login`
+SELECT * FROM answers
 WHERE login = :login
-ORDER BY create_at
-
--- :name answers-toy :? :*
--- :doc get answers to `num`
-SELECT * FROM ANSWERS
-WHERE num = :num
 ORDER BY num
 
--- :name answers :? :*
--- :doc retrive answers solved by user `login`
-SELECT * from answers
-WHERE login = :login
+-- :name answers-to :? :*
+-- :doc retrieve all answers to `num`, chronological order.
+SELECT * FROM ANSWERS
+WHERE num = :num
+ORDER BY id
