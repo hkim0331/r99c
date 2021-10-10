@@ -11,9 +11,18 @@
     <pre>{{problem.test}}</pre>
     <input type='submit' value='submit'>
   </form>
-  <p>Other Answers</p>
-  {% for a in answers %}
+
+  <h3>Other Answers</h3>
+
+  {% for a in same %}
   <a href='/comment-to/{{a.login}}'>{{a.login}}</a>
   {% endfor %}
+
+  <hr>
+
+  {% for a in differ %}
+  <a href='/comment-to/{{a.login}}'>{{a.login}}</a>
+  {% endfor %}
+
   </div>
 {% endblock %}

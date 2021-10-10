@@ -15,12 +15,16 @@ int func_test(void) {
 ```
 * answer をボタンに。button is-primary is-small でもやや大きすぎ、ブサイク。
 https://bulma.io/documentation/overview/colors/
-* get-answer :login が複数返ることもある。
 * login/regisger の説明書き
 * すでに付けた回答を表示できてない。
+* syntax check だけする。
+* 同じ問題への回答を二度スキャンする。same md5, not-same md5
+  それとも clojure でフィルタする？
+
 
 ## 0.3.4-SNAPSHOT
 * status problems に色つけ
+* /answer-page: 過去回答を md5 でグルーピング表示。自分の回答は same md5 に入るやろ。
 
 ## 0.3.3  - 2021-10-10
 ### Added
