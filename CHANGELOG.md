@@ -17,14 +17,18 @@ int func_test(void) {
 https://bulma.io/documentation/overview/colors/
 * login/regisger の説明書き
 * 回答を syntax check する。
+* コメントを付けられるように。
+* CHANGELOG の書き方。
 
-## 0.4.0-SNAPSHOT
-* 回答を表示できるようになった
+
+## 0.4.0 - 2021-10-11
+* 回答を表示できるようになった。エンドポイントは /comment/:id. 回答を表示するとは
+すなわち、コメントできるってことだ。
 
 ## 0.3.5 - 2021-10-10
 * VScode バグ？操作ミス？ src/clj/r99croutes/home.clj が CHANGELOG.md の内容で
-  上書きになった。master からチェックアウトした home.clj で develop を上書き。
-  操作はこれでいいのかな？ 0.3.5 でコミットする。
+上書きになった。master からチェックアウトした home.clj で develop を上書き。
+操作はこれでいいのかな？ 0.3.5 でコミットする。
 
 ## 0.3.4 - 2021-10-10
 * status problems に色つけ
@@ -56,7 +60,7 @@ https://bulma.io/documentation/overview/colors/
 ### Added
 * define problems table
 * seed problems (99) from `R99.html` by r99c.seed.core/seed-problems!
-  FIXME: why bad using `for` for seeding? doseq is OK.
+* FIXME: why bad using `for` for seeding? doseq is OK.
 
 ## 0.2.0 - 2021-10-04
 ### Added
@@ -75,7 +79,6 @@ https://bulma.io/documentation/overview/colors/
 
 ### Changed
 * lein angient upgrade
-
 
 ## 0.1.0 - 2021-10-04
 * project started.
