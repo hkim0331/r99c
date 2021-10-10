@@ -1,76 +1,95 @@
-# CHANGELOG.md
+(ns r99c.routes.home
+  (:require
+   [clojure.java.io :as io]
+   [clojure.string :as str]
+   [digest]
+   [r99c.layout :as layout]
+   [r99c.db.core :as db]
+   [r99c.middleware :as middleware]
+   ;;[ring.util.response]
+   ;;[ring.util.http-response :as response]
+   [ring.util.response :refer [redirect]]
+   [taoensso.timbre :as timbre]))
 
-## Unreleased
-* define comments table
-* post logout
-* flash for errors when register/login
-* login せずに /admin/ を叩いた場合に x is null エラー。
-* renumber
-* problems の表示に、C のソースをデコレートして表示できないか？
-  markdown なら以下ができれば十分だが。
-```c
-int func_test(void) {
-                     return 1==1 && 2==2 && 3==3};
+(timbre/set-level! :debug)
 
-```
-* answer をボタンに。button is-primary is-small でもやや大きすぎ、ブサイク。
-https://bulma.io/documentation/overview/colors/
-* login/regisger の説明書き
-* すでに付けた回答を表示できてない。
-* syntax check だけする。
-* 同じ問題への回答を二度スキャンする。same md5, not-same md5
-  それとも clojure でフィルタする？
+(defn login
+  "return user's login as a string"
+  [request]
+  (name (get-in request [:session :identity])))
 
+;; no use now
+(defn home-page
+  [request]
+  (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
-## 0.3.4-SNAPSHOT
-* status problems に色つけ
-* /answer-page: 過去回答を md5 でグルーピング表示。自分の回答は same md5 に入るやろ。
+;; https://stackoverflow.com/questions/16264813/clojure-idiomatic-way-to-call-contains-on-a-lazy-sequence
+(defn lazy-contains? [col key]
+  (some #{key} col))
 
-## 0.3.3  - 2021-10-10
-### Added
-* problems ... defined table and a route /problems
-* answers ... defined table and a route /answer:num
-* /status
+(defn- solved?
+  [col n]
+  {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
-## 0.3.2 - 2021-10-09
-### Added
-* /admin/ ... seed problems ボタン。タネいれ。
-* /admin/problems ... 問題の表示と編集。
-* /admin route -- initdb.d や seed route 作戦の代わりに。
-* seeding
+(defn status-page
+  "display user's status. how many problems he/she solved?"
+  [request]
+  (let [login (login request)
+        solved (map #(:num %) (db/answers-by {:login login}))
+        status (map #(solved? solved %) (map :num (db/problems)))]
+    (layout/render request "status.html" {:login login :status status})))
 
-本番では lein run migrate の後、
-管理者を作成し、ログイン、
-/admin/ から問題を入れる。
+(defn problems-page
+  "display problems."
+  [request]
+  (layout/render request "problems.html" {:problems (db/problems)}))
 
-## 0.3.1 - 2021-10-06
-* deply test onto app.melt.
-
-## 0.3.0 - 2021-10-06
-
-### Added
-* define problems table
-* seed problems (99) from `R99.html` by r99c.seed.core/seed-problems!
-  FIXME: why bad using `for` for seeding? doseq is OK.
-
-## 0.2.0 - 2021-10-04
-### Added
-* register
-* password hash
-* Logout
-### Changed
-* git unignore *.sql
-
-
-## 0.1.1 - 2021-10-04
-### Added
-* gitignore .vsode/
-* authentication
-* access restriction
-
-### Changed
-* lein angient upgrade
+(defn answer-page
+  "take problem number `num` as path parameter, prep answer to the
+   problem. "
+  [request]
+  (let [num (Integer/parseInt (get-in request [:path-params :num]))
+        problem (db/get-problem {:num num})]
+    (if-let [answer (db/get-answer {:num num :login (login request)})]
+      (let [answers (group-by #(= (:md5 answer) (:md5 %))
+                               (db/answers-to {:num num}))]
+         (layout/render request
+                        "answer-form.html"
+                        {:problem problem
+                         :same (answers true)
+                         :differ (answers false)}))
+      (layout/render request
+                     "answer-form.html"
+                     {:problem problem
+                      :same []
+                      :differ []}))))
 
 
-## 0.1.0 - 2021-10-04
-* project started.
+(defn- remove-comments [s]
+  (apply str (remove #(str/starts-with? % "//") (str/split-lines s))))
+
+(defn create-answer!
+  "insert answer into answers table, compare the md5 value
+   with other answers."
+  [{:as request {:keys [num answer]} :params}]
+  (let [login (name (get-in request [:session :identity]))
+        ;; \n matches to \s
+        stripped (-> (str/replace answer #"[ \t]" "")
+                     remove-comments)
+        md5 (digest/md5 stripped)]
+    ;;(timbre/debug "stripped" stripped)
+    (db/create-answer! {:login login
+                        :num (Integer/parseInt num)
+                        :answer answer
+                        :md5 md5})
+    (redirect "/problems")))
+
+(defn home-routes []
+  [""
+   {:middleware [middleware/auth
+                 middleware/wrap-csrf
+                 middleware/wrap-formats]}
+   ["/" {:get status-page}]
+   ["/problems" {:get problems-page}]
+   ["/answer/:num" {:get  answer-page
+                    :post create-answer!}]])

@@ -22,6 +22,10 @@ https://bulma.io/documentation/overview/colors/
 ## 0.4.0-SNAPSHOT
 comments 方面。
 
+## 0.3.5 - 2021-10-10
+* VScode バグ？操作ミス？ src/clj/r99croutes/home.clj が CHANGELOG.md の内容で
+  上書きになった。master からチェックアウトした home.clj で develop を上書き。
+  操作はこれでいいのかな？ 0.3.5 でコミットする。
 
 ## 0.3.4 - 2021-10-10
 * status problems に色つけ
