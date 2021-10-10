@@ -16,11 +16,10 @@ int func_test(void) {
 * answer をボタンに。button is-primary is-small でもやや大きすぎ、ブサイク。
 https://bulma.io/documentation/overview/colors/
 * login/regisger の説明書き
-* すでに付けた回答を表示できてない。
-* syntax check だけする。
+* 回答を syntax check する。
 
 ## 0.4.0-SNAPSHOT
-comments 方面。
+* 回答を表示できるようになった
 
 ## 0.3.5 - 2021-10-10
 * VScode バグ？操作ミス？ src/clj/r99croutes/home.clj が CHANGELOG.md の内容で
