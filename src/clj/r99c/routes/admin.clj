@@ -38,7 +38,7 @@
                   :num
                   #(Integer/parseInt %))
         ret (db/update-problem! q)]
-    (pprint q)
+    ;;(pprint q)
     (if (= 1 ret)
       (redirect "/admin/problems")
       (redirect "/error.html"))))

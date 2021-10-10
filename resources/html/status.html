@@ -1,19 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="content">
-    <h2>Status</h2>
-    <p>sid: {{user.sid}}</p>
-    <p>name: {{user.name}}</p>
-    <p>login: {{user.login}}</p>
+    <h2>{{login}}'s Status</h2>
 
     <p><a href="/problems">Problems</a></p>
     <div class="box">
-    {% for i in range %}
-    <a href="/answer/{{i}}">{{i}}</a>
+    {% for s in status %}
+    <a href="/answer/{{s.n}}" class="{{s.stat}}">{{s.n}}</a>
     {% endfor %}
     </div>
 
     <p>History</p>
-
+    <p>not yet</p>
   </div>
 {% endblock %}

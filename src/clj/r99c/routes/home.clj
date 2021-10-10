@@ -1,70 +1,76 @@
-(ns r99c.routes.home
-  (:require
-   [clojure.java.io :as io]
-   [clojure.string :refer [split-lines starts-with? replace]]
-   [digest :refer [md5]]
-   [r99c.layout :as layout]
-   [r99c.db.core :as db]
-   [r99c.middleware :as middleware]
-   ;;[ring.util.response]
-   [ring.util.http-response :as response]
-   [ring.util.response :refer [redirect]]))
+# CHANGELOG.md
 
-(defn home-page
-  [request]
-  (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
+## Unreleased
+* define comments table
+* post logout
+* flash for errors when register/login
+* login せずに /admin/ を叩いた場合に x is null エラー。
+* renumber
+* problems の表示に、C のソースをデコレートして表示できないか？
+  markdown なら以下ができれば十分だが。
+```c
+int func_test(void) {
+                     return 1==1 && 2==2 && 3==3};
 
-(defn status-page
-  "display user's status. how many problems he/she solved?"
-  [request]
-  (let [login (name (get-in request [:session :identity]))
-        n (:count (db/problems-count))]
-    (layout/render
-      request
-     "status.html"
-     {:user (db/get-user {:login login})
-      :range (range 1 (+ 1 n))
-      :solved (db/answers {:login login})})))
-
-(defn problems-page
-  "display problems."
-  [request]
-  (layout/render request "problems.html" {:problems (db/problems)}))
-
-(defn answer-page
-  "take problem number num as path parameter, prep answer to the
-   problem."
-  [request]
-  (let [num (get-in request [:path-params :num])
-        problem (db/get-problem {:num (Integer/parseInt num)})]
-    (layout/render request "answer-form.html" {:problem problem})))
-
-(defn- remove-comments [s]
-  (apply str (remove #(starts-with? % "//") (split-lines s))))
-
-(defn create-answer!
-  "insert answer into answers table, compare the md5 value
-   with other answers."
-  [{:as request {:keys [num answer]} :params}]
-  (let [login (name (get-in request [:session :identity]))
-        md5-val (-> (replace answer #"\s" "")
-                    remove-comments
-                    md5)]
-    (println "md5-val" md5-val)
-    (db/create-answer! {:login login
-                        :num (Integer/parseInt num)
-                        :answer answer
-                        :md5 md5-val})
-    (redirect "/problems")))
-
-(defn home-routes []
-  [""
-   {:middleware [middleware/auth
-                 middleware/wrap-csrf
-                 middleware/wrap-formats]}
-   ["/" {:get status-page}]
-   ["/problems" {:get problems-page}]
-   ["/answer/:num" {:get  answer-page
-                    :post create-answer!}]])
+```
+* answer をボタンに。button is-primary is-small でもやや大きすぎ、ブサイク。
+https://bulma.io/documentation/overview/colors/
+* login/regisger の説明書き
+* すでに付けた回答を表示できてない。
+* syntax check だけする。
+* 同じ問題への回答を二度スキャンする。same md5, not-same md5
+  それとも clojure でフィルタする？
 
 
+## 0.3.4-SNAPSHOT
+* status problems に色つけ
+* /answer-page: 過去回答を md5 でグルーピング表示。自分の回答は same md5 に入るやろ。
+
+## 0.3.3  - 2021-10-10
+### Added
+* problems ... defined table and a route /problems
+* answers ... defined table and a route /answer:num
+* /status
+
+## 0.3.2 - 2021-10-09
+### Added
+* /admin/ ... seed problems ボタン。タネいれ。
+* /admin/problems ... 問題の表示と編集。
+* /admin route -- initdb.d や seed route 作戦の代わりに。
+* seeding
+
+本番では lein run migrate の後、
+管理者を作成し、ログイン、
+/admin/ から問題を入れる。
+
+## 0.3.1 - 2021-10-06
+* deply test onto app.melt.
+
+## 0.3.0 - 2021-10-06
+
+### Added
+* define problems table
+* seed problems (99) from `R99.html` by r99c.seed.core/seed-problems!
+  FIXME: why bad using `for` for seeding? doseq is OK.
+
+## 0.2.0 - 2021-10-04
+### Added
+* register
+* password hash
+* Logout
+### Changed
+* git unignore *.sql
+
+
+## 0.1.1 - 2021-10-04
+### Added
+* gitignore .vsode/
+* authentication
+* access restriction
+
+### Changed
+* lein angient upgrade
+
+
+## 0.1.0 - 2021-10-04
+* project started.

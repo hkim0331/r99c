@@ -3,13 +3,26 @@
   <div class="content">
   <h2>Answer to Problem {{problem.num}}</h2>
   <p>{{problem.problem}}</p>
-  <p>test code:</p>
-  <pre>{{problem.test}}</pre>
   <form method='post'>
     {% csrf-field %}
     <input type='hidden' name='num' value='{{problem.num}}'>
-    <textarea name='answer' class='answer'></textarea><br>
+    <textarea name='answer' class='textarea'></textarea><br>
+    <p>test code:</p>
+    <pre>{{problem.test}}</pre>
     <input type='submit' value='submit'>
   </form>
+
+  <h3>Other Answers</h3>
+
+  {% for a in same %}
+  <a href='/comment-to/{{a.login}}'>{{a.login}}</a>
+  {% endfor %}
+
+  <hr>
+
+  {% for a in differ %}
+  <a href='/comment-to/{{a.login}}'>{{a.login}}</a>
+  {% endfor %}
+
   </div>
 {% endblock %}

@@ -39,4 +39,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © 2021 hiroshi.kimura.0331@gmail.com
+Copyright © 2021 Hiroshi Kimura

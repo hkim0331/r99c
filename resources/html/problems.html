@@ -4,7 +4,7 @@
    <h2>Problems</h2>
    {% for p in problems %}
    <p><b>{{p.num}}.</b> {{p.problem}}
-    <a href="/answer/{{p.num}}">answer</a>
+    <a href="/answer/{{p.num}}" class="button is-small is-primary">answer</a>
    </p>
    {% endfor %}
   </div>
