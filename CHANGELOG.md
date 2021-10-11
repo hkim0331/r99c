@@ -14,7 +14,9 @@ int func_test(void) {
 ```
 * パスワードを変えられないと。
 * syntax check --- validation で？
-* 問題修正
+* 問題修正 ... test コラムを有効に。
+* /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
+* /admin/comments ... 何をする予定だったっけ？
 
 
 ## 0.5.1 - 2021-10-11

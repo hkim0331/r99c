@@ -5,8 +5,6 @@
    [r99c.layout :as layout]
    [r99c.middleware :as middleware]
    [ring.util.http-response :as response]
-   ;;[ring.util.response]
-   ;;
    [clojure.string :refer [split-lines starts-with? replace-first]]
    [ring.util.response :refer [redirect]]
    [clojure.pprint :refer [pprint]]))
@@ -22,7 +20,6 @@
   (let [num (atom 0)]
     (db/delete-problems-all!)
     (doseq [s (-> "docs/seed-problems.html" io/resource slurp split-lines)]
-      ;;(println s)
       (when (starts-with? s "<li>")
         (db/create-problem! {:problem (strip-li s) :num (swap! num inc)}))))
   (layout/render request "home.html" {:docs "seed problems done."}))
@@ -38,7 +35,6 @@
                   :num
                   #(Integer/parseInt %))
         ret (db/update-problem! q)]
-    ;;(pprint q)
     (if (= 1 ret)
       (redirect "/admin/problems")
       (redirect "/error.html"))))

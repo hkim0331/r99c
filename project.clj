@@ -1,7 +1,7 @@
-(defproject r99c "0.5.0"
+(defproject r99c "0.5.1"
 
   :description "r99 revised with clojure"
-  :url "http://example.com/FIXME"
+  :url "https://r99.melt.kyutech.ac.jp"
 
   :dependencies [[ch.qos.logback/logback-classic "1.2.6"]
                  [clojure.java-time "0.3.3"]
@@ -38,7 +38,6 @@
                  [com.taoensso/timbre "5.1.2"]
                  [digest "1.4.10"]]
                  ;;[hiccup "1.0.5"]
-
 
   :min-lein-version "2.0.0"
 
