@@ -4,9 +4,7 @@
    [r99c.layout :as layout]
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
-   [ring.util.response :refer [redirect]] ;; add
-   ;;[ring.util.http-response :as response]
-   ;;
+   [ring.util.response :refer [redirect]]
    [buddy.hashers :as hashers]
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
@@ -15,7 +13,7 @@
   [[:sid
     st/required
     st/string
-    {:message "学生番号のフォーマット 数字三つに英王文字続いて数字4つを確認してね。"
+    {:message "学生番号は数字3つに英大文字、続いて数字4つです。"
      :validate (fn [sid] (re-matches #"^\d{3}[A-Z]\d{4}" sid))}]
    [:name
     st/required
@@ -23,7 +21,7 @@
    [:login
     st/required
     st/string
-    {:message "ユーザ名がバッティングしました。"
+    {:message "同じユーザ名があります。"
      :validate (fn [login]
                   (let [ret (db/get-user {:login login})]
                    (timbre/debug "validate ret:" ret)
@@ -50,7 +48,6 @@
 
 (defn login-post [{{:keys [login password]} :params}]
   (let [user (db/get-user {:login login})]
-    ;;(println "user" user)
     (if (and (seq user)
              (= (:login user) login)
              (hashers/check password (:password user)))

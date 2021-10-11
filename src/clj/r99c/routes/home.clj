@@ -1,15 +1,11 @@
 (ns r99c.routes.home
   (:require
-   ;;[clojure.java.io :as io]
    [clojure.string :as str]
    [digest]
    [r99c.layout :as layout]
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
-   ;;[ring.util.response]
-   ;;[ring.util.http-response :as response]
    [ring.util.response :refer [redirect]]
-   ;;[struct.core :as st]
    [taoensso.timbre :as timbre]))
 
 (timbre/set-level! :debug)
@@ -18,11 +14,6 @@
   "return user's login as a string"
   [request]
   (name (get-in request [:session :identity])))
-
-;; no use now
-;; (defn home-page
-;;   [request]
-;;   (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
 ;; https://stackoverflow.com/questions/16264813/clojure-idiomatic-way-to-call-contains-on-a-lazy-sequence
 (defn lazy-contains? [col key]
@@ -78,12 +69,10 @@
         stripped (-> (str/replace answer #"[ \t]" "")
                      remove-comments)
         md5 (digest/md5 stripped)]
-    ;;(timbre/debug "stripped" stripped)
-    (db/create-answer! {:login login
-                        :num (Integer/parseInt num)
-                        :answer answer
-                        :md5 md5})
-    ;; CHANGED
+    (db/create-answer! {:login login}
+                    :num (Integer/parseInt num)
+                    :answer answer
+                    :md5 md5)
     (redirect "/")))
 
 (defn comment-form
@@ -101,7 +90,6 @@
 
 (defn create-comment! [request]
   (let [params (:params request)]
-    ;; FIXME: check return value
     (db/create-comment! {:comment (:comment params)
                          :from_login (login request)
                          :to_login (:to_login params)
