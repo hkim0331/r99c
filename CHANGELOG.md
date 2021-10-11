@@ -14,7 +14,6 @@ int func_test(void) {
 ```
 * login/regisger の説明書き
 * パスワードを変えられないと。
-* CHANGELOG の書き方。
 * syntax check
 * 問題修正
 
@@ -29,7 +28,6 @@ int func_test(void) {
 * Navbar: /Home の代わりに /problems をリンク
 * problems.html: {{p.problem|safe}}.
 内容の修正は docs/seed-problems.html でやらないと本番に反映しない。
-
 
 ## 0.4.0 - 2021-10-11
 * 回答を表示できるようになった。エンドポイントは /comment/:id. 回答を表示するとは
