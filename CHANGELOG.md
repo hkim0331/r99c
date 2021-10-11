@@ -20,6 +20,12 @@ https://bulma.io/documentation/overview/colors/
 * コメントを付けられるように。
 * CHANGELOG の書き方。
 
+## 0.5.0-SNAPSHOT
+### Added
+### Changed
+* answer-form.html: s/Answer to/New Answer to/
+* Navbar: /Home の代わりに /problems をリンク
+* problems.html: {{p.problem|safe}}
 
 ## 0.4.0 - 2021-10-11
 * 回答を表示できるようになった。エンドポイントは /comment/:id. 回答を表示するとは

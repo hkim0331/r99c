@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="content">
-  <h2>Answer to Problem {{problem.num}}</h2>
+  <h2>New answer to Problem {{problem.num}}</h2>
   <p>{{problem.problem}}</p>
   <form method='post'>
     {% csrf-field %}
