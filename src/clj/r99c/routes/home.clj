@@ -100,6 +100,7 @@
 
 (defn create-comment! [request]
   (let [params (:params request)]
+    ;; FIXME: check return value
     (db/create-comment! {:comment (:comment params)
                          :from_login (login request)
                          :to_login (:to_login params)
