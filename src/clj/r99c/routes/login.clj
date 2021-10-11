@@ -4,10 +4,36 @@
    [r99c.layout :as layout]
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
-   [ring.util.response :refer [redirect]] ;; add
-   ;;[ring.util.http-response :as response]
-   ;;
-   [buddy.hashers :as hashers]))
+   [ring.util.response :refer [redirect]]
+   [buddy.hashers :as hashers]
+   [struct.core :as st]
+   [taoensso.timbre :as timbre]))
+
+(def users-schema
+  [[:sid
+    st/required
+    st/string
+    {:message "学生番号は数字3つに英大文字、続いて数字4つです。"
+     :validate (fn [sid] (re-matches #"^\d{3}[A-Z]\d{4}" sid))}]
+   [:name
+    st/required
+    st/string]
+   [:login
+    st/required
+    st/string
+    {:message "同じユーザ名があります。"
+     :validate (fn [login]
+                  (let [ret (db/get-user {:login login})]
+                   (timbre/debug "validate ret:" ret)
+                   (empty? ret)))}]
+   [:password
+    st/required
+    st/string]])
+
+(defn validate-user [params]
+  (let [ret (st/validate params users-schema)]
+    (timbre/debug "validate:" ret)
+    (first ret)))
 
 (defn about-page [request]
   (layout/render request "about.html"))
@@ -22,7 +48,6 @@
 
 (defn login-post [{{:keys [login password]} :params}]
   (let [user (db/get-user {:login login})]
-    ;;(println "user" user)
     (if (and (seq user)
              (= (:login user) login)
              (hashers/check password (:password user)))
@@ -34,17 +59,21 @@
   (-> (redirect "/")
       (assoc :session {})))
 
-(defn register [request]
-  (layout/render request "register.html"))
+(defn register [{:keys [flash] :as request}]
+  (layout/render request
+                 "register.html"
+                 {:errors (select-keys flash [:errors])}))
 
 (defn register-post [{params :params}]
-  ;; need verification
-  (try
-    (db/create-user! (assoc (dissoc params :password)
-                            :password (hashers/derive (:password params))))
-    (redirect "/login")
-    (catch Exception e
-      (redirect "/register"))))
+  (if-let [errors (validate-user params)]
+    (-> (redirect "/register")
+        (assoc :flash (assoc params :errors errors)))
+    (try
+      (db/create-user! (assoc (dissoc params :password)
+                              :password (hashers/derive (:password params))))
+      (redirect "/login")
+      (catch Exception e
+        (redirect "/register")))))
 
 (defn login-routes []
   [""

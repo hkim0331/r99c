@@ -2,7 +2,7 @@
 {% block content %}
   <div class="content">
   <h2>New answer to Problem {{problem.num}}</h2>
-  <p>{{problem.problem}}</p>
+  <p>{{problem.problem|safe}}</p>
   <form method='post'>
     {% csrf-field %}
     <input type='hidden' name='num' value='{{problem.num}}'>
