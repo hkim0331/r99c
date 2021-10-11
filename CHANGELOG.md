@@ -16,18 +16,21 @@ int func_test(void) {
 * answer をボタンに。button is-primary is-small でもやや大きすぎ、ブサイク。
 https://bulma.io/documentation/overview/colors/
 * login/regisger の説明書き
-* 回答を syntax check する。
-* コメントを付けられるように。
 * CHANGELOG の書き方。
 
+
 ## 0.5.0-SNAPSHOT
+* 回答にコメントをつけられる。
+* 回答についたコメントを表示する。
 ### Added
+* defined comments table
+* can add comments
 ### Changed
 * answer-form.html: s/Answer to/New Answer to/
 * Navbar: /Home の代わりに /problems をリンク
 * problems.html: {{p.problem|safe}}.
 内容の修正は docs/seed-problems.html でやらないと本番に反映しない。
-* defined comments table
+
 
 ## 0.4.0 - 2021-10-11
 * 回答を表示できるようになった。エンドポイントは /comment/:id. 回答を表示するとは

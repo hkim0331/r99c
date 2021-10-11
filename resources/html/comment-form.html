@@ -15,8 +15,10 @@
     <input type='submit' value='submit' class='button is-warning is-small'>
   </form>
 
+  <h3>Comments</h3>
   {% for c in comments %}
-  <p>c.comment</p>
+  <p>from {{c.from_login}}, at {{c.create_at}}</p>
+  <pre>{{c.comment}}</pre>
   {% endfor %}
   </div>
 {% endblock %}

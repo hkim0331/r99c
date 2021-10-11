@@ -98,4 +98,4 @@ VALUES
 -- :name get-comments :? :*
 -- :doc retrieve comments to answer id a_id
 SELECT * FROM comments
-WHERE aid = :aid
+WHERE a_id = :a_id

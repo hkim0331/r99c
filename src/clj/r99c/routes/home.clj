@@ -91,11 +91,12 @@
   [request]
   (let [id (Integer/parseInt (get-in request [:path-params :id]))
         answer (db/get-answer-by-id {:id id})
-        problem (db/get-problem {:num (:num answer)})]
+        problem (db/get-problem {:num (:num answer)})
+        comments (db/get-comments {:a_id id})]
     (layout/render request "comment-form.html"
                            {:problem problem
                             :answer answer
-                            :comments []})))
+                            :comments comments})))
 
 (defn create-comment! [request]
   (let [params (:params request)]
