@@ -88,10 +88,11 @@
                             :answer answer
                             :comments comments})))
 
+;; FIXME: better way?
 (defn create-comment! [request]
   (let [params (:params request)]
-    (db/create-comment! {:comment (:comment params)
-                         :from_login (login request)
+    (db/create-comment! {:from_login (login request)
+                         :comment (:comment params)
                          :to_login (:to_login params)
                          :p_num (Integer/parseInt (:p_num params))
                          :a_id (Integer/parseInt (:a_id params))})
