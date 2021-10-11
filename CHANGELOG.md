@@ -1,7 +1,7 @@
 # CHANGELOG.md
 
 ## Unreleased
-* define comments table
+
 * post logout
 * flash for errors when register/login
 * login せずに /admin/ を叩いた場合に x is null エラー。
@@ -25,7 +25,9 @@ https://bulma.io/documentation/overview/colors/
 ### Changed
 * answer-form.html: s/Answer to/New Answer to/
 * Navbar: /Home の代わりに /problems をリンク
-* problems.html: {{p.problem|safe}}
+* problems.html: {{p.problem|safe}}.
+内容の修正は docs/seed-problems.html でやらないと本番に反映しない。
+* defined comments table
 
 ## 0.4.0 - 2021-10-11
 * 回答を表示できるようになった。エンドポイントは /comment/:id. 回答を表示するとは

@@ -97,7 +97,14 @@
                             :answer answer
                             :comments []})))
 
-(defn create-comment! [request])
+(defn create-comment! [request]
+  (let [params (:params request)]
+    (db/create-comment! {:comment (:comment params)
+                         :from_login (login request)
+                         :to_login (:to_login params)
+                         :p_num (Integer/parseInt (:p_num params))
+                         :a_id (Integer/parseInt (:a_id params))})
+    (redirect "/")))
 
 (defn home-routes []
   [""
