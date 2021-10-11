@@ -15,7 +15,7 @@
   [[:sid
     st/required
     st/string
-    {:message "sid should match \\d{3}[A-Z]\\d{4}"
+    {:message "学生番号のフォーマット 数字三つに英王文字続いて数字4つを確認してね。"
      :validate (fn [sid] (re-matches #"^\d{3}[A-Z]\d{4}" sid))}]
    [:name
     st/required
@@ -23,7 +23,7 @@
    [:login
     st/required
     st/string
-    {:message "username should be uniq"
+    {:message "ユーザ名がバッティングしました。"
      :validate (fn [login]
                   (let [ret (db/get-user {:login login})]
                    (timbre/debug "validate ret:" ret)
