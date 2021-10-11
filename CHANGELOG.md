@@ -12,10 +12,15 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
-* login/regisger の説明書き
 * パスワードを変えられないと。
-* syntax check
+* syntax check --- validation で？
 * 問題修正
+
+
+## 0.5.1 - 2021-10-11
+### Added
+* /register にバリデーション
+* regisger の説明書き
 
 ## 0.5.0 - 2021-10-11
 * r99.melt にテスト配置
