@@ -19,6 +19,9 @@ int func_test(void) {
 * コピペ予防css
 
 
+## 0.6.1-SNAPSHOT
+* version 表示 in /about div 要素だけまとめて左寄せしたい。
+
 ## 0.6.0 - 2021-10-11
 ### Added
 * syntax check, but not flash back.

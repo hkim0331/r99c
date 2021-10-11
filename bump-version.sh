@@ -25,8 +25,8 @@ fi
 # project.clj
 ${SED} -i "s/(defproject \S+) \S+/\1 \"$1\"/" project.clj
 
-# clj
-#${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/core.clj
+# login.clj, about.html
+${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/clj/r99c/routes/login.clj
 
 # cljs
 #${SED} -i "s/(def \^:private version) .+/\1 \"$1\")/" src/main.cljs
