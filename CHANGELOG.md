@@ -1,7 +1,6 @@
 # CHANGELOG.md
 
 ## Unreleased
-
 * post logout
 * flash for errors when register/login
 * login せずに /admin/ を叩いた場合に x is null エラー。
@@ -13,17 +12,16 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
-* answer をボタンに。button is-primary is-small でもやや大きすぎ、ブサイク。
-https://bulma.io/documentation/overview/colors/
 * login/regisger の説明書き
-* CHANGELOG の書き方。
-
+* パスワードを変えられないと。
+* syntax check
+* 問題修正
 
 ## 0.5.0 - 2021-10-11
-* 回答にコメントをつけられる。
-* 回答についたコメントを表示する。
+* r99.melt にテスト配置
 ### Added
 * defined comments table
+* /comment/:id -- id は answers.id
 * can add comments
 ### Changed
 * answer-form.html: s/Answer to/New Answer to/
@@ -31,10 +29,11 @@ https://bulma.io/documentation/overview/colors/
 * problems.html: {{p.problem|safe}}.
 内容の修正は docs/seed-problems.html でやらないと本番に反映しない。
 
-
 ## 0.4.0 - 2021-10-11
 * 回答を表示できるようになった。エンドポイントは /comment/:id. 回答を表示するとは
 すなわち、コメントできるってことだ。
+* answer をボタンに。button is-primary is-small でもやや大きすぎ、ブサイク。
+https://bulma.io/documentation/overview/colors/
 
 ## 0.3.5 - 2021-10-10
 * VScode バグ？操作ミス？ src/clj/r99croutes/home.clj が CHANGELOG.md の内容で
