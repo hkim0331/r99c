@@ -91,13 +91,22 @@
   [request]
   (let [id (Integer/parseInt (get-in request [:path-params :id]))
         answer (db/get-answer-by-id {:id id})
-        problem (db/get-problem {:num (:num answer)})]
+        problem (db/get-problem {:num (:num answer)})
+        comments (db/get-comments {:a_id id})]
     (layout/render request "comment-form.html"
                            {:problem problem
                             :answer answer
-                            :comments []})))
+                            :comments comments})))
 
-(defn create-comment! [request])
+(defn create-comment! [request]
+  (let [params (:params request)]
+    ;; FIXME: check return value
+    (db/create-comment! {:comment (:comment params)
+                         :from_login (login request)
+                         :to_login (:to_login params)
+                         :p_num (Integer/parseInt (:p_num params))
+                         :a_id (Integer/parseInt (:a_id params))})
+    (redirect "/")))
 
 (defn home-routes []
   [""

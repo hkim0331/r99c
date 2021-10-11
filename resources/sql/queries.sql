@@ -87,3 +87,15 @@ ORDER BY id
 -- :doc retrieve answer by `id`
 SELECT * FROM answers
 WHERE id = :id
+
+-- :name create-comment! :! :n
+-- :doc create a comment on problem number num, answer id a_id
+INSERT INTO comments
+(comment, from_login, to_login, p_num, a_id)
+VALUES
+(:comment, :from_login, :to_login, :p_num, :a_id)
+
+-- :name get-comments :? :*
+-- :doc retrieve comments to answer id a_id
+SELECT * FROM comments
+WHERE a_id = :a_id
