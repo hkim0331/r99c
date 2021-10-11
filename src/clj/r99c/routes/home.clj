@@ -1,5 +1,6 @@
 (ns r99c.routes.home
   (:require
+   [clj-commons-exec :as exec]
    [clojure.string :as str]
    [digest]
    [r99c.layout :as layout]
@@ -56,24 +57,33 @@
                       :same []
                       :differ []}))))
 
-
 (defn- remove-comments [s]
   (apply str (remove #(str/starts-with? % "//") (str/split-lines s))))
+
+;; https://github.com/hozumi/clj-commons-exec
+(defn- validate-answer
+  "syntax check `answer`"
+  [answer]
+  (let [r (exec/sh ["gcc" "-xc" "-fsyntax-only" "-"] {:in answer})]
+    (zero? (:exit @r))))
 
 (defn create-answer!
   "insert answer into answers table, compare the md5 value
    with other answers."
   [{:as request {:keys [num answer]} :params}]
-  (let [login (name (get-in request [:session :identity]))
-        ;; \n matches to \s
-        stripped (-> (str/replace answer #"[ \t]" "")
-                     remove-comments)
-        md5 (digest/md5 stripped)]
-    (db/create-answer! {:login login}
-                    :num (Integer/parseInt num)
-                    :answer answer
-                    :md5 md5)
-    (redirect "/")))
+  (if-let [error (validate-answer answer)]
+    (-> (redirect (str "/answer/" num))
+        (assoc :flash {:erros "syntax error"}))
+    (let [login (name (get-in request [:session :identity]))
+          ;; \n matches to \s
+          stripped (-> (str/replace answer #"[ \t]" "")
+                       remove-comments)
+          md5 (digest/md5 stripped)]
+      (db/create-answer! {:login login}
+                      :num (Integer/parseInt num)
+                      :answer answer
+                      :md5 md5)
+      (redirect "/"))))
 
 (defn comment-form
   "take answer id as path-parameter, show the answer with

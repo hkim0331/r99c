@@ -36,7 +36,8 @@
                  [buddy/buddy-auth "3.0.1"]
                  [buddy/buddy-hashers "1.8.1"]
                  [com.taoensso/timbre "5.1.2"]
-                 [digest "1.4.10"]]
+                 [digest "1.4.10"]
+                 [org.clojars.hozumi/clj-commons-exec "1.2.0"]]
                  ;;[hiccup "1.0.5"]
 
   :min-lein-version "2.0.0"
