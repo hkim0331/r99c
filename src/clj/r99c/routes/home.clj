@@ -1,6 +1,6 @@
 (ns r99c.routes.home
   (:require
-   [clojure.java.io :as io]
+   ;;[clojure.java.io :as io]
    [clojure.string :as str]
    [digest]
    [r99c.layout :as layout]
@@ -9,7 +9,7 @@
    ;;[ring.util.response]
    ;;[ring.util.http-response :as response]
    [ring.util.response :refer [redirect]]
-   [struct.core :as st]
+   ;;[struct.core :as st]
    [taoensso.timbre :as timbre]))
 
 (timbre/set-level! :debug)
@@ -20,9 +20,9 @@
   (name (get-in request [:session :identity])))
 
 ;; no use now
-(defn home-page
-  [request]
-  (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
+;; (defn home-page
+;;   [request]
+;;   (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
 ;; https://stackoverflow.com/questions/16264813/clojure-idiomatic-way-to-call-contains-on-a-lazy-sequence
 (defn lazy-contains? [col key]

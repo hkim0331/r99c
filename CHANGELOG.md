@@ -21,6 +21,8 @@ int func_test(void) {
 ### Added
 * /register にバリデーション
 * regisger の説明書き
+### Changed
+* /answer/:id /comment/:id で表示する問題文を |safe でフィルタした。
 
 ## 0.5.0 - 2021-10-11
 * r99.melt にテスト配置

@@ -2,7 +2,7 @@
 {% block content %}
   <div class="content">
   <h2>{{answer.login}}'s answer to Problem {{problem.num}}</h2>
-  <p>{{problem.problem}}</p>
+  <p>{{problem.problem|safe}}</p>
   <pre>{{answer.answer}}</pre>
 
   <form method='post'>

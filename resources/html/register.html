@@ -3,12 +3,12 @@
   <div class="content">
     <h2>Register</h2>
 
-    {% if errors.erros %}
+    {% if errors.errors %}
     <div class="notification is-danger">
       {{errors.errors}}
     </div>
     {% endif %}
-    
+
     <form method='post'>
       {% csrf-field %}
       <input name='sid' placeholder='学生番号'>
