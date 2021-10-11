@@ -9,6 +9,7 @@
    ;;[ring.util.response]
    ;;[ring.util.http-response :as response]
    [ring.util.response :refer [redirect]]
+   [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
 (timbre/set-level! :debug)

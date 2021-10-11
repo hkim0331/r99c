@@ -7,7 +7,35 @@
    [ring.util.response :refer [redirect]] ;; add
    ;;[ring.util.http-response :as response]
    ;;
-   [buddy.hashers :as hashers]))
+   [buddy.hashers :as hashers]
+   [struct.core :as st]
+   [taoensso.timbre :as timbre]))
+
+(def users-schema
+  [[:sid
+    st/required
+    st/string
+    {:message "学生番号のフォーマット 数字三つに英王文字続いて数字4つを確認してね。"
+     :validate (fn [sid] (re-matches #"^\d{3}[A-Z]\d{4}" sid))}]
+   [:name
+    st/required
+    st/string]
+   [:login
+    st/required
+    st/string
+    {:message "ユーザ名がバッティングしました。"
+     :validate (fn [login]
+                  (let [ret (db/get-user {:login login})]
+                   (timbre/debug "validate ret:" ret)
+                   (empty? ret)))}]
+   [:password
+    st/required
+    st/string]])
+
+(defn validate-user [params]
+  (let [ret (st/validate params users-schema)]
+    (timbre/debug "validate:" ret)
+    (first ret)))
 
 (defn about-page [request]
   (layout/render request "about.html"))
@@ -34,17 +62,21 @@
   (-> (redirect "/")
       (assoc :session {})))
 
-(defn register [request]
-  (layout/render request "register.html"))
+(defn register [{:keys [flash] :as request}]
+  (layout/render request
+                 "register.html"
+                 {:errors (select-keys flash [:errors])}))
 
 (defn register-post [{params :params}]
-  ;; need verification
-  (try
-    (db/create-user! (assoc (dissoc params :password)
-                            :password (hashers/derive (:password params))))
-    (redirect "/login")
-    (catch Exception e
-      (redirect "/register"))))
+  (if-let [errors (validate-user params)]
+    (-> (redirect "/register")
+        (assoc :flash (assoc params :errors errors)))
+    (try
+      (db/create-user! (assoc (dissoc params :password)
+                              :password (hashers/derive (:password params))))
+      (redirect "/login")
+      (catch Exception e
+        (redirect "/register")))))
 
 (defn login-routes []
   [""
