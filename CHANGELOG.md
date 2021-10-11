@@ -19,7 +19,7 @@ https://bulma.io/documentation/overview/colors/
 * CHANGELOG の書き方。
 
 
-## 0.5.0-SNAPSHOT
+## 0.5.0 - 2021-10-11
 * 回答にコメントをつけられる。
 * 回答についたコメントを表示する。
 ### Added
