@@ -2,6 +2,11 @@
 {% block content %}
   <div class="content">
     <h2>Register</h2>
+
+    <div>
+      {{errors}}
+    </div>
+
     <form method='post'>
       {% csrf-field %}
       <input name='sid' placeholder='学生番号'>
@@ -11,6 +16,7 @@
       <input type='submit' value='register'>
     </form>
   </div>
+
   <div class="content">
     <ul>
       <li>学生番号: 201A1234 みたいな、数字 + 大文字アルファベット + 数字</li>
