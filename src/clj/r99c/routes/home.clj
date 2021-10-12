@@ -65,29 +65,33 @@
   "syntax check `answer`"
   [answer]
   (let [r (exec/sh ["gcc" "-xc" "-fsyntax-only" "-"] {:in answer})]
-    (timbre/debug "validate" @r)
+    ;;(timbre/debug "validate-answer:" (:exit @r))
     (:err @r)))
 
 (defn create-answer!
   "insert answer into answers table, compare the md5 value
    with other answers."
-  [{:as request {:keys [num answer]} :params}]
-  (if-let [error (validate-answer answer)]
-    (do
-     (timbre/debug "error" error)
-     (-> (redirect (str "/answer/" num))
-         (assoc :flash {:erros "syntax error"})))
+  [{{:keys [num answer]} :params :as request}]
+  (if-let [errors (validate-answer answer)]
+    (layout/render
+     request
+     "error.html"
+     {:status "can not compile"
+      :title "プログラムにエラーがあります。"
+      :message "ブラウザのバックで戻って修正後、再提出してください。"})
     (let [login (name (get-in request [:session :identity]))
-          ;; \n matches to \s
-          stripped (-> (str/replace answer #"[ \t]" "")
-                       remove-comments)
-          md5 (digest/md5 stripped)]
-      (timbre/debug "create-answer!")
-      (db/create-answer! {:login login
-                          :num (Integer/parseInt num)
-                          :answer answer
-                          :md5 md5})
-      (redirect "/"))))
+          md5 (-> answer
+                  (str/replace #"[ \t]" "")
+                  remove-comments
+                  digest/md5)]
+      (try
+        (db/create-answer! {:login login
+                            :num (Integer/parseInt num)
+                            :answer answer
+                            :md5 md5})
+        (redirect "/")
+        (catch Exception e
+         (redirect (str "/answer/" num)))))))
 
 (defn comment-form
   "take answer id as path-parameter, show the answer with
