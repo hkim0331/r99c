@@ -112,3 +112,8 @@ VALUES
 -- :doc retrieve comments to answer id a_id
 SELECT * FROM comments
 WHERE a_id = :a_id
+
+-- :name sent-comments :? :1
+-- :doc how many comments user `login` sent?
+SELECT count(*) FROM comments
+WHERE from_login = :login

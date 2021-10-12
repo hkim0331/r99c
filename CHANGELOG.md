@@ -17,6 +17,8 @@ int func_test(void) {
 * /admin/comments ... 何をする予定だったっけ？
 * コピペ予防 css
 * restrict 10 answers a day
+* /comment, comment のフォーマット
+
 
 ## 0.6.3 - 2021-10-12
 ### Added
