@@ -13,6 +13,26 @@
     </div>
 
     <h3>History</h3>
-    <p>(not yet)</p>
+    <p>(should be graph, or link)</p>
+
+    <h4>individual</h4>
+    {% for row in my-answers %}
+    <p>{{row.create_at}} {{row.count}}</p>
+    {% endfor %}
+
+    <h4>all</h4>
+    {% for row in all-answers %}
+    <p>{{row.create_at}} {{row.count}}</p>
+    {% endfor %}
+
+    <h3>Change Password</h3>
+
+    <form method='post' action='/ch_pass'>
+      {% csrf-field %}
+      <input type='hidden' name='login' value='{{login}}'>
+      <p>old <input type='password' name='old'>
+         new <input name='new'></p>
+    <input type='submit' value='change' class='button is-danger is-small'>
+    </form>
   </div>
 {% endblock %}

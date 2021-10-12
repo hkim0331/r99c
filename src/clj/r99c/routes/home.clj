@@ -1,5 +1,6 @@
 (ns r99c.routes.home
   (:require
+   [buddy.hashers :as hashers]
    [clj-commons-exec :as exec]
    [clojure.string :as str]
    [digest]
@@ -24,13 +25,19 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
+;; FIXME: client side rendering
 (defn status-page
   "display user's status. how many problems he/she solved?"
   [request]
   (let [login (login request)
         solved (map #(:num %) (db/answers-by {:login login}))
-        status (map #(solved? solved %) (map :num (db/problems)))]
-    (layout/render request "status.html" {:login login :status status})))
+        status (map #(solved? solved %) (map :num (db/problems)))
+        my-answers  (db/answers-by-date-login {:login login})
+        all-answers (db/answers-by-date)]
+    (layout/render request "status.html" {:login login
+                                          :status status
+                                          :my-answers my-answers
+                                          :all-answers all-answers})))
 
 (defn problems-page
   "display problems."
@@ -60,34 +67,37 @@
 (defn- remove-comments [s]
   (apply str (remove #(str/starts-with? % "//") (str/split-lines s))))
 
+(defn- strip-answer [s]
+  (-> s
+      (str/replace #"[ \t]" "")
+      remove-comments))
+
 ;; https://github.com/hozumi/clj-commons-exec
 (defn- validate-answer
-  "syntax check `answer`"
+  "syntax check by `gcc -fsyntaxonly`"
   [answer]
-  (let [r (exec/sh ["gcc" "-xc" "-fsyntax-only" "-"] {:in answer})]
-    (timbre/debug "validate" @r)
-    (:err @r)))
+  (timbre/debug "answer:" answer)
+  (if (re-matches #"\s*" (strip-answer answer))
+    {}
+    (let [r (exec/sh ["gcc" "-xc" "-fsyntax-only" "-"] {:in answer})]
+      ;;(timbre/debug "validate-answer:" (:exit @r))
+      (:err @r))))
 
 (defn create-answer!
-  "insert answer into answers table, compare the md5 value
-   with other answers."
-  [{:as request {:keys [num answer]} :params}]
-  (if-let [error (validate-answer answer)]
-    (do
-     (timbre/debug "error" error)
-     (-> (redirect (str "/answer/" num))
-         (assoc :flash {:erros "syntax error"})))
-    (let [login (name (get-in request [:session :identity]))
-          ;; \n matches to \s
-          stripped (-> (str/replace answer #"[ \t]" "")
-                       remove-comments)
-          md5 (digest/md5 stripped)]
-      (timbre/debug "create-answer!")
-      (db/create-answer! {:login login
+  [{{:keys [num answer]} :params :as request}]
+  (if-let [errors (validate-answer answer)]
+    (layout/render request "error.html"
+                   {:status "can not compile"
+                    :title "プログラムにエラーがあります。"
+                    :message "ブラウザのバックで修正後、再提出してください。"})
+    (try
+      (db/create-answer! {:login (login request)
                           :num (Integer/parseInt num)
                           :answer answer
-                          :md5 md5})
-      (redirect "/"))))
+                          :md5 (-> answer strip-answer digest/md5)})
+      (redirect "/")
+      (catch Exception e
+        (redirect (str "/answer/" num))))))
 
 (defn comment-form
   "take answer id as path-parameter, show the answer with
@@ -98,9 +108,9 @@
         problem (db/get-problem {:num (:num answer)})
         comments (db/get-comments {:a_id id})]
     (layout/render request "comment-form.html"
-                           {:problem problem
-                            :answer answer
-                            :comments comments})))
+                   {:problem problem
+                    :answer answer
+                    :comments comments})))
 
 ;; FIXME: better way?
 (defn create-comment! [request]
@@ -112,12 +122,23 @@
                          :a_id (Integer/parseInt (:a_id params))})
     (redirect "/")))
 
+(defn ch-pass [{{:keys [old new]} :params :as request}]
+  (let [login (login request)
+        user (db/get-user {:login login})]
+    (if (and (seq user) (hashers/check old (:password user)))
+      (do
+        (db/update-user! {:login login :password (hashers/derive new)})
+        (redirect "/login"))
+      (layout/render request "error.html"
+                     {:message "did not match old password"}))))
+
 (defn home-routes []
   [""
    {:middleware [middleware/auth
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get status-page}]
+   ["/ch_pass" {:post ch-pass}]
    ["/problems" {:get problems-page}]
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]
