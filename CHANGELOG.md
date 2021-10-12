@@ -18,6 +18,11 @@ int func_test(void) {
 * コピペ予防 css
 * restrict 10 answers a day
 
+## 0.6.3-SNAPSHOT
+### Added
+* db/answers-by-date ... 何日に回答が何件届いたか？
+* db/answers-bu-date-login ... ユーザ login は何日に回答を何件寄せたか？
+
 ## 0.6.2 - 2021-10-12
 ### Added
 * /ch-pass パスワードを変えられる。

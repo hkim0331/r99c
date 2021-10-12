@@ -25,13 +25,19 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
+;; FIXME: client side rendering
 (defn status-page
   "display user's status. how many problems he/she solved?"
   [request]
   (let [login (login request)
         solved (map #(:num %) (db/answers-by {:login login}))
-        status (map #(solved? solved %) (map :num (db/problems)))]
-    (layout/render request "status.html" {:login login :status status})))
+        status (map #(solved? solved %) (map :num (db/problems)))
+        my-answers  (db/answers-by-date-login {:login login})
+        all-answers (db/answers-by-date)]
+    (layout/render request "status.html" {:login login
+                                          :status status
+                                          :my-answers my-answers
+                                          :all-answers all-answers})))
 
 (defn problems-page
   "display problems."

@@ -13,10 +13,17 @@
     </div>
 
     <h3>History</h3>
-    <h4>personal</h4>
-    <p>(not yet)</p>
+    <p>(should be graph, or link)</p>
+
+    <h4>individual</h4>
+    {% for row in my-answers %}
+    <p>{{row.create_at}} {{row.count}}</p>
+    {% endfor %}
+
     <h4>all</h4>
-    <p>(not yet)</p>
+    {% for row in all-answers %}
+    <p>{{row.create_at}} {{row.count}}</p>
+    {% endfor %}
 
     <h3>Change Password</h3>
 
