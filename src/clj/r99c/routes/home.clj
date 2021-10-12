@@ -1,5 +1,6 @@
 (ns r99c.routes.home
   (:require
+   [buddy.hashers :as hashers]
    [clj-commons-exec :as exec]
    [clojure.string :as str]
    [digest]
@@ -115,12 +116,23 @@
                          :a_id (Integer/parseInt (:a_id params))})
     (redirect "/")))
 
+(defn ch-pass [{{:keys [old new]} :params :as request}]
+  (let [login (login request)
+        user (db/get-user {:login login})]
+    (if (and (seq user) (hashers/check old (:password user)))
+      (do
+        (db/update-user! {:login login :password (hashers/derive new)})
+        (redirect "/login"))
+      (layout/render request "error.html"
+                     {:message "did not match old password"}))))
+
 (defn home-routes []
   [""
    {:middleware [middleware/auth
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get status-page}]
+   ["/ch_pass" {:post ch-pass}]
    ["/problems" {:get problems-page}]
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]
