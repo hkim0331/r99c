@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="content">
-    <h2>Status</h2>
-    <p>user name: {{login}}</p>
+    <h2>{{login|capitalize}}'s Status</h2>
     <!--
     <p><a href="/problems">Problems</a></p>
     -->
@@ -12,18 +11,26 @@
     {% endfor %}
     </div>
 
-    <h3>History</h3>
-    <p>(should be graph, or link)</p>
+    <h3>Activities</h3>
 
-    <h4>individual</h4>
-    {% for row in my-answers %}
-    <p>{{row.create_at}} {{row.count}}</p>
-    {% endfor %}
+    <h4>individual activities</h4>
 
-    <h4>all</h4>
-    {% for row in all-answers %}
-    <p>{{row.create_at}} {{row.count}}</p>
-    {% endfor %}
+    <table>
+      <tr><th>date</th><th>count</th></tr>
+      {% for row in my-answers %}
+      <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
+      {% endfor %}
+    </table>
+
+    <p><b>comments sent: </b>{{comments.count}}</p>
+
+    <h4>class activities</h4>
+    <table>
+      <tr><th>date</th><th>count</th></tr>
+      {% for row in all-answers %}
+      <tr><td>{{row.create_at}}</td><td> {{row.count}}</td></tr>
+      {% endfor %}
+    </table>
 
     <h3>Change Password</h3>
 

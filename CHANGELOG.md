@@ -2,8 +2,7 @@
 
 ## Unreleased
 * post logout
-* flash for errors when register/login
-* login せずに /admin/ を叩いた場合に x is null エラー。
+* login せずに /admin/ を叩いた場合に x is null エラー
 * renumber
 * problems の表示に、C のソースをデコレートして表示できないか？
   markdown なら以下ができれば十分だが。
@@ -15,8 +14,15 @@ int func_test(void) {
 * 問題修正 ... test コラムを有効に。
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
 * /admin/comments ... 何をする予定だったっけ？
-* コピペ予防 css
 * restrict 10 answers a day
+* /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
+* display individual/class answers with SVG graph.
+
+## 0.6.4 - 2021-10-12
+## Changed
+* improve status.html individual field, class field, sent comments column
+* コピペ予防 css
+https://on-ze.com/archives/5744
 
 ## 0.6.3 - 2021-10-12
 ### Added
