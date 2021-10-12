@@ -14,5 +14,15 @@
 
     <h3>History</h3>
     <p>(not yet)</p>
+
+    <h3>Change Password</h3>
+
+    <form method='post' action='/ch_pass'>
+      {% csrf-field %}
+      <input type='hidden' name='login' value='{{login}}'>
+      old <input type='password' name='old'>
+      new <input name='new'>
+    <input type='submit' value='change' class='button is-danger is-small'>
+    </form>
   </div>
 {% endblock %}
