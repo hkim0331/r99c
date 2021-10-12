@@ -9,6 +9,8 @@
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
+(def ^:private version "0.6.1")
+
 (def users-schema
   [[:sid
     st/required
@@ -36,7 +38,7 @@
     (first ret)))
 
 (defn about-page [request]
-  (layout/render request "about.html"))
+  (layout/render request "about.html" {:version version}))
 
 (defn admin-only [request]
   (layout/render request "error.html" {:status 401

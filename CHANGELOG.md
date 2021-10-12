@@ -13,10 +13,15 @@ int func_test(void) {
 }
 ```
 * パスワードを変えられないと。
-
 * 問題修正 ... test コラムを有効に。
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
 * /admin/comments ... 何をする予定だったっけ？
+* コピペ予防 css
+* restrict 10 answers a day
+
+## 0.6.1 - 2021-10-12
+* improve validate-answer and create-answer!
+* version 表示 in /about. div 要素だけまとめて左寄せしたい。
 
 ## 0.6.0 - 2021-10-11
 ### Added
