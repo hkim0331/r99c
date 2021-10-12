@@ -92,12 +92,14 @@ WHERE id = :id
 -- :doc how many answers in dates?
 SELECT create_at::date, count(*) FROM answers
 GROUP BY create_at::date
+ORDER BY create_at::date
 
 -- :name answers-by-date-login :? :*
 -- :doc how may answers by login?
 SELECT create_at::date, count(*) FROM answers
 where login = :login
 GROUP BY create_at::date
+ORDER BY create_at::date
 
 -- :name create-comment! :! :n
 -- :doc create a comment on problem number num, answer id a_id
