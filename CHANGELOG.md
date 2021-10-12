@@ -18,7 +18,7 @@ int func_test(void) {
 * コピペ予防 css
 * restrict 10 answers a day
 
-## 0.6.3-SNAPSHOT
+## 0.6.3 - 2021-10-12
 ### Added
 * db/answers-by-date ... 何日に回答が何件届いたか？
 * db/answers-bu-date-login ... ユーザ login は何日に回答を何件寄せたか？
