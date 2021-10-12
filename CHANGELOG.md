@@ -21,7 +21,7 @@ int func_test(void) {
 
 ## 0.6.1 - 2021-10-12
 * improve validate-answer and create-answer!
-* version 表示 in /about div 要素だけまとめて左寄せしたい。
+* version 表示 in /about. div 要素だけまとめて左寄せしたい。
 
 ## 0.6.0 - 2021-10-11
 ### Added
