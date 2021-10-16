@@ -15,6 +15,8 @@ int func_test(void) {
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
 * display individual/class answers with SVG graph.
 * systemd
+* production の db ダンプ
+
 
 ## 0.6.6 - 2021-10-17
 ### Fixed
