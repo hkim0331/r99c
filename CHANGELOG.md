@@ -3,7 +3,6 @@
 ## Unreleased
 * post logout
 * login せずに /admin/ を叩いた場合に x is null エラー
-* renumber
 * problems の表示に、C のソースをデコレートして表示できないか？
   markdown なら以下ができれば十分だが。
 ```c
@@ -11,19 +10,21 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
-* 問題修正 ... test コラムを有効に。
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
 * /admin/comments ... 何をする予定だったっけ？
-* restrict 10 answers a day
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
 * display individual/class answers with SVG graph.
-* /comment/:n から他の回答も見れた方がいい。
+* systemd
 
+## 0.6.6 - 2021-10-17
+### Fixed
+* 回答つけてないユーザは /comment/:n を見れない。home/comment-from に細工。403 を返す。
 
 ## 0.6.5 - 2021-10-17
 ### Added
 - recent answers (logins)
 - link from recents
+- /comment/:n から他の回答も見れた方がいい。
 
 ## 0.6.4 - 2021-10-12
 ## Changed
