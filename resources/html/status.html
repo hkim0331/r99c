@@ -25,7 +25,7 @@
     <h4>class activities</h4>
     <p><b>recent 10:</b>
       {% for a in recents %}
-        {{a.login}}, 
+        <a href='/comment/{{a.id}}'>{{a.login}}</a>, 
       {% endfor %}</p>
 
     <table>
