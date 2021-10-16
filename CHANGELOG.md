@@ -18,6 +18,10 @@ int func_test(void) {
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
 * display individual/class answers with SVG graph.
 
+## 0.6.5 - 2021-10-17
+### Added
+- recent answers (logins)
+
 ## 0.6.4 - 2021-10-12
 ## Changed
 * improve status.html individual field, class field, sent comments column
