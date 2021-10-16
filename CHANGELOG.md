@@ -19,6 +19,9 @@ int func_test(void) {
 * display individual/class answers with SVG graph.
 * /comment/:n から他の回答も見れた方がいい。
 
+## 0.6.6-SNAPSHOT
+### FIXME 回答つけてない人が /comment/:n を見れるのはまずいな。
+
 
 ## 0.6.5 - 2021-10-17
 ### Added

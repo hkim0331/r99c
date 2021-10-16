@@ -102,18 +102,27 @@
       (catch Exception e
         (redirect (str "/answer/" num))))))
 
+(defn answered?
+ [login numner]
+ ())
 (defn comment-form
   "take answer id as path-parameter, show the answer with
    comment form"
   [request]
   (let [id (Integer/parseInt (get-in request [:path-params :id]))
         answer (db/get-answer-by-id {:id id})
-        problem (db/get-problem {:num (:num answer)})
+        num (:num answer)
+        problem (db/get-problem {:num num})
         comments (db/get-comments {:a_id id})]
-    (layout/render request "comment-form.html"
-                   {:problem problem
-                    :answer answer
-                    :comments comments})))
+    (if (db/get-answer {:num num :login (login request)})
+      (layout/render request "comment-form.html"
+                     {:problem problem
+                      :answer answer
+                      :comments comments})
+      (layout/render request "error.html"
+                     {:status 404
+                      :title "access forbidden"
+                      :message "まず自分で解いてから。"}))))
 
 ;; FIXME: better way?
 (defn create-comment! [request]
