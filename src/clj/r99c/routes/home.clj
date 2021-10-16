@@ -102,9 +102,6 @@
       (catch Exception e
         (redirect (str "/answer/" num))))))
 
-(defn answered?
- [login numner]
- ())
 (defn comment-form
   "take answer id as path-parameter, show the answer with
    comment form"
@@ -120,8 +117,8 @@
                       :answer answer
                       :comments comments})
       (layout/render request "error.html"
-                     {:status 404
-                      :title "access forbidden"
+                     {:status 403
+                      :title "Access Forbidden"
                       :message "まず自分で解いてから。"}))))
 
 ;; FIXME: better way?
