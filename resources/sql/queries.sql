@@ -59,6 +59,7 @@ DELETE FROM problems
 -- :doc returns problems count
 SELECT COUNT(*) FROM problems
 
+
 -- :name create-answer! :! :n
 -- :doc creates a new problem record
 INSERT INTO answers
@@ -100,6 +101,12 @@ SELECT create_at::date, count(*) FROM answers
 where login = :login
 GROUP BY create_at::date
 ORDER BY create_at::date
+
+-- :name recent-answers :? :*
+-- :doc fetch recent n answers
+SELECT * FROM answers
+ORDER by id DESC
+limit :n
 
 -- :name create-comment! :! :n
 -- :doc create a comment on problem number num, answer id a_id

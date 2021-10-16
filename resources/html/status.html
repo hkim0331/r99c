@@ -16,15 +16,20 @@
     <p><b>comments sent: </b>{{comments.count}}</p>
 
     <table>
-      <tr><th>date</th><th>count</th></tr>
+      <tr><th>date</th><th>answers</th></tr>
       {% for row in my-answers %}
         <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
       {% endfor %}
     </table>
 
     <h4>class activities</h4>
+    <p>recent 10:
+      {% for a in recents %}
+        {{a.login}} ","
+      {% endfor %}</p>
+
     <table>
-      <tr><th>date</th><th>count</th></tr>
+      <tr><th>date</th><th>answers</th></tr>
       {% for row in all-answers %}
         <tr><td>{{row.create_at}}</td><td> {{row.count}}</td></tr>
       {% endfor %}
