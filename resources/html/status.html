@@ -2,12 +2,10 @@
 {% block content %}
   <div class="content">
     <h2>{{login|capitalize}}'s Status</h2>
-    <!--
-    <p><a href="/problems">Problems</a></p>
-    -->
+
     <div class="box">
     {% for s in status %}
-    <a href="/answer/{{s.n}}" class="{{s.stat}}">{{s.n}}</a>
+      <a href="/answer/{{s.n}}" class="{{s.stat}}">{{s.n}}</a>
     {% endfor %}
     </div>
 
@@ -15,20 +13,25 @@
 
     <h4>individual activities</h4>
 
+    <p><b>comments sent: </b>{{comments.count}}</p>
+
     <table>
-      <tr><th>date</th><th>count</th></tr>
+      <tr><th>date</th><th>answers</th></tr>
       {% for row in my-answers %}
-      <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
+        <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
       {% endfor %}
     </table>
 
-    <p><b>comments sent: </b>{{comments.count}}</p>
-
     <h4>class activities</h4>
+    <p><b>recent 10:</b>
+      {% for a in recents %}
+        {{a.login}}, 
+      {% endfor %}</p>
+
     <table>
-      <tr><th>date</th><th>count</th></tr>
+      <tr><th>date</th><th>answers</th></tr>
       {% for row in all-answers %}
-      <tr><td>{{row.create_at}}</td><td> {{row.count}}</td></tr>
+        <tr><td>{{row.create_at}}</td><td> {{row.count}}</td></tr>
       {% endfor %}
     </table>
 

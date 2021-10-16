@@ -1,15 +1,15 @@
 (ns r99c.routes.login
   (:require
+   [buddy.hashers :as hashers]
    [clojure.java.io :as io]
    [r99c.layout :as layout]
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
    [ring.util.response :refer [redirect]]
-   [buddy.hashers :as hashers]
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
-(def ^:private version "0.6.4")
+(def ^:private version "0.6.5")
 
 (def users-schema
   [[:sid

@@ -33,13 +33,14 @@
         solved (map #(:num %) (db/answers-by {:login login}))
         status (map #(solved? solved %) (map :num (db/problems)))]
     (layout/render
-      request
-      "status.html"
-      {:login login
-        :status status
-        :my-answers  (db/answers-by-date-login {:login login})
-        :all-answers (db/answers-by-date)
-        :comments    (db/sent-comments {:login login})})))
+     request
+     "status.html"
+     {:login login
+      :status status
+      :recents     (db/recent-answers {:n 10})
+      :my-answers  (db/answers-by-date-login {:login login})
+      :all-answers (db/answers-by-date)
+      :comments    (db/sent-comments {:login login})})))
 
 (defn problems-page
   "display problems."
