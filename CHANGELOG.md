@@ -17,10 +17,13 @@ int func_test(void) {
 * restrict 10 answers a day
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
 * display individual/class answers with SVG graph.
+* /comment/:n から他の回答も見れた方がいい。
+
 
 ## 0.6.5 - 2021-10-17
 ### Added
 - recent answers (logins)
+- link from recents
 
 ## 0.6.4 - 2021-10-12
 ## Changed
