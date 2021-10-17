@@ -33,13 +33,14 @@
         solved (map #(:num %) (db/answers-by {:login login}))
         status (map #(solved? solved %) (map :num (db/problems)))]
     (layout/render
-      request
-      "status.html"
-      {:login login
-        :status status
-        :my-answers  (db/answers-by-date-login {:login login})
-        :all-answers (db/answers-by-date)
-        :comments    (db/sent-comments {:login login})})))
+     request
+     "status.html"
+     {:login login
+      :status status
+      :recents     (db/recent-answers {:n 10})
+      :my-answers  (db/answers-by-date-login {:login login})
+      :all-answers (db/answers-by-date)
+      :comments    (db/sent-comments {:login login})})))
 
 (defn problems-page
   "display problems."
@@ -107,12 +108,18 @@
   [request]
   (let [id (Integer/parseInt (get-in request [:path-params :id]))
         answer (db/get-answer-by-id {:id id})
-        problem (db/get-problem {:num (:num answer)})
+        num (:num answer)
+        problem (db/get-problem {:num num})
         comments (db/get-comments {:a_id id})]
-    (layout/render request "comment-form.html"
-                   {:problem problem
-                    :answer answer
-                    :comments comments})))
+    (if (db/get-answer {:num num :login (login request)})
+      (layout/render request "comment-form.html"
+                     {:problem problem
+                      :answer answer
+                      :comments comments})
+      (layout/render request "error.html"
+                     {:status 403
+                      :title "Access Forbidden"
+                      :message "まず自分で解いてから。"}))))
 
 ;; FIXME: better way?
 (defn create-comment! [request]
