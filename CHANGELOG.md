@@ -15,6 +15,8 @@ int func_test(void) {
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
 * limit answers/day
 * graphs
+* /answer/:n で回答リンクの表示を抑制しないで良い。リンク先で制限かけてるはず。
+* routes/ にルート以外のロジックを入れ込みすぎ。
 
 
 ## 0.6.8-SNAPSHOT
