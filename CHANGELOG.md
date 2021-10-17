@@ -17,17 +17,17 @@ int func_test(void) {
 * limit answers/day
 
 
-## 0.7.0-SNAPSHOT
-* production の db ダンプ
+
+## 0.6.7 - 2021-10-17
 * display individual/class answers with SVG graph.
-* 一旦、feature/class-svg をマージして出直そう。
+一旦、feature/class-svg をマージして出直そう。
 グラフの横軸は、個人、クラスとも、ゴールの日までの日にちとする。
-クラスはその日の回答数、個人は回答数の積分値とする。ゴールは99題。
-
+クラスはその日の回答数、個人は回答数の積分値とする。ゴールは 99 題。
 ### Added
-- db-dump フォルダ。データベースのダンプと、ダンプ・リストアスクリプト。
+* /db-dumps フォルダ。データベースのダンプと、ダンプ・リストアスクリプト。
 gitignore する。
-
+* link to qa.melt from navbar.
+* /comment/:n で create_at 表示。
 
 ## 0.6.6 - 2021-10-17
 ### Fixed
