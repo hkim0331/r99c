@@ -26,7 +26,6 @@
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
 ;; SVG plot
-
 (defn- plot [w h answers]
   (let [n (count answers)
         dx (/ w n)
