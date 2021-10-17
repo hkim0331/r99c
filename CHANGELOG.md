@@ -13,10 +13,15 @@ int func_test(void) {
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
 * /admin/comments ... 何をする予定だったっけ？
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
-* display individual/class answers with SVG graph.
 * systemd
-* production の db ダンプ
 
+
+## 0.7.0-SNAPSHOT
+* production の db ダンプ
+* display individual/class answers with SVG graph.
+### Added
+- db-dump フォルダ。データベースのダンプと、ダンプ・リストアスクリプト。
+gitignore する。
 
 ## 0.6.6 - 2021-10-17
 ### Fixed

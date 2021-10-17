@@ -25,13 +25,32 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
+;; SVG plot
+
+(defn- plot [w h answers]
+  (let [n (count answers)
+        dx (/ w n)
+        counts (map :count answers)]
+    (timbre/debug "plot/answers" (first answers))
+    (timbre/debug "plot/counts:" (first counts))
+    (into
+     [:svg {:width w :height h :viewbox (str "0 0 " w " " h)}
+      [:rect {:x 0 :y 0 :width w :height h :fill "#eee"}]
+      [:line {:x1 0 :y1 (- h 10) :x2 w :y2 (- h 10) :stroke "black"}]]
+     (for [[x y] (map list (range) counts)]
+       [:rect
+        {:x (* dx x) :y (- h 10 y) :width (/ dx 2) :height y
+         :fill "red"}]))))
+
 ;; FIXME: client side rendering
 (defn status-page
   "display user's status. how many problems he/she solved?"
   [request]
   (let [login (login request)
         solved (map #(:num %) (db/answers-by {:login login}))
-        status (map #(solved? solved %) (map :num (db/problems)))]
+        status (map #(solved? solved %) (map :num (db/problems)))
+        all-answers (db/answers-by-date)]
+    (timbre/debug "plot returns:" (plot 300 150 all-answers))
     (layout/render
      request
      "status.html"
@@ -39,7 +58,7 @@
       :status status
       :recents     (db/recent-answers {:n 10})
       :my-answers  (db/answers-by-date-login {:login login})
-      :all-answers (db/answers-by-date)
+      :all-answers all-answers
       :comments    (db/sent-comments {:login login})})))
 
 (defn problems-page

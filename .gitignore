@@ -12,12 +12,13 @@ profiles.clj
 /.env
 .nrepl-port
 
-/node_modules
-/log
 .calva/
 .clj-kondo/
 .lsp/
 .vscode/
-/migrate.sh
-/start.sh
+/db-dumps
+/log
+/node_modules
+migrate.sh
+start.sh
 
