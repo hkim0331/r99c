@@ -13,9 +13,20 @@ int func_test(void) {
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
 * /admin/comments ... 何をする予定だったっけ？
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
-* display individual/class answers with SVG graph.
 * systemd
+* limit answers/day
+
+
+## 0.7.0-SNAPSHOT
 * production の db ダンプ
+* display individual/class answers with SVG graph.
+* 一旦、feature/class-svg をマージして出直そう。
+グラフの横軸は、個人、クラスとも、ゴールの日までの日にちとする。
+クラスはその日の回答数、個人は回答数の積分値とする。ゴールは99題。
+
+### Added
+- db-dump フォルダ。データベースのダンプと、ダンプ・リストアスクリプト。
+gitignore する。
 
 
 ## 0.6.6 - 2021-10-17
