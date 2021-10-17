@@ -13,10 +13,12 @@ int func_test(void) {
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
 * /admin/comments ... 何をする予定だったっけ？
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
-* systemd
 * limit answers/day
+* graphs
 
 
+## 0.6.8-SNAPSHOT
+* defined/installed r99c.service
 
 ## 0.6.7 - 2021-10-17
 * display individual/class answers with SVG graph.
