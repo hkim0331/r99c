@@ -13,14 +13,15 @@ int func_test(void) {
 * /admin/comments ... 何をする予定だったっけ？
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
 * limit answers a day
-* graphs
 * routes/ にルート以外のロジックを入れ込みすぎ。
 * recent 10 の他に、top 10
+* 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
 
-## 0.7.0-SNAPSHOT
+## 0.7.0 - 2021-10-18
 - feature/svg-plot ブランチで開発中。date オブジェクトだと、
 org.java.Time.DateTime と java.time.LocalDate の見かけは一緒でもマッチは取れるか？
-面倒なんで、135日分手作業も考えたが、文字列に変換してしまおう。邪道だ。
+面倒だ、文字列に変換してしまおう。
+### Fixme
 - HugSQL で `select date '2021-10-10' + integer '135'` の書き方がわからない。
 ### Changed
 - 日付を date オブジェクトではなく、文字列として返す。
