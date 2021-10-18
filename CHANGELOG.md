@@ -15,12 +15,12 @@ int func_test(void) {
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
 * limit answers/day
 * graphs
-* /answer/:n で回答リンクの表示を抑制しないで良い。リンク先で制限かけてるはず。
 * routes/ にルート以外のロジックを入れ込みすぎ。
 
 
-## 0.6.8-SNAPSHOT
+## 0.6.8 - 2021-10-18
 * defined/installed r99c.service
+* /answer/:n で回答リンクの表示を抑制しない。リンク先で制限かけている。
 
 ## 0.6.7 - 2021-10-17
 * display individual/class answers with SVG graph.
