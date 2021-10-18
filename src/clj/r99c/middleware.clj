@@ -37,7 +37,8 @@
 (defn admin? [request]
    (if-let [login (get-in request [:session :identity])]
      (let [user (db/get-user {:login login})]
-       (boolean (:is_admin user)))
+       ;; class of `user` is keyword. need `name`.
+       (boolean (:is_admin (name user))))
      false))
 
 ;; Added 2021-10-06
