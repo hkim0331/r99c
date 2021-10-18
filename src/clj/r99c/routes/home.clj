@@ -66,6 +66,10 @@
         solved (map #(:num %) (db/answers-by {:login login}))
         status (map #(solved? solved %) (map :num (db/problems)))
         ans-i (db/answers-by-date-login {:login login})
+        map-i (->map ans-i)
+        coll-i (for [d period]
+                 (get map-i d 0))
+        svg-i (plot coll-i 600 150);;積分しないと。
         ans-c (db/answers-by-date)
         map-c (->map ans-c)
         coll-c (for [d period]
@@ -74,7 +78,6 @@
     ;;(timbre/debug "svg" svg)
     ;;(timbre/debug "map-c" (first map-c) (second map-c))
     ;;(timbre/debug "coll-c" (count coll-c) (first coll-c) (second coll-c))
-
     (layout/render
      request
      "status.html"
@@ -84,6 +87,7 @@
       :comments    (db/sent-comments {:login login})
       :my-answers  ans-i
       :all-answers ans-c
+      :svg-i (html svg-i)
       :svg (html svg)})))
 (defn problems-page
   "display problems."
