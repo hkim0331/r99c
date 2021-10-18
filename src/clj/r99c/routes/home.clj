@@ -16,6 +16,14 @@
 
 (timbre/set-level! :debug)
 
+(defn- acc-aux [coll ret]
+  (if (empty? coll)
+    ret
+    (acc-aux (rest coll) (conj ret (+ (last ret) (first coll))))))
+
+(defn- acc [coll]
+  (acc-aux coll [0]))
+
 (defn- to-date-str [s]
   (-> (str s)
       (subs 0 10)))
@@ -41,12 +49,9 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
-;; SVG plot
-(defn- plot [coll w h]
+(defn- bar-chart [coll w h]
   (let [n (count coll)
         dx (/ w n)]
-    ;;(timbre/debug "plot/answers" (first answers))
-    ;;(timbre/debug "plot/counts:" (first counts))
     (into
      [:svg {:width w :height h :viewbox (str "0 0 " w " " h)}
       [:rect {:x 0 :y 0 :width w :height h :fill "#eee"}]
@@ -65,19 +70,12 @@
   (let [login (login request)
         solved (map #(:num %) (db/answers-by {:login login}))
         status (map #(solved? solved %) (map :num (db/problems)))
-        ans-i (db/answers-by-date-login {:login login})
-        map-i (->map ans-i)
-        coll-i (for [d period]
-                 (get map-i d 0))
-        svg-i (plot coll-i 600 150);;積分しないと。
-        ans-c (db/answers-by-date)
-        map-c (->map ans-c)
-        coll-c (for [d period]
-                 (get map-c d 0))
-        svg (plot (map #(/ % 2) coll-c) 600 150)]
-    ;;(timbre/debug "svg" svg)
-    ;;(timbre/debug "map-c" (first map-c) (second map-c))
-    ;;(timbre/debug "coll-c" (count coll-c) (first coll-c) (second coll-c))
+        individual (db/answers-by-date-login {:login login})
+        all-answers (db/answers-by-date)
+        all-answers-map (->map all-answers)
+        all-answers-coll (for [d period]
+                           (get all-answers-map d 0))
+        svg (bar-chart (map #(/ % 2) all-answers-coll) 600 150)]
     (layout/render
      request
      "status.html"
@@ -85,10 +83,10 @@
       :status status
       :recents     (db/recent-answers {:n 10})
       :comments    (db/sent-comments {:login login})
-      :my-answers  ans-i
-      :all-answers ans-c
-      :svg-i (html svg-i)
-      :svg (html svg)})))
+      :individual  individual
+      :all-answers all-answers
+      :all-answers-svg (html svg)})))
+
 (defn problems-page
   "display problems."
   [request]

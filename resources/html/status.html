@@ -17,13 +17,11 @@
 
     <table>
       <tr><th>date</th><th>answers</th></tr>
-      {% for row in my-answers %}
+      {% for row in individual %}
         <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
       {% endfor %}
     </table>
 
-    {{svg-i|safe}}
-    
     <h4>class activities</h4>
     <p><b>recent 10:</b>
       {% for a in recents %}
@@ -38,7 +36,7 @@
       {% endfor %}
     </table>
 
-    {{svg|safe}}
+    {{all-answers-svg|safe}}
 
     <h3>Change Password</h3>
 
