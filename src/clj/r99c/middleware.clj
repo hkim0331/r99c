@@ -35,10 +35,8 @@
       (wrap-authentication auth-backend)))
 
 (defn admin? [request]
-   (if-let [login (get-in request [:session :identity])]
-     (let [user (db/get-user {:login login})]
-       ;; class of `user` is keyword. need `name`.
-       (boolean (:is_admin (name user))))
+   (if-let [login (get-in request [:session :identity] nil)]
+     (boolean (:is_admin (db/get-user {:login (name login)})))
      false))
 
 ;; Added 2021-10-06
