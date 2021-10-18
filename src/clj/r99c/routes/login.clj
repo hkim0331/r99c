@@ -9,7 +9,7 @@
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
-(def ^:private version "0.6.11")
+(def ^:private version "0.7.0-SNAPSHOT")
 
 (def users-schema
   [[:sid
