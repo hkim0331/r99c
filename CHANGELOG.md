@@ -17,6 +17,8 @@ int func_test(void) {
 * graphs
 * routes/ にルート以外のロジックを入れ込みすぎ。
 
+## 0.6.9-SNAPSHOT
+* 旧 r99 から favicon.ico をコピー。
 
 ## 0.6.8 - 2021-10-18
 * defined/installed r99c.service
