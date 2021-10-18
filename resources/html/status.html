@@ -27,6 +27,7 @@
       {% for a in recents %}
         <a href='/comment/{{a.id}}'>{{a.login}}</a>,
       {% endfor %}</p>
+    <p><b>top 10:</b> (comming soon)</p>
 
     <table>
       <tr><th>date</th><th>answers</th></tr>
@@ -35,6 +36,9 @@
       {% endfor %}
     </table>
 
+    <h3>SVG</h3>
+    {{svg}}
+    
     <h3>Change Password</h3>
 
     <form method='post' action='/ch_pass'>
