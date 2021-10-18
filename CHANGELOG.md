@@ -16,6 +16,7 @@ int func_test(void) {
 * routes/ にルート以外のロジックを入れ込みすぎ。
 * recent 10 の他に、top 10
 * 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
+* count of solved problems
 
 ## 0.7.0 - 2021-10-18
 - feature/svg-plot ブランチで開発中。date オブジェクトだと、
