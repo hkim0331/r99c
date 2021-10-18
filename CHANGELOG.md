@@ -22,6 +22,10 @@ int func_test(void) {
 org.java.Time.DateTime と java.time.LocalDate の見かけは一緒でもマッチは取れるか？
 面倒なんで、135日分手作業も考えたが、文字列に変換してしまおう。邪道だ。
 - HugSQL で `select date '2021-10-10' + integer '135'` の書き方がわからない。
+### Changed
+- 日付を date オブジェクトではなく、文字列として返す。
+### Added
+- feature ブランチで SVG プロットできるようになった。
 
 ## 0.6.11 - 2021-10-18
 ### Bugfix
