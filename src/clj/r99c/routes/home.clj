@@ -110,9 +110,9 @@
   [{{:keys [num answer]} :params :as request}]
   (if-let [errors (validate-answer answer)]
     (layout/render request "error.html"
-                   {:status "can not compile"
+                   {:status 406
                     :title "プログラムにエラーがあります。"
-                    :message "ブラウザのバックで修正後、再提出してください。"})
+                    :message "ブラウザのバックで戻って、修正後、再提出してください。"})
     (try
       (db/create-answer! {:login (login request)
                           :num (Integer/parseInt num)

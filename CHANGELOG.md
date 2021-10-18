@@ -2,8 +2,6 @@
 
 ## Unreleased
 * post logout
-* login せずに /admin/ を叩いた場合に x is null エラー Error:500 が表示される。
-
 * problems の表示に、C のソースをデコレートして表示する。
   markdown なら以下ができれば十分だが。
 ```c
