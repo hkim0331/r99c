@@ -13,10 +13,14 @@ int func_test(void) {
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
 * /admin/comments ... 何をする予定だったっけ？
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
-* systemd
 * limit answers/day
+* graphs
+* routes/ にルート以外のロジックを入れ込みすぎ。
 
 
+## 0.6.8 - 2021-10-18
+* defined/installed r99c.service
+* /answer/:n で回答リンクの表示を抑制しない。リンク先で制限かけている。
 
 ## 0.6.7 - 2021-10-17
 * display individual/class answers with SVG graph.

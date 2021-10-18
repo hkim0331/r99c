@@ -70,10 +70,12 @@
    problem. "
   [request]
   (let [num (Integer/parseInt (get-in request [:path-params :num]))
-        problem (db/get-problem {:num num})]
+        problem (db/get-problem {:num num})
+        answers (db/answers-to {:num num})]
+
     (if-let [answer (db/get-answer {:num num :login (login request)})]
-      (let [answers (group-by #(= (:md5 answer) (:md5 %))
-                              (db/answers-to {:num num}))]
+      ;; can group when already answered
+      (let [answers (group-by #(= (:md5 answer) (:md5 %)) answers)]
         (layout/render request
                        "answer-form.html"
                        {:problem problem
@@ -83,7 +85,7 @@
                      "answer-form.html"
                      {:problem problem
                       :same []
-                      :differ []}))))
+                      :differ answers}))))
 
 (defn- remove-comments [s]
   (apply str (remove #(str/starts-with? % "//") (str/split-lines s))))
