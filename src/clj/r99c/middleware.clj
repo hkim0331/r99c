@@ -34,12 +34,11 @@
       (wrap-authorization  auth-backend)
       (wrap-authentication auth-backend)))
 
-;; Added 2021-10-06
 (defn admin? [request]
-  (let [login (name (get-in request [:session :identity]))
-        ret (db/get-user {:login login})]
-    ;;(println "login" login "ret" ret "is_admin" (boolean (:is_admin ret)))
-    (boolean (:is_admin ret))))
+   (if-let [login (get-in request [:session :identity])]
+     (let [user (db/get-user {:login login})]
+       (boolean (:is_admin user)))
+     false))
 
 ;; Added 2021-10-06
 (defn admin [handler]
