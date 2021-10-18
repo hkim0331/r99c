@@ -1,4 +1,4 @@
-(defproject r99c "0.6.11"
+(defproject r99c "0.7.0"
 
   :description "r99 revised with clojure"
   :url "https://r99.melt.kyutech.ac.jp"
@@ -35,10 +35,11 @@
                  ;;
                  [buddy/buddy-auth "3.0.1"]
                  [buddy/buddy-hashers "1.8.1"]
+                 [clj-time/clj-time "0.14.0"]
                  [com.taoensso/timbre "5.1.2"]
                  [digest "1.4.10"]
-                 [org.clojars.hozumi/clj-commons-exec "1.2.0"]]
-                 ;;[hiccup "1.0.5"]
+                 [org.clojars.hozumi/clj-commons-exec "1.2.0"]
+                 [hiccup "1.0.5"]]
 
   :min-lein-version "2.0.0"
 

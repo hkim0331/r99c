@@ -17,7 +17,7 @@
 
     <table>
       <tr><th>date</th><th>answers</th></tr>
-      {% for row in my-answers %}
+      {% for row in individual %}
         <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
       {% endfor %}
     </table>
@@ -27,6 +27,7 @@
       {% for a in recents %}
         <a href='/comment/{{a.id}}'>{{a.login}}</a>,
       {% endfor %}</p>
+    <p><b>top 10:</b> (comming soon)</p>
 
     <table>
       <tr><th>date</th><th>answers</th></tr>
@@ -34,6 +35,8 @@
         <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
       {% endfor %}
     </table>
+
+    {{all-answers-svg|safe}}
 
     <h3>Change Password</h3>
 

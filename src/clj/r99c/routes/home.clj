@@ -2,8 +2,12 @@
   (:require
    [buddy.hashers :as hashers]
    [clj-commons-exec :as exec]
+   [clj-time.core :as t]
+   [clj-time.local :as l]
+   [clj-time.periodic :as p]
    [clojure.string :as str]
    [digest]
+   [hiccup.core :refer [html]]
    [r99c.layout :as layout]
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
@@ -11,6 +15,26 @@
    [taoensso.timbre :as timbre]))
 
 (timbre/set-level! :debug)
+
+(defn- acc-aux [coll ret]
+  (if (empty? coll)
+    ret
+    (acc-aux (rest coll) (conj ret (+ (last ret) (first coll))))))
+
+(defn- acc [coll]
+  (acc-aux coll [0]))
+
+(defn- to-date-str [s]
+  (-> (str s)
+      (subs 0 10)))
+
+(defn make-period
+  [yyyy mm dd days]
+  (let [start-day (l/to-local-date-time (t/date-time yyyy mm dd))]
+    (->> (take days (p/periodic-seq start-day (t/days 1)))
+         (map to-date-str))))
+
+(def period (make-period 2021 10 11 130))
 
 (defn login
   "return user's login as a string"
@@ -25,40 +49,43 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
-;; SVG plot
-(defn- plot [w h answers]
-  (let [n (count answers)
-        dx (/ w n)
-        counts (map :count answers)]
-    (timbre/debug "plot/answers" (first answers))
-    (timbre/debug "plot/counts:" (first counts))
+(defn- bar-chart [coll w h]
+  (let [n (count coll)
+        dx (/ w n)]
     (into
      [:svg {:width w :height h :viewbox (str "0 0 " w " " h)}
       [:rect {:x 0 :y 0 :width w :height h :fill "#eee"}]
       [:line {:x1 0 :y1 (- h 10) :x2 w :y2 (- h 10) :stroke "black"}]]
-     (for [[x y] (map list (range) counts)]
+     (for [[x y] (map list (range) coll)]
        [:rect
         {:x (* dx x) :y (- h 10 y) :width (/ dx 2) :height y
          :fill "red"}]))))
 
-;; FIXME: client side rendering
+(defn- ->map [rows]
+ (apply merge (map (fn [x] {(:create_at x) (:count x)}) rows)))
+
 (defn status-page
   "display user's status. how many problems he/she solved?"
   [request]
   (let [login (login request)
         solved (map #(:num %) (db/answers-by {:login login}))
         status (map #(solved? solved %) (map :num (db/problems)))
-        all-answers (db/answers-by-date)]
-    (timbre/debug "plot returns:" (plot 300 150 all-answers))
+        individual (db/answers-by-date-login {:login login})
+        all-answers (db/answers-by-date)
+        all-answers-map (->map all-answers)
+        all-answers-coll (for [d period]
+                           (get all-answers-map d 0))
+        svg (bar-chart (map #(/ % 2) all-answers-coll) 600 150)]
     (layout/render
      request
      "status.html"
      {:login login
       :status status
       :recents     (db/recent-answers {:n 10})
-      :my-answers  (db/answers-by-date-login {:login login})
+      :comments    (db/sent-comments {:login login})
+      :individual  individual
       :all-answers all-answers
-      :comments    (db/sent-comments {:login login})})))
+      :all-answers-svg (html svg)})))
 
 (defn problems-page
   "display problems."
