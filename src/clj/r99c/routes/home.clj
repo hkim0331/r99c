@@ -7,7 +7,7 @@
    [clj-time.periodic :as p]
    [clojure.string :as str]
    [digest]
-   [hiccup.core :refer html]
+   [hiccup.core :refer [html]]
    [r99c.layout :as layout]
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
@@ -70,8 +70,8 @@
         map-c (->map ans-c)
         coll-c (for [d period]
                  (get map-c d 0))
-        svg (plot coll-c 300 150)]
-    (timbre/debug "svg" svg)
+        svg (plot (map #(/ % 2) coll-c) 600 150)]
+    ;;(timbre/debug "svg" svg)
     ;;(timbre/debug "map-c" (first map-c) (second map-c))
     ;;(timbre/debug "coll-c" (count coll-c) (first coll-c) (second coll-c))
 

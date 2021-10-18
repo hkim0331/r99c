@@ -36,9 +36,8 @@
       {% endfor %}
     </table>
 
-    <h3>SVG</h3>
-    {{svg}}
-    
+    {{svg|safe}}
+
     <h3>Change Password</h3>
 
     <form method='post' action='/ch_pass'>
