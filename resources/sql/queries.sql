@@ -124,3 +124,7 @@ WHERE a_id = :a_id
 -- :doc how many comments user `login` sent?
 SELECT count(*) FROM comments
 WHERE from_login = :login
+
+-- :name sql-date :? :1
+-- :doc returns java.time.LocalDate object
+SELECT date :start

@@ -2,6 +2,9 @@
   (:require
    [buddy.hashers :as hashers]
    [clj-commons-exec :as exec]
+   [clj-time.core :as t]
+   [clj-time.local :as l]
+   [clj-time.periodic :as p]
    [clojure.string :as str]
    [digest]
    [r99c.layout :as layout]
@@ -11,6 +14,18 @@
    [taoensso.timbre :as timbre]))
 
 (timbre/set-level! :debug)
+
+(defn to-date-str [s]
+ (-> (str s)
+     (subs 0 10)))
+
+(defn make-period
+  [yyyy mm dd days]
+  (let [start-day (l/to-local-date-time (t/date-time yyyy mm dd))]
+    (->> (take days (p/periodic-seq start-day (t/days 1)))
+         (map to-date-str))))
+
+(def period (make-period 2021 10 10 135))
 
 (defn login
   "return user's login as a string"
@@ -48,15 +63,16 @@
   (let [login (login request)
         solved (map #(:num %) (db/answers-by {:login login}))
         status (map #(solved? solved %) (map :num (db/problems)))
-        all-answers (db/answers-by-date)]
-    (timbre/debug "plot returns:" (plot 300 150 all-answers))
+        my-answers  (->> (db/answers-by-date-login {:login login}))
+        all-answers (->> (db/answers-by-date)
+                         (map #(update % :create_at to-date-str)))]
     (layout/render
      request
      "status.html"
      {:login login
       :status status
       :recents     (db/recent-answers {:n 10})
-      :my-answers  (db/answers-by-date-login {:login login})
+      :my-answers  my-answers
       :all-answers all-answers
       :comments    (db/sent-comments {:login login})})))
 
