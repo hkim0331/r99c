@@ -16,8 +16,12 @@ int func_test(void) {
 * graphs
 * routes/ にルート以外のロジックを入れ込みすぎ。
 
+## 0.6.11 - 2021-10-18
+### Bugfix
+- 0.6.10 is a mistake. bug fixed in branch svg-plot.
+
 ## 0.6.10
-エンバグ。admin なのに /admin/ で 500 エラー。
+enbug. 500 error  when access /admin/
 hotfix 0.6.10 start.
 ### Bugfix
 -- simply forgot `name login`. fixed.
