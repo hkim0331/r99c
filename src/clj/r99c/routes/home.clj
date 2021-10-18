@@ -7,6 +7,7 @@
    [clj-time.periodic :as p]
    [clojure.string :as str]
    [digest]
+   [hiccup.core :refer [html]]
    [r99c.layout :as layout]
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
@@ -15,9 +16,9 @@
 
 (timbre/set-level! :debug)
 
-(defn to-date-str [s]
- (-> (str s)
-     (subs 0 10)))
+(defn- to-date-str [s]
+  (-> (str s)
+      (subs 0 10)))
 
 (defn make-period
   [yyyy mm dd days]
@@ -25,7 +26,7 @@
     (->> (take days (p/periodic-seq start-day (t/days 1)))
          (map to-date-str))))
 
-(def period (make-period 2021 10 10 135))
+(def period (make-period 2021 10 11 130))
 
 (defn login
   "return user's login as a string"
@@ -41,41 +42,53 @@
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
 ;; SVG plot
-(defn- plot [w h answers]
-  (let [n (count answers)
-        dx (/ w n)
-        counts (map :count answers)]
-    (timbre/debug "plot/answers" (first answers))
-    (timbre/debug "plot/counts:" (first counts))
+(defn- plot [coll w h]
+  (let [n (count coll)
+        dx (/ w n)]
+    ;;(timbre/debug "plot/answers" (first answers))
+    ;;(timbre/debug "plot/counts:" (first counts))
     (into
      [:svg {:width w :height h :viewbox (str "0 0 " w " " h)}
       [:rect {:x 0 :y 0 :width w :height h :fill "#eee"}]
       [:line {:x1 0 :y1 (- h 10) :x2 w :y2 (- h 10) :stroke "black"}]]
-     (for [[x y] (map list (range) counts)]
+     (for [[x y] (map list (range) coll)]
        [:rect
         {:x (* dx x) :y (- h 10 y) :width (/ dx 2) :height y
          :fill "red"}]))))
 
-;; FIXME: client side rendering
+(defn- ->map [rows]
+ (apply merge (map (fn [x] {(:create_at x) (:count x)}) rows)))
+
 (defn status-page
   "display user's status. how many problems he/she solved?"
   [request]
   (let [login (login request)
         solved (map #(:num %) (db/answers-by {:login login}))
         status (map #(solved? solved %) (map :num (db/problems)))
-        my-answers  (->> (db/answers-by-date-login {:login login}))
-        all-answers (->> (db/answers-by-date)
-                         (map #(update % :create_at to-date-str)))]
+        ans-i (db/answers-by-date-login {:login login})
+        map-i (->map ans-i)
+        coll-i (for [d period]
+                 (get map-i d 0))
+        svg-i (plot coll-i 600 150);;積分しないと。
+        ans-c (db/answers-by-date)
+        map-c (->map ans-c)
+        coll-c (for [d period]
+                 (get map-c d 0))
+        svg (plot (map #(/ % 2) coll-c) 600 150)]
+    ;;(timbre/debug "svg" svg)
+    ;;(timbre/debug "map-c" (first map-c) (second map-c))
+    ;;(timbre/debug "coll-c" (count coll-c) (first coll-c) (second coll-c))
     (layout/render
      request
      "status.html"
      {:login login
       :status status
       :recents     (db/recent-answers {:n 10})
-      :my-answers  my-answers
-      :all-answers all-answers
-      :comments    (db/sent-comments {:login login})})))
-
+      :comments    (db/sent-comments {:login login})
+      :my-answers  ans-i
+      :all-answers ans-c
+      :svg-i (html svg-i)
+      :svg (html svg)})))
 (defn problems-page
   "display problems."
   [request]

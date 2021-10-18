@@ -15,12 +15,13 @@ int func_test(void) {
 * limit answers a day
 * graphs
 * routes/ にルート以外のロジックを入れ込みすぎ。
+* recent 10 の他に、top 10
 
 ## 0.7.0-SNAPSHOT
 - feature/svg-plot ブランチで開発中。date オブジェクトだと、
 org.java.Time.DateTime と java.time.LocalDate の見かけは一緒でもマッチは取れるか？
 面倒なんで、135日分手作業も考えたが、文字列に変換してしまおう。邪道だ。
-- HugSQL で `select date '2021-10-10' + integer '135'` の書き方がわからない。ぎt
+- HugSQL で `select date '2021-10-10' + integer '135'` の書き方がわからない。
 
 ## 0.6.11 - 2021-10-18
 ### Bugfix
