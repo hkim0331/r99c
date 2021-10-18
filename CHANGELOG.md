@@ -16,6 +16,13 @@ int func_test(void) {
 * graphs
 * routes/ にルート以外のロジックを入れ込みすぎ。
 
+## 0.6.10
+エンバグ。admin なのに /admin/ で 500 エラー。
+hotfix 0.6.10 start.
+### Bugfix
+-- simply forgot `name login`. fixed.
+
+### BUG
 ## 0.6.9
 * 旧 r99 から favicon.ico をコピー。
 ## Changed
