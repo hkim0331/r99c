@@ -19,12 +19,14 @@
 
   {% for a in same %}
   <a href='/comment/{{a.id}}'>{{a.login}}</a>
+  &nbsp;
   {% endfor %}
 
   <hr>
 
   {% for a in differ %}
   <a href='/comment/{{a.id}}'>{{a.login}}</a>
+  &nbsp;
   {% endfor %}
 
   </div>

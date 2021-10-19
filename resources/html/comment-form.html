@@ -16,7 +16,7 @@
     <input type='submit' value='comment' class='button is-warning is-small'>
   </form>
 
-  <h3>Who send the same answer with you?</h3>
+  <h3>Who sent the same answer with {{answer.login}}?</h3>
   <p>
     {% for a in same-md5 %}
     {{a.login}}

@@ -21,7 +21,7 @@ int func_test(void) {
 
 ## 0.7.1 - 2021-10-19
 ### Changed
-- status ページの login|capitalize やめた。
+- stop to use capitalize, login|capitalize, in status.html
 ### Added
 - who send the same answer with you?
 
@@ -33,10 +33,9 @@ org.java.Time.DateTime と java.time.LocalDate の見かけは一緒でもマッ
 ### Fixme
 - HugSQL で `select date '2021-10-10' + integer '135'` の書き方がわからない。
 ### Changed
-- 日付を date オブジェクトではなく、文字列として返す。
+- return date as string rather than date object.
 ### Added
-- feature ブランチで SVG プロットできるようになった。
-
+- can plot SVG graphs.
 
 ## 0.6.11 - 2021-10-18
 ### Bugfix
@@ -83,17 +82,17 @@ gitignore する。
 ## 0.6.4 - 2021-10-12
 ## Changed
 * improve status.html individual field, class field, sent comments column
-* コピペ予防 css
+* copy protect CSS
 https://on-ze.com/archives/5744
 
 ## 0.6.3 - 2021-10-12
 ### Added
-* db/answers-by-date ... 何日に回答が何件届いたか？
-* db/answers-bu-date-login ... ユーザ login は何日に回答を何件寄せたか？
+* db/answers-by-date ... how many answers in a day?
+* db/answers-bu-date-login ... how many answers user `login` submited in a day?
 
 ## 0.6.2 - 2021-10-12
 ### Added
-* /ch-pass パスワードを変えられる。
+* /ch-pass to change password.
 
 ## 0.6.1 - 2021-10-12
 ### Changed
@@ -107,8 +106,8 @@ https://on-ze.com/archives/5744
 
 ## 0.5.1 - 2021-10-11
 ### Added
-* /register にバリデーション
-* regisger の説明書き
+* validation for /register
+* doc for /regisger
 ### Changed
 * /answer/:id /comment/:id で表示する問題文を |safe でフィルタした。
 
