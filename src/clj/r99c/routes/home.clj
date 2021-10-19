@@ -49,7 +49,7 @@
 (defn- acc [coll]
   (acc-aux coll [0]))
 
-;;(defn- line-char [coll w h])
+;;(defn- line-chart [coll w h])
 
 (defn- bar-chart [coll w h]
   (let [n (count coll)
