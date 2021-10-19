@@ -28,7 +28,13 @@
         <a href='/comment/{{a.id}}'>{{a.login}}</a>
         &nbsp;
       {% endfor %}</p>
-    <p><b>top 10:</b> (comming soon)</p>
+    <p><b>top 10</b>
+      (include duplicates):
+      {% for user in top-10 %}
+      {{user.login}}({{user.count}})
+      &nbsp;
+      {% endfor %} 
+    </p>
 
     <table>
       <tr><th>date</th><th>answers</th></tr>

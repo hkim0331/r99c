@@ -84,6 +84,7 @@
      "status.html"
      {:login login
       :status status
+      :top-10 (db/top-users {:n 10})
       :problems-solved (-> solved set count)
       :recents      (db/recent-answers {:n 10})
       :comments     (db/sent-comments {:login login})

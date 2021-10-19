@@ -120,6 +120,12 @@ limit :n
 SELECT * FROM answers
 WHERE md5 = :md5
 
+-- :name top-users :? :*
+-- :doc get top n users
+SELECT login, count(num) FROM answers
+GROUP BY login
+ORDER BY count(num) DESC limit :n
+
 -- ----------------
 -- comments section
 -- ----------------
