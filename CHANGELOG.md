@@ -22,7 +22,6 @@ int func_test(void) {
 - display problems solved in status page
 - display top 10 (include duplicates) in status page
 
-
 ## 0.7.1 - 2021-10-19
 ### Changed
 - stop to use capitalize, login|capitalize, in status.html
