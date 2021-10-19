@@ -15,14 +15,14 @@
     <input type='submit' value='submit' class='button is-warning is-small'>
   </form>
 
-  <h3>Answers</h3>
+  <h3>Same Answers</h3>
 
   {% for a in same %}
   <a href='/comment/{{a.id}}'>{{a.login}}</a>
   &nbsp;
   {% endfor %}
 
-  <hr>
+  <h3>Different Answers</h3>
 
   {% for a in differ %}
   <a href='/comment/{{a.id}}'>{{a.login}}</a>
