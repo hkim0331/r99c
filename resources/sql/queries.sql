@@ -24,6 +24,10 @@ WHERE login = :login
 -- :doc get all users
 SELECT * from users;
 
+-- ----------------
+-- problems section
+-- ----------------
+
 -- :name create-problem! :! :n
 -- :doc creates a new problem record
 INSERT INTO problems
@@ -59,6 +63,9 @@ DELETE FROM problems
 -- :doc returns problems count
 SELECT COUNT(*) FROM problems
 
+-- --------------
+-- answers section
+-- --------------
 
 -- :name create-answer! :! :n
 -- :doc creates a new problem record
@@ -107,6 +114,15 @@ ORDER BY create_at::date
 SELECT * FROM answers
 ORDER by id DESC
 limit :n
+
+-- :name answers-same-md5 :? :*
+-- :doc get answers which has same MD5 value
+SELECT * FROM answers
+WHERE md5 = :md5
+
+-- ----------------
+-- comments section
+-- ----------------
 
 -- :name create-comment! :! :n
 -- :doc create a comment on problem number num, answer id a_id
