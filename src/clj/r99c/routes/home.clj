@@ -16,6 +16,31 @@
 
 (timbre/set-level! :debug)
 
+(defn- to-date-str [s]
+  (-> (str s)
+      (subs 0 10)))
+
+(defn- make-period
+  [yyyy mm dd days]
+  (let [start-day (l/to-local-date-time (t/date-time yyyy mm dd))]
+    (->> (take days (p/periodic-seq start-day (t/days 1)))
+         (map to-date-str))))
+
+(def ^:private period (make-period 2021 10 11 130))
+
+(defn login
+  "return user's login as a string"
+  [request]
+  (name (get-in request [:session :identity])))
+
+;; https://stackoverflow.com/questions/16264813/clojure-idiomatic-way-to-call-contains-on-a-lazy-sequence
+(defn- lazy-contains? [col key]
+  (some #{key} col))
+
+(defn- solved?
+  [col n]
+  {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
+
 (defn- acc-aux [coll ret]
   (if (empty? coll)
     ret
@@ -24,30 +49,7 @@
 (defn- acc [coll]
   (acc-aux coll [0]))
 
-(defn- to-date-str [s]
-  (-> (str s)
-      (subs 0 10)))
-
-(defn make-period
-  [yyyy mm dd days]
-  (let [start-day (l/to-local-date-time (t/date-time yyyy mm dd))]
-    (->> (take days (p/periodic-seq start-day (t/days 1)))
-         (map to-date-str))))
-
-(def period (make-period 2021 10 11 130))
-
-(defn login
-  "return user's login as a string"
-  [request]
-  (name (get-in request [:session :identity])))
-
-;; https://stackoverflow.com/questions/16264813/clojure-idiomatic-way-to-call-contains-on-a-lazy-sequence
-(defn lazy-contains? [col key]
-  (some #{key} col))
-
-(defn- solved?
-  [col n]
-  {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
+;;(defn- line-chart [coll w h])
 
 (defn- bar-chart [coll w h]
   (let [n (count coll)
@@ -68,7 +70,8 @@
   "display user's status. how many problems he/she solved?"
   [request]
   (let [login (login request)
-        solved (map #(:num %) (db/answers-by {:login login}))
+        answered (db/answers-by {:login login})
+        solved (map #(:num %) answered)
         status (map #(solved? solved %) (map :num (db/problems)))
         individual (db/answers-by-date-login {:login login})
         all-answers (db/answers-by-date)
@@ -81,8 +84,10 @@
      "status.html"
      {:login login
       :status status
-      :recents     (db/recent-answers {:n 10})
-      :comments    (db/sent-comments {:login login})
+      :top-10 (db/top-users {:n 10})
+      :problems-solved (-> solved set count)
+      :recents      (db/recent-answers {:n 10})
+      :comments     (db/sent-comments {:login login})
       :individual  individual
       :all-answers all-answers
       :all-answers-svg (html svg)})))
@@ -157,12 +162,14 @@
         answer (db/get-answer-by-id {:id id})
         num (:num answer)
         problem (db/get-problem {:num num})
-        comments (db/get-comments {:a_id id})]
+        comments (db/get-comments {:a_id id})
+        same-md5 (db/answers-same-md5 {:md5 (:md5 answer)})]
     (if (db/get-answer {:num num :login (login request)})
       (layout/render request "comment-form.html"
                      {:problem problem
                       :answer answer
-                      :comments comments})
+                      :comments comments
+                      :same-md5 same-md5})
       (layout/render request "error.html"
                      {:status 403
                       :title "Access Forbidden"

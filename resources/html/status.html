@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="content">
-    <h2>{{login|capitalize}}'s Status</h2>
+    <h2>{{login}}'s Status</h2>
 
     <div class="box">
     {% for s in status %}
@@ -14,7 +14,7 @@
     <h4>individual activities</h4>
 
     <p><b>comments sent: </b>{{comments.count}}</p>
-
+    <p><b>problems solved: </b>{{problems-solved}}</p>
     <table>
       <tr><th>date</th><th>answers</th></tr>
       {% for row in individual %}
@@ -25,9 +25,16 @@
     <h4>class activities</h4>
     <p><b>recent 10:</b>
       {% for a in recents %}
-        <a href='/comment/{{a.id}}'>{{a.login}}</a>,
+        <a href='/comment/{{a.id}}'>{{a.login}}</a>
+        &nbsp;
       {% endfor %}</p>
-    <p><b>top 10:</b> (comming soon)</p>
+    <p><b>top 10</b>
+      (include duplicates):
+      {% for user in top-10 %}
+      {{user.login}}({{user.count}})
+      &nbsp;
+      {% endfor %} 
+    </p>
 
     <table>
       <tr><th>date</th><th>answers</th></tr>
