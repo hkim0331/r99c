@@ -11,13 +11,15 @@ int func_test(void) {
 ```
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
 * /admin/comments ... 何をする予定だったっけ？
-* /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れる。
+* /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れるなあ。
 * limit answers a day
 * routes/ にルート以外のロジックを入れ込みすぎ。
-* recent 10 の他に、top 10
 * 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
-* count of solved problems
 
+## 0.7.2-SNAPSHOT
+- top 10
+- solved
+- individual line chart
 
 ## 0.7.1 - 2021-10-19
 ### Changed
