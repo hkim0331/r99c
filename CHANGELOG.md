@@ -14,12 +14,14 @@ int func_test(void) {
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れるなあ。
 * limit answers a day
 * 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
-
-## 0.7.2-SNAPSHOT
-- top 10
-- solved
 - individual line chart
 - namespaces
+
+## 0.7.2 - 2021-10-19
+### Added
+- display problems solved in status page
+- display top 10 (include duplicates) in status page
+
 
 ## 0.7.1 - 2021-10-19
 ### Changed
