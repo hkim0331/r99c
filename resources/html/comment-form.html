@@ -16,6 +16,14 @@
     <input type='submit' value='comment' class='button is-warning is-small'>
   </form>
 
+  <h3>Who send the same answer with you?</h3>
+  <p>
+    {% for a in same-md5 %}
+    {{a.login}}
+    &nbsp;
+    {% endfor %}
+  </p>
+
   <h3>Comments</h3>
   {% for c in comments %}
   <p>from {{c.from_login}}, at {{c.create_at}}</p>
