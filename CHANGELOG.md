@@ -17,12 +17,14 @@ int func_test(void) {
 * recent 10 の他に、top 10
 * 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
 * count of solved problems
-* /comment/:n からその回答と同じ MD5 値の回答へのリンクをリスト。
-  今ある /answer/:n のやつを移動できないか。
 
-## 0.7.1-SNAPSHOT
+
+## 0.7.1 - 2021-10-19
 ### Changed
 - status ページの login|capitalize やめた。
+### Added
+- who send the same answer with you?
+
 
 ## 0.7.0 - 2021-10-18
 - feature/svg-plot ブランチで開発中。date オブジェクトだと、
