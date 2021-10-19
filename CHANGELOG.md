@@ -13,13 +13,13 @@ int func_test(void) {
 * /admin/comments ... 何をする予定だったっけ？
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れるなあ。
 * limit answers a day
-* routes/ にルート以外のロジックを入れ込みすぎ。
 * 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
 
 ## 0.7.2-SNAPSHOT
 - top 10
 - solved
 - individual line chart
+- namespaces
 
 ## 0.7.1 - 2021-10-19
 ### Changed

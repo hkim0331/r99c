@@ -70,7 +70,8 @@
   "display user's status. how many problems he/she solved?"
   [request]
   (let [login (login request)
-        solved (map #(:num %) (db/answers-by {:login login}))
+        answered (db/answers-by {:login login})
+        solved (map #(:num %) answered)
         status (map #(solved? solved %) (map :num (db/problems)))
         individual (db/answers-by-date-login {:login login})
         all-answers (db/answers-by-date)
@@ -83,8 +84,9 @@
      "status.html"
      {:login login
       :status status
-      :recents     (db/recent-answers {:n 10})
-      :comments    (db/sent-comments {:login login})
+      :problems-solved (-> solved set count)
+      :recents      (db/recent-answers {:n 10})
+      :comments     (db/sent-comments {:login login})
       :individual  individual
       :all-answers all-answers
       :all-answers-svg (html svg)})))
