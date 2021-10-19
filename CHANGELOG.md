@@ -16,6 +16,8 @@ int func_test(void) {
 * 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
 - individual line chart
 - namespaces
+- /comment/:n comment please と comments の上下を入れ替えるか？
+
 
 ## 0.7.2 - 2021-10-19
 ### Added
