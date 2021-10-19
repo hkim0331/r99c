@@ -9,9 +9,7 @@
     {% endfor %}
     </div>
 
-    <h3>Activities</h3>
-
-    <h4>individual activities</h4>
+    <h3>Individual Activities</h4>
 
     <p><b>comments sent: </b>{{comments.count}}</p>
     <p><b>problems solved: </b>{{problems-solved}}</p>
@@ -22,7 +20,8 @@
       {% endfor %}
     </table>
 
-    <h4>class activities</h4>
+    <h3>Class Activities</h3>
+
     <p><b>recent 10:</b>
       {% for a in recents %}
         <a href='/comment/{{a.id}}'>{{a.login}}</a>
