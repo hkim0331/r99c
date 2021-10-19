@@ -20,19 +20,19 @@
       {% endfor %}
     </table>
 
-    <h3>Class Activities</h3>
+    <h3>Class Statistics</h3>
 
-    <p><b>recent 10:</b>
+    <p><b>recent 10 answers:</b>
       {% for a in recents %}
         <a href='/comment/{{a.id}}'>{{a.login}}</a>
         &nbsp;
       {% endfor %}</p>
-    <p><b>top 10</b>
+    <p><b>top 10 users</b>
       (include duplicates):
       {% for user in top-10 %}
       {{user.login}}({{user.count}})
       &nbsp;
-      {% endfor %} 
+      {% endfor %}
     </p>
 
     <table>
