@@ -10,7 +10,8 @@ int func_test(void) {
 }
 ```
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
-* /admin/comments ... 何をする予定だったっけ？
+* /admin/comments/to 誰に
+* /admin/comments/from 誰が
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れるなあ。
 * limit answers a day
 * individual line chart 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。

@@ -41,7 +41,11 @@
 
 (defn users-page [request])
 
-(defn comments-page [request])
+(defn comments-page [request]
+  (let [from (db/comments-from)
+        to   (db/comments-to)]
+    (layout/render request "comments.html" {:from from
+                                            :to to})))
 
 (defn admin-routes []
   ["/admin"
