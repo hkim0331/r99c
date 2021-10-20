@@ -13,7 +13,7 @@
 
     <p><b>comments sent: </b>{{comments.count}}<br>
      <b>problems solved: </b>{{problems-solved}}</p>
-    
+
     <table>
       <tr><th>date</th><th>answers</th></tr>
       {% for row in individual %}
@@ -28,8 +28,7 @@
         <a href='/comment/{{a.id}}'>{{a.login}}</a>
         &nbsp;
       {% endfor %}</p>
-    <p><b>top 10 users</b>
-      (include duplicates):
+    <p><b>top 10 users:</b>
       {% for user in top-10 %}
       {{user.login}}({{user.count}})
       &nbsp;
