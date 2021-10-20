@@ -6,16 +6,6 @@
   <p>{{problem.problem|safe}}</p>
   <pre class='nocopy'>{{answer.answer}}</pre>
 
-  <form method='post'>
-    {% csrf-field %}
-    <input type='hidden' name='p_num' value='{{problem.num}}'>
-    <input type='hidden' name='a_id' value='{{answer.id}}'>
-    <input type='hidden' name='to_login' value='{{answer.login}}'>
-    <textarea name='comment' class='textarea'
-              placeholder='comment please'></textarea><br>
-    <input type='submit' value='comment' class='button is-warning is-small'>
-  </form>
-
   <h3>Who sent the same answer with {{answer.login}}?</h3>
   <p>
     {% for a in same-md5 %}
@@ -29,5 +19,16 @@
   <p>from <b>{{c.from_login}}</b>, at {{c.create_at}}</p>
   <pre>{{c.comment}}</pre>
   {% endfor %}
+
+  <form method='post'>
+    {% csrf-field %}
+    <input type='hidden' name='p_num' value='{{problem.num}}'>
+    <input type='hidden' name='a_id' value='{{answer.id}}'>
+    <input type='hidden' name='to_login' value='{{answer.login}}'>
+    <textarea name='comment' class='textarea'
+              placeholder='Your comment please.'></textarea><br>
+    <input type='submit' value='comment' class='button is-warning is-small'>
+  </form>
+
   </div>
 {% endblock %}

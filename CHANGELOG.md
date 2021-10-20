@@ -19,6 +19,10 @@ int func_test(void) {
 - /comment/:n comment please と comments の上下を入れ替えるか？
 
 
+## 0.7.3-SNAPSHOT
+### Changed
+- status.html: move comment form to the bottom of page.
+
 ## 0.7.2 - 2021-10-19
 ### Added
 - display problems solved in status page
