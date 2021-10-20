@@ -10,12 +10,16 @@ int func_test(void) {
 }
 ```
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
-* /admin/comments ... 何をする予定だったっけ？
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れるなあ。
 * limit answers a day
-* 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
-- individual line chart
-- namespaces
+* individual line chart 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
+* namespaces
+
+## 0.7.3 - 2021-10-20
+### Changed
+- status.html: move comment form to bottom of page.
+### Added
+- /admin/comments displays coments from, comments to info.
 
 ## 0.7.2 - 2021-10-19
 ### Added
@@ -27,7 +31,6 @@ int func_test(void) {
 - stop to use capitalize, login|capitalize, in status.html
 ### Added
 - who send the same answer with you?
-
 
 ## 0.7.0 - 2021-10-18
 - feature/svg-plot ブランチで開発中。date オブジェクトだと、

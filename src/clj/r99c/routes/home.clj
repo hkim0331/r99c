@@ -161,7 +161,7 @@
   (let [id (Integer/parseInt (get-in request [:path-params :id]))
         answer (db/get-answer-by-id {:id id})
         num (:num answer)
-        problem (db/get-problem {:num num})
+        problem  (db/get-problem {:num num})
         comments (db/get-comments {:a_id id})
         same-md5 (db/answers-same-md5 {:md5 (:md5 answer)})]
     (if (db/get-answer {:num num :login (login request)})
