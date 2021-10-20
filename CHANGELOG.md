@@ -10,16 +10,16 @@ int func_test(void) {
 }
 ```
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
-* /admin/comments/to 誰に
-* /admin/comments/from 誰が
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れるなあ。
 * limit answers a day
 * individual line chart 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
 * namespaces
 
-## 0.7.3-SNAPSHOT
+## 0.7.3 - 2021-10-20
 ### Changed
 - status.html: move comment form to bottom of page.
+### Added
+- /admin/comments displays coments from, comments to info.
 
 ## 0.7.2 - 2021-10-19
 ### Added
