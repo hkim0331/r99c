@@ -13,8 +13,10 @@ int func_test(void) {
 * /admin/comments ... 何をする予定だったっけ？
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れるなあ。
 * limit answers a day
-* individual line chart 積分グラフ（折れ線）は本日まででプロットを止めないと変なグラフになる。
+* individual line chart は本日まででプロットを止めないと変なグラフになる。
 * namespaces
+* status の individual に comments sent のらん
+
 
 ## 0.7.3-SNAPSHOT
 ### Changed
