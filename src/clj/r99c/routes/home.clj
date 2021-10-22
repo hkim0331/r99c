@@ -84,10 +84,12 @@
      "status.html"
      {:login login
       :status status
+      :comments-rcvd (db/comments-rcvd {:login login})
       :top-10 (db/top-users {:n 10})
       :problems-solved (-> solved set count)
       :recents      (db/recent-answers {:n 10})
       :comments     (db/sent-comments {:login login})
+      :comments-sent (->map (db/sent-comments-days {:login login}))
       :individual  individual
       :all-answers all-answers
       :all-answers-svg (html svg)})))

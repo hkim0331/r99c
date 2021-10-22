@@ -11,13 +11,21 @@
 
     <h3>Individual Activities</h4>
 
-    <p><b>comments sent: </b>{{comments.count}}<br>
-     <b>problems solved: </b>{{problems-solved}}</p>
+    <p>
+      <b>omments received:</b>
+      {% for c in comments-rcvd %}
+      <a href='/comment/{{c.a_id}}'>{{c.p_num}}</a>
+      &nbsp;
+      {% endfor %}<br>
+      <b>comments sent: </b>{{comments.count}}<br>
+      <b>problems solved: </b>{{problems-solved}}</p>
 
     <table>
-      <tr><th>date</th><th>answers</th></tr>
+      <tr><th>date</th><th>answers</th><th>comments sent</th></tr>
       {% for row in individual %}
-        <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
+        <tr><td>{{row.create_at}}</td>
+            <td>{{row.count}}</td>
+            <td>under construction</td></tr>
       {% endfor %}
     </table>
 

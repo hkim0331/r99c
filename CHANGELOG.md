@@ -13,10 +13,10 @@ int func_test(void) {
 * /admin/comments ... 何をする予定だったっけ？
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れるなあ。
 * limit answers a day
-* individual line chart は本日まででプロットを止めないと変なグラフになる。
+* individual line chart 本日まででプロットを止めないと変なグラフになる。
 * namespaces
 * status の individual に comments sent のらん
-
+* status に comments received のリスト
 
 ## 0.7.3-SNAPSHOT
 ### Changed
