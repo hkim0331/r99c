@@ -16,9 +16,11 @@ int func_test(void) {
 * individual line chart 本日まででプロットを止めないと変なグラフになる。
 * namespaces
 * status の individual に comments sent のらん
-* status に comments received のリスト
 
-## 0.7.3-SNAPSHOT
+
+## 0.7.3 - 2021-10-22
+### Added
+- status に comments received のリストを表示、/comment/a_id にリンク。
 ### Changed
 - status.html: move comment form to bottom of page.
 
