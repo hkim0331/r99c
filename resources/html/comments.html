@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="content">
+  <h2>Comments</h2>
+  <h3>from who</h3>
+  <table>
+  {% for r in from %}
+  <tr><td>{{r.count}}</td><td>{{r.from_login}}</td></tr>
+  {% endfor %}
+  </table>
+
+  <h3>to who</h3>
+  <table>
+  {% for r in to %}
+  <tr><td>{{r.count}}</td><td>{{r.to_login}}</td></tr>
+  {% endfor %}
+  </table>
+
+  </div>
+{% endblock %}
