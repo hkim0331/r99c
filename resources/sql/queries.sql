@@ -159,3 +159,15 @@ ORDER BY create_at::date;
 SELECT * from comments
 where to_login = :login
 order by p_num
+
+-- :name comments-from :? :*
+-- :doc retrieve all comments
+SELECT from_login, count(*) from comments
+GROUP BY from_login
+ORDER BY count(*) DESC;
+
+-- :name comments-to :? :*
+-- :doc retrieve all comments
+SELECT to_login, count(*) from comments
+GROUP BY to_login
+ORDER BY count(*) DESC;

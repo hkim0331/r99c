@@ -10,7 +10,6 @@ int func_test(void) {
 }
 ```
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
-* /admin/comments ... 何をする予定だったっけ？
 * /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れるなあ。
 * limit answers a day
 * individual line chart 本日まででプロットを止めないと変なグラフになる。
@@ -23,6 +22,8 @@ int func_test(void) {
 - status に comments received のリストを表示、/comment/a_id にリンク。
 ### Changed
 - status.html: move comment form to bottom of page.
+### Added
+- /admin/comments displays coments from, comments to info.
 
 ## 0.7.2 - 2021-10-19
 ### Added
