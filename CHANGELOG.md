@@ -19,7 +19,7 @@ int func_test(void) {
 
 ## 0.7.3 - 2021-10-22
 ### Added
-- status に comments received のリストを表示、/comment/a_id にリンク。
+- links to answers which has some comments
 ### Changed
 - status.html: move comment form to bottom of page.
 ### Added
@@ -37,7 +37,7 @@ int func_test(void) {
 - who send the same answer with you?
 
 ## 0.7.0 - 2021-10-18
-- feature/svg-plot ブランチで開発中。date オブジェクトだと、
+- feature/svg-plot branch. date オブジェクトだと、
 org.java.Time.DateTime と java.time.LocalDate の見かけは一緒でもマッチは取れるか？
 面倒だ、文字列に変換してしまおう。
 ### Fixme
