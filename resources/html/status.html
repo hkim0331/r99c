@@ -9,31 +9,38 @@
     {% endfor %}
     </div>
 
-    <h3>Activities</h3>
+    <h3>Individual Activities</h4>
 
-    <h4>individual activities</h4>
+    <p>
+      <b>omments received:</b>
+      {% for c in comments-rcvd %}
+      <a href='/comment/{{c.a_id}}'>{{c.p_num}}</a>
+      &nbsp;
+      {% endfor %}<br>
+      <b>comments sent: </b>{{comments.count}}<br>
+      <b>problems solved: </b>{{problems-solved}}</p>
 
-    <p><b>comments sent: </b>{{comments.count}}</p>
-    <p><b>problems solved: </b>{{problems-solved}}</p>
     <table>
-      <tr><th>date</th><th>answers</th></tr>
+      <tr><th>date</th><th>answers</th><th>comments sent</th></tr>
       {% for row in individual %}
-        <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
+        <tr><td>{{row.create_at}}</td>
+            <td>{{row.count}}</td>
+            <td>under construction</td></tr>
       {% endfor %}
     </table>
 
-    <h4>class activities</h4>
-    <p><b>recent 10:</b>
+    <h3>Class Statistics</h3>
+
+    <p><b>recent 10 answers:</b>
       {% for a in recents %}
         <a href='/comment/{{a.id}}'>{{a.login}}</a>
         &nbsp;
       {% endfor %}</p>
-    <p><b>top 10</b>
-      (include duplicates):
+    <p><b>top 10 users:</b>
       {% for user in top-10 %}
       {{user.login}}({{user.count}})
       &nbsp;
-      {% endfor %} 
+      {% endfor %}
     </p>
 
     <table>

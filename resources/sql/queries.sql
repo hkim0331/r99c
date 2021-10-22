@@ -147,6 +147,15 @@ WHERE a_id = :a_id
 SELECT count(*) FROM comments
 WHERE from_login = :login
 
--- :name sql-date :? :1
--- :doc returns java.time.LocalDate object
-SELECT date :start
+-- :name sent-comments-days :? :*
+-- :doc how many comments `loign` sent in days?
+SELECT create_at::date::text, count(*) FROM comments
+WHERE from_login= :login
+GROUP BY create_at::date
+ORDER BY create_at::date;
+
+-- :name comments-rcvd :? :*
+-- :doc list of comments received
+SELECT * from comments
+where to_login = :login
+order by p_num

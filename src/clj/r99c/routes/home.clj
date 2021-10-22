@@ -84,10 +84,12 @@
      "status.html"
      {:login login
       :status status
+      :comments-rcvd (db/comments-rcvd {:login login})
       :top-10 (db/top-users {:n 10})
       :problems-solved (-> solved set count)
       :recents      (db/recent-answers {:n 10})
       :comments     (db/sent-comments {:login login})
+      :comments-sent (->map (db/sent-comments-days {:login login}))
       :individual  individual
       :all-answers all-answers
       :all-answers-svg (html svg)})))
@@ -161,7 +163,7 @@
   (let [id (Integer/parseInt (get-in request [:path-params :id]))
         answer (db/get-answer-by-id {:id id})
         num (:num answer)
-        problem (db/get-problem {:num num})
+        problem  (db/get-problem {:num num})
         comments (db/get-comments {:a_id id})
         same-md5 (db/answers-same-md5 {:md5 (:md5 answer)})]
     (if (db/get-answer {:num num :login (login request)})
