@@ -7,8 +7,7 @@
    [clj-time.periodic :as p]
    [clojure.string :as str]
    [digest]
-   [hiccup.core :refer [html]]
-   [r99c.charts :refer [bar-chart class-chart]]
+   [r99c.charts :refer [class-chart individual-chart]]
    [r99c.db.core :as db]
    [r99c.layout :as layout]
    [r99c.middleware :as middleware]
@@ -53,11 +52,7 @@
   (let [login (login request)
         solved (map #(:num %) (db/answers-by {:login login}))
         individual (db/answers-by-date-login {:login login})
-        all-answers (db/answers-by-date)
-        all-answers-map (->date-count all-answers)
-        ;; ここで period 全体のデータに伸ばしている
-        all-answers-coll (for [d period]
-                           (get all-answers-map d 0))]
+        all-answers (db/answers-by-date)]
     (layout/render
      request
      "status.html"
@@ -71,8 +66,7 @@
       :comments-sent (->date-count (db/sent-comments-days {:login login}))
       :individual  []
       :all-answers []
-      :individual-chart
-      (html (bar-chart (map #(/ % 2) all-answers-coll) 600 150))
+      :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)})))
 
 (defn problems-page

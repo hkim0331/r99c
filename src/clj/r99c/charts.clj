@@ -35,3 +35,10 @@
         coll (for [d period]
                (get tmp d 0))]
     (html (bar-chart (map #(/ % 2) coll) width height))))
+
+(defn individual-chart
+ [answers period width height]
+ (let [tmp (->date-count answers)
+       coll (for [d period]
+              (get tmp d 0))]
+   (html (bar-chart (map #(/ % 2) coll) width height))))
