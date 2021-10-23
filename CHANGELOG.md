@@ -10,20 +10,25 @@ int func_test(void) {
 }
 ```
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
-* /comment, comment のフォーマット...どうしろと？もっと具体的に書いておかないと忘れるなあ。
 * limit answers a day
 * individual line chart 本日まででプロットを止めないと変なグラフになる。
-* namespaces
-* status の individual に comments sent のらん
+
+## 0.8.0 - 2021-10-23
+### Added
+- charts.clj: routes/home.clj に詰め込み過ぎを改める。
+- individual chart as a bar chart.
+- cleanup routes.home/status-page
+### Removed
+- :individual, :class parameters from status.html
 
 
 ## 0.7.3 - 2021-10-22
 ### Added
 - links to answers which has some comments
+- comments sent fields at status.html individual
+- /admin/comments displays coments from, comments to info.
 ### Changed
 - status.html: move comment form to bottom of page.
-### Added
-- /admin/comments displays coments from, comments to info.
 
 ## 0.7.2 - 2021-10-19
 ### Added

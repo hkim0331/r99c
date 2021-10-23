@@ -64,8 +64,6 @@
       :recents      (db/recent-answers {:n 10})
       :comments     (db/sent-comments {:login login})
       :comments-sent (->date-count (db/sent-comments-days {:login login}))
-      :individual  []
-      :all-answers []
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)})))
 
