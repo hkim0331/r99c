@@ -119,8 +119,8 @@
                           :num (Integer/parseInt num)
                           :answer answer
                           :md5 (-> answer strip-answer digest/md5)})
-      ;; restrict answers a day
-      (redirect "/")
+      ;; changed, return to the problem page just solved
+      (redirect (str "/answer/" num))
       (catch Exception e
         (redirect (str "/answer/" num))))))
 

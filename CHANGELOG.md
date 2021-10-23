@@ -13,6 +13,10 @@ int func_test(void) {
 * limit answers a day
 * individual line chart 本日まででプロットを止めないと変なグラフになる。
 
+## 0.8.1-SNAPSHOT
+### Changed
+- return to the problem page just solved
+
 ## 0.8.0 - 2021-10-23
 ### Added
 - charts.clj: routes/home.clj に詰め込み過ぎを改める。
