@@ -9,7 +9,9 @@
     {% endfor %}
     </div>
 
-    <h3>Individual Activities</h4>
+   <h3>Individual Activities</h4>
+
+    {{individual-chart|safe}}
 
     <p>
       <b>comments received:</b>
@@ -19,7 +21,7 @@
       {% endfor %}<br>
       <b>comments sent: </b>{{comments.count}}<br>
       <b>problems solved: </b>{{problems-solved}}</p>
-
+<!--
     <table>
       <tr><th>date</th><th>answers</th><th>comments sent</th></tr>
       {% for row in individual %}
@@ -28,30 +30,33 @@
             <td>under construction</td></tr>
       {% endfor %}
     </table>
+  -->
 
     <h3>Class Statistics</h3>
 
+    {{class-chart|safe}}
+
     <p>
-      <b>recent 10 answers:</b>
+      <b>recent 10:</b>
       {% for a in recents %}
         <a href='/comment/{{a.id}}'>{{a.login}}</a>
         &nbsp;
       {% endfor %}</br>
-      <b>top 10 users:</b>
+      <b>top 10:</b>
       {% for user in top-10 %}
       {{user.login}}({{user.count}})
       &nbsp;
       {% endfor %}
     </p>
-
+<!--
     <table>
       <tr><th>date</th><th>answers</th></tr>
       {% for row in all-answers %}
         <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
       {% endfor %}
     </table>
-
-    {{all-answers-svg|safe}}
+  -->
+  <hr>
 
     <h3>Change Password</h3>
 
