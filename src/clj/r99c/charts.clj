@@ -41,4 +41,4 @@
  (let [tmp (->date-count answers)
        coll (for [d period]
               (get tmp d 0))]
-   (html (bar-chart (map #(* % 10) coll) width height))))
+   (html (bar-chart (map #(* % 15) coll) width height))))

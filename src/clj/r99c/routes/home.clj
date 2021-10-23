@@ -41,11 +41,6 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
-(defn- ->date-count
-  [coll]
-  (zipmap (map (comp val first)  coll)
-          (map (comp val second) coll)))
-
 (defn status-page
   "display user's status. how many problems he/she solved?"
   [request]
@@ -61,9 +56,8 @@
       :comments-rcvd (db/comments-rcvd {:login login})
       :top-10 (db/top-users {:n 10})
       :problems-solved (-> solved set count)
-      :recents      (db/recent-answers {:n 10})
-      :comments     (db/sent-comments {:login login})
-      :comments-sent (->date-count (db/sent-comments-days {:login login}))
+      :recents (db/recent-answers {:n 10})
+      :comments (db/sent-comments {:login login})
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)})))
 
@@ -125,6 +119,7 @@
                           :num (Integer/parseInt num)
                           :answer answer
                           :md5 (-> answer strip-answer digest/md5)})
+      ;; restrict answers a day
       (redirect "/")
       (catch Exception e
         (redirect (str "/answer/" num))))))
