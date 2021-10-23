@@ -9,7 +9,9 @@
     {% endfor %}
     </div>
 
-    <h3>Individual Activities</h4>
+   <h3>Individual Activities</h4>
+
+    {{individual-chart|safe}}
 
     <p>
       <b>comments received:</b>
@@ -31,6 +33,8 @@
 
     <h3>Class Statistics</h3>
 
+    {{class-chart|safe}}
+
     <p>
       <b>recent 10 answers:</b>
       {% for a in recents %}
@@ -51,7 +55,7 @@
       {% endfor %}
     </table>
 
-    {{all-answers-svg|safe}}
+  <hr>
 
     <h3>Change Password</h3>
 

@@ -8,8 +8,9 @@
    [clojure.string :as str]
    [digest]
    [hiccup.core :refer [html]]
-   [r99c.layout :as layout]
+   [r99c.charts :refer [bar-chart]]
    [r99c.db.core :as db]
+   [r99c.layout :as layout]
    [r99c.middleware :as middleware]
    [ring.util.response :refer [redirect]]
    [taoensso.timbre :as timbre]))
@@ -41,58 +42,37 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
-(defn- acc-aux [coll ret]
-  (if (empty? coll)
-    ret
-    (acc-aux (rest coll) (conj ret (+ (last ret) (first coll))))))
-
-(defn- acc [coll]
-  (acc-aux coll [0]))
-
-;;(defn- line-chart [coll w h])
-
-(defn- bar-chart [coll w h]
-  (let [n (count coll)
-        dx (/ w n)]
-    (into
-     [:svg {:width w :height h :viewbox (str "0 0 " w " " h)}
-      [:rect {:x 0 :y 0 :width w :height h :fill "#eee"}]
-      [:line {:x1 0 :y1 (- h 10) :x2 w :y2 (- h 10) :stroke "black"}]]
-     (for [[x y] (map list (range) coll)]
-       [:rect
-        {:x (* dx x) :y (- h 10 y) :width (/ dx 2) :height y
-         :fill "red"}]))))
-
 (defn- ->map [rows]
- (apply merge (map (fn [x] {(:create_at x) (:count x)}) rows)))
+  (apply merge (map (fn [x] {(:create_at x) (:count x)}) rows)))
 
 (defn status-page
   "display user's status. how many problems he/she solved?"
   [request]
   (let [login (login request)
-        answered (db/answers-by {:login login})
-        solved (map #(:num %) answered)
-        status (map #(solved? solved %) (map :num (db/problems)))
+        solved (map #(:num %) (db/answers-by {:login login}))
         individual (db/answers-by-date-login {:login login})
         all-answers (db/answers-by-date)
         all-answers-map (->map all-answers)
         all-answers-coll (for [d period]
-                           (get all-answers-map d 0))
-        svg (bar-chart (map #(/ % 2) all-answers-coll) 600 150)]
+                           (get all-answers-map d 0))]
+        ;svg (bar-chart (map #(/ % 2) all-answers-coll) 600 150)]
     (layout/render
      request
      "status.html"
      {:login login
-      :status status
+      :status (map #(solved? solved %) (map :num (db/problems)))
       :comments-rcvd (db/comments-rcvd {:login login})
       :top-10 (db/top-users {:n 10})
       :problems-solved (-> solved set count)
       :recents      (db/recent-answers {:n 10})
       :comments     (db/sent-comments {:login login})
       :comments-sent (->map (db/sent-comments-days {:login login}))
-      :individual  individual
-      :all-answers all-answers
-      :all-answers-svg (html svg)})))
+      :individual  []
+      :all-answers []
+      :individual-chart
+      (html (bar-chart (map #(/ % 2) all-answers-coll) 600 150))
+      :class-chart
+      (html (bar-chart (map #(/ % 2) all-answers-coll) 600 150))})))
 
 (defn problems-page
   "display problems."
@@ -177,7 +157,6 @@
                       :title "Access Forbidden"
                       :message "まず自分で解いてから。"}))))
 
-;; FIXME: better way?
 (defn create-comment! [request]
   (let [params (:params request)]
     (db/create-comment! {:from_login (login request)
