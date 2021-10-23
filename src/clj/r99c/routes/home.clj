@@ -8,7 +8,7 @@
    [clojure.string :as str]
    [digest]
    [hiccup.core :refer [html]]
-   [r99c.charts :refer [bar-chart]]
+   [r99c.charts :refer [bar-chart class-chart]]
    [r99c.db.core :as db]
    [r99c.layout :as layout]
    [r99c.middleware :as middleware]
@@ -42,8 +42,10 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
-(defn- ->map [rows]
-  (apply merge (map (fn [x] {(:create_at x) (:count x)}) rows)))
+(defn- ->date-count
+  [coll]
+  (zipmap (map (comp val first)  coll)
+          (map (comp val second) coll)))
 
 (defn status-page
   "display user's status. how many problems he/she solved?"
@@ -52,10 +54,10 @@
         solved (map #(:num %) (db/answers-by {:login login}))
         individual (db/answers-by-date-login {:login login})
         all-answers (db/answers-by-date)
-        all-answers-map (->map all-answers)
+        all-answers-map (->date-count all-answers)
+        ;; ここで period 全体のデータに伸ばしている
         all-answers-coll (for [d period]
                            (get all-answers-map d 0))]
-        ;svg (bar-chart (map #(/ % 2) all-answers-coll) 600 150)]
     (layout/render
      request
      "status.html"
@@ -66,13 +68,12 @@
       :problems-solved (-> solved set count)
       :recents      (db/recent-answers {:n 10})
       :comments     (db/sent-comments {:login login})
-      :comments-sent (->map (db/sent-comments-days {:login login}))
+      :comments-sent (->date-count (db/sent-comments-days {:login login}))
       :individual  []
       :all-answers []
       :individual-chart
       (html (bar-chart (map #(/ % 2) all-answers-coll) 600 150))
-      :class-chart
-      (html (bar-chart (map #(/ % 2) all-answers-coll) 600 150))})))
+      :class-chart (class-chart all-answers period 600 150)})))
 
 (defn problems-page
   "display problems."

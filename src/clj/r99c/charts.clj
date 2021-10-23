@@ -1,4 +1,5 @@
-(ns r99c.charts)
+(ns r99c.charts
+  (:require [hiccup.core :refer [html]]))
 
 (defn- acc-aux [coll ret]
   (if (empty? coll)
@@ -10,6 +11,7 @@
 
 ;;(defn- line-chart [coll w h])
 
+;; name class-chart?
 (defn bar-chart [coll w h]
   (let [n (count coll)
         dx (/ w n)]
@@ -21,3 +23,15 @@
        [:rect
         {:x (* dx x) :y (- h 10 y) :width (/ dx 2) :height y
          :fill "red"}]))))
+
+(defn- ->date-count
+  [coll]
+  (zipmap (map (comp val first)  coll)
+          (map (comp val second) coll)))
+
+(defn class-chart
+  [answers period width height]
+  (let [tmp (->date-count answers)
+        coll (for [d period]
+               (get tmp d 0))]
+    (html (bar-chart (map #(/ % 2) coll) width height))))
