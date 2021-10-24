@@ -15,10 +15,12 @@ int func_test(void) {
 あるいは /admin/problems を廃止して入れ替えるか。
 
 
-## 0.8.1-SNAPSHOT
+## 0.8.1 - 2021-10-24
 ### Changed
 - return to the problem-page just solved.
 - remove `hkimura` from  top 10, recent 10 lists.
+### Added
+- link to /answer/num from comment-form.html
 
 ## 0.8.0 - 2021-10-23
 ### Added
