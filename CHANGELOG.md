@@ -13,11 +13,12 @@ int func_test(void) {
 * limit answers a day
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
-* top 10, recent 10 から hkimura を抜く。SQL 調整すればいいやろ。
+
 
 ## 0.8.1-SNAPSHOT
 ### Changed
-- return to the problem page just solved
+- return to the problem-page just solved.
+- remove `hkimura` from  top 10, recent 10 lists.
 
 ## 0.8.0 - 2021-10-23
 ### Added
