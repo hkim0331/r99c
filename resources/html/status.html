@@ -9,7 +9,7 @@
     {% endfor %}
     </div>
 
-   <h3>Individual Activities</h4>
+   <h3>{{login}} Activities</h4>
 
     {{individual-chart|safe}}
 
@@ -42,7 +42,7 @@
         <a href='/comment/{{a.id}}'>{{a.login}}</a>
         &nbsp;
       {% endfor %}</br>
-      <b>top 10:</b>
+      <b>top 20:</b>
       {% for user in top-10 %}
       {{user.login}}({{user.count}})
       &nbsp;
@@ -58,7 +58,7 @@
   -->
   <hr>
 
-    <h3>Change Password</h3>
+    <h3>Change {{login}}'s password</h3>
 
     <form method='post' action='/ch_pass'>
       {% csrf-field %}
