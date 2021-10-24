@@ -1,17 +1,17 @@
 (ns r99c.charts
   (:require [hiccup.core :refer [html]]))
 
-(defn- acc-aux [coll ret]
-  (if (empty? coll)
-    ret
-    (acc-aux (rest coll) (conj ret (+ (last ret) (first coll))))))
+;; no use
+;; (defn- acc-aux [coll ret]
+;;   (if (empty? coll)
+;;     ret
+;;     (acc-aux (rest coll) (conj ret (+ (last ret) (first coll))))))
 
-(defn- acc [coll]
-  (acc-aux coll [0]))
+;; (defn- acc [coll]
+;;   (acc-aux coll [0]))
 
-;;(defn- line-chart [coll w h])
+;; (defn- line-chart [coll w h])
 
-;; name class-chart?
 (defn bar-chart [coll w h]
   (let [n (count coll)
         dx (/ w n)]
@@ -37,8 +37,8 @@
     (html (bar-chart (map #(/ % 2) coll) width height))))
 
 (defn individual-chart
- [answers period width height]
- (let [tmp (->date-count answers)
-       coll (for [d period]
-              (get tmp d 0))]
-   (html (bar-chart (map #(* % 10) coll) width height))))
+  [answers period width height]
+  (let [tmp (->date-count answers)
+        coll (for [d period]
+               (get tmp d 0))]
+    (html (bar-chart (map #(* % 13) coll) width height))))
