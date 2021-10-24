@@ -11,7 +11,9 @@ int func_test(void) {
 ```
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
 * limit answers a day
-* individual line chart 本日まででプロットを止めないと変なグラフになる。
+* /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
+あるいは /admin/problems を廃止して入れ替えるか。
+* top 10, recent 10 から hkimura を抜く。SQL 調整すればいいやろ。
 
 ## 0.8.1-SNAPSHOT
 ### Changed
@@ -24,7 +26,6 @@ int func_test(void) {
 - cleanup routes.home/status-page
 ### Removed
 - :individual, :class parameters from status.html
-
 
 ## 0.7.3 - 2021-10-22
 ### Added
@@ -90,7 +91,8 @@ gitignore する。
 
 ## 0.6.6 - 2021-10-17
 ### Fixed
-* 回答つけてないユーザは /comment/:n を見れない。home/comment-from に細工。403 を返す。
+* 回答つけてないユーザは /comment/:n を見れない。home/comment-from に細工。
+403 を返す。
 
 ## 0.6.5 - 2021-10-17
 ### Added
@@ -179,7 +181,6 @@ https://bulma.io/documentation/overview/colors/
 * deply test onto app.melt.
 
 ## 0.3.0 - 2021-10-06
-
 ### Added
 * define problems table
 * seed problems (99) from `R99.html` by r99c.seed.core/seed-problems!
@@ -199,9 +200,8 @@ https://bulma.io/documentation/overview/colors/
 * gitignore .vsode/
 * authentication
 * access restriction
-
 ### Changed
-* lein angient upgrade
+* lein ancient upgrade
 
 ## 0.1.0 - 2021-10-04
 * project started.
