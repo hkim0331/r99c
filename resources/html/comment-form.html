@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="content">
-  <h2>{{answer.login}}'s answer to Problem {{problem.num}},
+  <h2>{{answer.login}}'s answer to
+    <a href='/answer/{{problem.num}}'>Problem {{problem.num}}</a>,
     {{answer.create_at|date:shortDateTime}}</h2>
   <p>{{problem.problem|safe}}</p>
   <pre class='nocopy'>{{answer.answer}}</pre>

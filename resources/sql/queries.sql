@@ -112,6 +112,7 @@ ORDER BY create_at::date
 -- :name recent-answers :? :*
 -- :doc fetch recent n answers
 SELECT * FROM answers
+WHERE login != 'hkimura'
 ORDER by id DESC
 limit :n
 
@@ -123,6 +124,7 @@ WHERE md5 = :md5
 -- :name top-users :? :*
 -- :doc get top n users
 SELECT login, count(num) FROM answers
+WHERE login != 'hkimura'
 GROUP BY login
 ORDER BY count(num) DESC limit :n
 
