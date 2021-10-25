@@ -178,4 +178,4 @@ ORDER BY count(*) DESC;
 -- :doc  comments sent from from_login
 SELECT * from comments
 WHERE from_login = :login
-ORDER BY create_at;
+ORDER BY create_at DESC;
