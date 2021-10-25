@@ -17,6 +17,10 @@ int func_test(void) {
 * comments sent から自分の送った回答へのリンク。
 
 
+## 0.8.3 - 2021-10-25
+### Added
+- /comments-sent/:login login はどの問題にコメントしたか？
+
 ## 0.8.2 - 2021-10-25
 ### Added
 - respouces/public/numbers.txt

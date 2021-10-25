@@ -19,7 +19,8 @@
       <a href='/comment/{{c.a_id}}'>{{c.p_num}}</a>
       &nbsp;
       {% endfor %}<br>
-      <b>comments sent: </b>{{comments.count}}<br>
+      <b>comments sent: </b>
+      <a href='/comments-sent/{{login}}'>{{comments.count}}</a><br>
       <b>problems solved: </b>{{problems-solved}}/99</p>
 <!--
     <table>
