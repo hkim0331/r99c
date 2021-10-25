@@ -14,10 +14,11 @@ int func_test(void) {
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
 
-## 0.8.2-SNAPSHOT
+## 0.8.2 - 2021-10-25
 ### Added
 - respouces/public/numbers.txt
-### Changed
+- replit.com 等で動作確認してから submit すること。動作確認せずにsubmit は減点。
+q### Changed
 - status.html: problems solved: n/99
 
 ## 0.8.1 - 2021-10-24

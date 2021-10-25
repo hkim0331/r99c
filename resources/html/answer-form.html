@@ -9,7 +9,8 @@
   <form method='post'>
     {% csrf-field %}
     <input type='hidden' name='num' value='{{problem.num}}'>
-    <textarea name='answer' class='textarea'></textarea><br>
+    <textarea name='answer' class='textarea'
+     placeholder='replit.com 等で動作確認してから submit すること。動作確認せずにsubmit は減点。'></textarea><br>
     <p>test code:</p>
     <pre>{{problem.test}}</pre>
     <input type='submit' value='submit' class='button is-warning is-small'>
