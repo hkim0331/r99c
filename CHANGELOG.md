@@ -14,6 +14,10 @@ int func_test(void) {
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
 
+## 0.8.3 - 2021-10-25
+### Added
+- /comments-sent/:login login はどの問題にコメントしたか？
+
 ## 0.8.2 - 2021-10-25
 ### Added
 - respouces/public/numbers.txt
