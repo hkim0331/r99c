@@ -13,7 +13,16 @@ int func_test(void) {
 * limit answers a day
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
+* comments received を unique 化する。
+* comments sent から自分の送った回答へのリンク。
 
+
+## 0.8.2 - 2021-10-25
+### Added
+- respouces/public/numbers.txt
+- replit.com 等で動作確認してから submit すること。動作確認せずに submit は減点。
+q### Changed
+- status.html: problems solved: n/99
 
 ## 0.8.1 - 2021-10-24
 ### Changed
@@ -196,7 +205,6 @@ https://bulma.io/documentation/overview/colors/
 * Logout
 ### Changed
 * git unignore *.sql
-
 
 ## 0.1.1 - 2021-10-04
 ### Added
