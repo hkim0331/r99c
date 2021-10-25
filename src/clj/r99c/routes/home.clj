@@ -154,6 +154,12 @@
                          :a_id (Integer/parseInt (:a_id params))})
     (redirect "/")))
 
+(defn comments-sent [request]
+  (let [login (get-in request [:path-params :login])
+        sent (db/comments-sent {:login login})]
+    ;;(timbre/debug  "login" login "sent" sent)
+    (layout/render request "comments-sent.html" {:sent sent})))
+
 (defn ch-pass [{{:keys [old new]} :params :as request}]
   (let [login (login request)
         user (db/get-user {:login login})]
@@ -175,4 +181,5 @@
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]
    ["/comment/:id" {:get  comment-form
-                    :post create-comment!}]])
+                    :post create-comment!}]
+   ["/comments-sent/:login" {:get comments-sent}]])

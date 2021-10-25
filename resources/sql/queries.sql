@@ -173,3 +173,9 @@ ORDER BY count(*) DESC;
 SELECT to_login, count(*) from comments
 GROUP BY to_login
 ORDER BY count(*) DESC;
+
+-- :name comments-sent :? :*
+-- :doc  comments sent from from_login
+SELECT * from comments
+WHERE from_login = :login
+ORDER BY create_at;
