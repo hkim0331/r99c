@@ -2,10 +2,10 @@
 {% block content %}
   <div class="content">
   <h2>Comments Sent</h2>
-  <ul>
+  <ol>
     {% for item in sent %}
     <li><a href='/comment/{{item.a_id}}'>{{item.p_num}}</a></li>
     {% endfor %}
-  </ul>
+  </ol>
   </div>
 {% endblock %}
