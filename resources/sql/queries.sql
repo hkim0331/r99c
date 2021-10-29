@@ -159,8 +159,8 @@ ORDER BY create_at::date;
 -- :name comments-rcvd :? :*
 -- :doc list of comments received
 SELECT * from comments
-where to_login = :login
-order by p_num
+WHERE to_login = :login
+ORDER BY create_at DESC;
 
 -- :name comments-from :? :*
 -- :doc retrieve all comments
@@ -178,4 +178,4 @@ ORDER BY count(*) DESC;
 -- :doc  comments sent from from_login
 SELECT * from comments
 WHERE from_login = :login
-ORDER BY create_at;
+ORDER BY create_at DESC;
