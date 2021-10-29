@@ -13,13 +13,13 @@ int func_test(void) {
 * limit answers a day
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
-* comments received を unique 化する。
 
 
-## 0.8.4-SNAPSHOT
+## 0.8.4 - 2021-10-29
 ### Changed
 - comments-sent を create_at DESC順に。
 - comment-form.html: placeholder='Your comment please. 適当な場所で改行してください。'
+- comments received order by create_at desc;
 
 ## 0.8.3 - 2021-10-25
 ### Added
