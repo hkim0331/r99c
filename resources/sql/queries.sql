@@ -7,7 +7,7 @@ VALUES (:sid, :name, :login, :password)
 -- :name update-user! :! :n
 -- :doc updates an existing user record
 UPDATE users
-SET password = :password
+SET password = :password, update_at = CURRENT_TIMESTAMP
 WHERE login= :login
 
 -- :name get-user :? :1
