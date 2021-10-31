@@ -176,6 +176,12 @@ ORDER BY count(*) DESC;
 
 -- :name comments-sent :? :*
 -- :doc  comments sent from from_login
-SELECT * from comments
+SELECT * FROM comments
 WHERE from_login = :login
 ORDER BY create_at DESC;
+
+-- :name recent-comments :? :*
+-- :doc retrieve recent n comments
+SELECT * FROM comments
+ORDER BY create_at DESC
+limit :n

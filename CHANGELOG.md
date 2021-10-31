@@ -14,13 +14,17 @@ int func_test(void) {
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
 
+## 0.8.6 - 2021-10-31
+### Added
+- 最近飛び交ったコメントを status ページ、Class Statistics セクションで表示。
+
 ## 0.8.5 - 2021-10-30
 ### Bugfix
 - パスワードを変えたとき、update_at を更新していなかった。
 
 ## 0.8.4 - 2021-10-29
 ### Changed
-- comments-sent を create_at DESC順に。
+- comments-sent を create_at DESC 順に。
 - comment-form.html: placeholder='Your comment please. 適当な場所で改行してください。'
 - comments received order by create_at desc;
 
