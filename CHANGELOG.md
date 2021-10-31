@@ -20,7 +20,7 @@ int func_test(void) {
 
 ## 0.8.4 - 2021-10-29
 ### Changed
-- comments-sent を create_at DESC順に。
+- comments-sent を create_at DESC 順に。
 - comment-form.html: placeholder='Your comment please. 適当な場所で改行してください。'
 - comments received order by create_at desc;
 
