@@ -49,9 +49,11 @@
       {{user.login}}({{user.count}})
       &nbsp;
       {% endfor %}<br>
-      
+
       {% for c in recent-comments %}
-      <p>{{c.create_at}}, from <b>{{c.from_login}}</b>
+      <p>{{c.create_at}},
+        <b>{{c.p_num}}</b>,
+        from <b>{{c.from_login}}</b>
         to <b>{{c.to_login}}</b>,<br>&nbsp;&nbsp;
         <a href='/comment/{{c.a_id}}'>{{c.comment|abbreviate:30}}</a></p>
       {% endfor %}
