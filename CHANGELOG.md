@@ -14,6 +14,10 @@ int func_test(void) {
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
 
+## 0.8.6-SNAPSHOT
+### Add
+- 最近飛び交ったコメントを status ページで表示。Class Statistics に。
+
 ## 0.8.5 - 2021-10-30
 ### Bugfix
 - パスワードを変えたとき、update_at を更新していなかった。
