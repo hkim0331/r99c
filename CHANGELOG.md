@@ -14,6 +14,10 @@ int func_test(void) {
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
 
+## 0.8.7 - 2021-10-31
+### Added
+- 0.8.6 に問題番号の表示を追加。
+
 ## 0.8.6 - 2021-10-31
 ### Added
 - 最近飛び交ったコメントを status ページ、Class Statistics セクションで表示。
