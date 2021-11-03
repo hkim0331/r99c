@@ -131,16 +131,13 @@
   [request]
   (let [id (Integer/parseInt (get-in request [:path-params :id]))
         answer (db/get-answer-by-id {:id id})
-        num (:num answer)
-        problem  (db/get-problem {:num num})
-        comments (db/get-comments {:a_id id})
-        same-md5 (db/answers-same-md5 {:md5 (:md5 answer)})]
+        num (:num answer)]
     (if (db/get-answer {:num num :login (login request)})
       (layout/render request "comment-form.html"
-                     {:problem problem
-                      :answer answer
-                      :comments comments
-                      :same-md5 same-md5})
+                     {:answer answer
+                      :problem  (db/get-problem {:num num})
+                      :same-md5 (db/answers-same-md5 {:md5 (:md5 answer)})
+                      :comments (db/get-comments {:a_id id})})
       (layout/render request "error.html"
                      {:status 403
                       :title "Access Forbidden"

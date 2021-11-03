@@ -143,6 +143,7 @@ VALUES
 -- :doc retrieve comments to answer id a_id
 SELECT * FROM comments
 WHERE a_id = :a_id
+ORDER BY id
 
 -- :name sent-comments :? :1
 -- :doc how many comments user `login` sent?
