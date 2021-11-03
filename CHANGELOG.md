@@ -14,6 +14,14 @@ int func_test(void) {
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
 
+## 0.8.9 - 2021-11-04
+### Added
+- (wrap n s) s を n 文字で折り返す。
+### Fixme
+- Selmer filter に引数を渡したい。今は、
+(add-filter! :wrap66 (fn [x] (wrap 66 x)))
+66 を引数で渡したい。
+
 ## 0.8.8 - 2021-11-03
 ### Fixed
 - コメントのオーダーが時間順ではない --- queries.sql を修正。

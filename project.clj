@@ -38,8 +38,9 @@
                  [clj-time/clj-time "0.14.0"]
                  [com.taoensso/timbre "5.1.2"]
                  [digest "1.4.10"]
-                 [org.clojars.hozumi/clj-commons-exec "1.2.0"]
-                 [hiccup "1.0.5"]]
+                 [hiccup "1.0.5"]
+                 [org.clojars.hozumi/clj-commons-exec "1.2.0"]]
+  
 
   :min-lein-version "2.0.0"
 
