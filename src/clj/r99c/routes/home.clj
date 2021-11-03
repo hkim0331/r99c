@@ -12,6 +12,7 @@
    [r99c.layout :as layout]
    [r99c.middleware :as middleware]
    [ring.util.response :refer [redirect]]
+   [selmer.filters :refer [add-filter!]]
    [taoensso.timbre :as timbre]))
 
 (timbre/set-level! :debug)
@@ -41,6 +42,16 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
+;; FIXME: does not wrap japanese strings.
+(defn- wrap
+  "fold string s at column n"
+  [n s]
+  (if (< (count s) n)
+    s
+    (str (subs s 0 n) "\n" (wrap n (subs s n)))))
+
+(add-filter! :wrap66  (fn [x] (wrap 66 x)))
+
 (defn status-page
   "display user's status. how many problems he/she solved?"
   [request]
@@ -60,7 +71,7 @@
       :comments (db/sent-comments {:login login})
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)
-      :recent-comments (db/recent-comments {:n 10})})))
+      :recent-comments (db/recent-comments {:n 15})})))
 
 (defn problems-page
   "display problems."
