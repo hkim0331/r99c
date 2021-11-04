@@ -14,6 +14,9 @@ int func_test(void) {
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
 
+* FIXME: 0.8.9 改行があっても 66 文字、切り取ってしまう。
+
+
 ## 0.8.9 - 2021-11-04
 ### Added
 - (wrap n s) s を n 文字で折り返す。
