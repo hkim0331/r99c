@@ -51,9 +51,10 @@
 (defn- wrap
   "fold string `s` at column `n`"
   [n s]
-  (map (partial wrap-aux n) (str/split-lines s)))
+  (doall
+    (map (partial wrap-aux n) (str/split-lines s))))
 
-(add-filter! :wrap66  (fn [x] (doall (wrap 66 x))))
+(add-filter! :wrap66  (fn [x] (wrap 66 x)))
 
 (defn status-page
   "display user's status. how many problems he/she solved?"
