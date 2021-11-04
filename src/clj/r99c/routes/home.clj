@@ -51,8 +51,7 @@
 (defn- wrap
   "fold string `s` at column `n`"
   [n s]
-  (doall
-    (map (partial wrap-aux n) (str/split-lines s))))
+  (apply str (map (partial wrap-aux n) (str/split-lines s))))
 
 (add-filter! :wrap66  (fn [x] (wrap 66 x)))
 
