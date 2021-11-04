@@ -7,7 +7,7 @@ VALUES (:sid, :name, :login, :password)
 -- :name update-user! :! :n
 -- :doc updates an existing user record
 UPDATE users
-SET password = :password
+SET password = :password, update_at = CURRENT_TIMESTAMP
 WHERE login= :login
 
 -- :name get-user :? :1
@@ -143,6 +143,7 @@ VALUES
 -- :doc retrieve comments to answer id a_id
 SELECT * FROM comments
 WHERE a_id = :a_id
+ORDER BY id
 
 -- :name sent-comments :? :1
 -- :doc how many comments user `login` sent?
@@ -159,8 +160,8 @@ ORDER BY create_at::date;
 -- :name comments-rcvd :? :*
 -- :doc list of comments received
 SELECT * from comments
-where to_login = :login
-order by p_num
+WHERE to_login = :login
+ORDER BY create_at DESC;
 
 -- :name comments-from :? :*
 -- :doc retrieve all comments
@@ -176,6 +177,12 @@ ORDER BY count(*) DESC;
 
 -- :name comments-sent :? :*
 -- :doc  comments sent from from_login
-SELECT * from comments
+SELECT * FROM comments
 WHERE from_login = :login
 ORDER BY create_at DESC;
+
+-- :name recent-comments :? :*
+-- :doc retrieve recent n comments
+SELECT * FROM comments
+ORDER BY create_at DESC
+limit :n

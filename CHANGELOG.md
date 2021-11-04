@@ -13,13 +13,36 @@ int func_test(void) {
 * limit answers a day
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
-* comments received を unique 化する。
 
+## 0.8.9 - 2021-11-04
+### Added
+- (wrap n s) s を n 文字で折り返す。
+### Fixme
+- Selmer filter に引数を渡したい。今は、
+(add-filter! :wrap66 (fn [x] (wrap 66 x)))
+66 を引数で渡したい。
 
-## 0.8.4-SNAPSHOT
+## 0.8.8 - 2021-11-03
+### Fixed
+- コメントのオーダーが時間順ではない --- queries.sql を修正。
+
+## 0.8.7 - 2021-10-31
+### Added
+- 0.8.6 に問題番号の表示を追加。
+
+## 0.8.6 - 2021-10-31
+### Added
+- 最近飛び交ったコメントを status ページ、Class Statistics セクションで表示。
+
+## 0.8.5 - 2021-10-30
+### Bugfix
+- パスワードを変えたとき、update_at を更新していなかった。
+
+## 0.8.4 - 2021-10-29
 ### Changed
 - comments-sent を create_at DESC 順に。
 - comment-form.html: placeholder='Your comment please. 適当な場所で改行してください。'
+- comments received order by create_at desc;
 
 ## 0.8.3 - 2021-10-25
 ### Added
