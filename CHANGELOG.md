@@ -16,6 +16,9 @@ int func_test(void) {
 
 * FIXME: 0.8.9 改行があっても 66 文字、切り取ってしまう。
 
+## 0.8.10 - 2021-11-04
+### Fixed
+- Fix `wrap` bug. Shoule return string instead of list of strings.
 
 ## 0.8.9 - 2021-11-04
 ### Added
