@@ -42,13 +42,16 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
-;; FIXME: does not wrap japanese strings.
-(defn- wrap
-  "fold string s at column n"
+(defn- wrap-aux
   [n s]
   (if (< (count s) n)
     s
-    (str (subs s 0 n) "\n" (wrap n (subs s n)))))
+    (str (subs s 0 n) "\n" (wrap-aux n (subs s n)))))
+
+(defn- wrap
+  "fold string `s` at column `n`"
+  [n s]
+  (apply str (map (partial wrap-aux n) (str/split-lines s))))
 
 (add-filter! :wrap66  (fn [x] (wrap 66 x)))
 
