@@ -18,7 +18,7 @@ int func_test(void) {
 
 ## 0.8.4-SNAPSHOT
 ### Changed
-- comments-sent を create_at DESC順に。
+- comments-sent を create_at DESC 順に。
 - comment-form.html: placeholder='Your comment please. 適当な場所で改行してください。'
 
 ## 0.8.3 - 2021-10-25
@@ -216,7 +216,7 @@ https://bulma.io/documentation/overview/colors/
 
 ## 0.1.1 - 2021-10-04
 ### Added
-* gitignore .vsode/
+* gitignore .vscode/
 * authentication
 * access restriction
 ### Changed
