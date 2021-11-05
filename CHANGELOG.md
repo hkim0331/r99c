@@ -16,7 +16,7 @@ int func_test(void) {
 
 ## 0.8.11 - 2021-11-05
 ### Fixed
-- 改行を優先する。
+- improve routes/home/wrap. "\n" is the first priority.
 
 ## 0.8.10 - 2021-11-04
 ### Fixed
