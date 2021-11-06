@@ -14,6 +14,9 @@ int func_test(void) {
 * /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
 あるいは /admin/problems を廃止して入れ替えるか。
 
+## 0.8.12-SNAPSHOT
+
+
 ## 0.8.11 - 2021-11-05
 ### Fixed
 - 改行を優先する。
