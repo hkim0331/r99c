@@ -11,10 +11,15 @@ int func_test(void) {
 ```
 * /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
 * limit answers a day
-* /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
-あるいは /admin/problems を廃止して入れ替えるか。
 
-* FIXME: 0.8.9 改行があっても 66 文字、切り取ってしまう。
+
+## 0.8.12
+### Added
+- 自分の(他人の)出したコメントを abbreviate して表示する。
+
+## 0.8.11 - 2021-11-05
+### Fixed
+- 改行を優先する。
 
 ## 0.8.10 - 2021-11-04
 ### Fixed
