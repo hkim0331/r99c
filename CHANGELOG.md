@@ -9,13 +9,14 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
-* /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
-* limit answers a day
 
+## 0.8.13
+## Changed
+- textarea height 300px
 
 ## 0.8.12
 ### Added
-- 自分の(他人の)出したコメントを abbreviate して表示する。
+- display comments abbreviated.
 
 ## 0.8.11 - 2021-11-05
 ### Fixed

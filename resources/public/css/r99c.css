@@ -11,3 +11,5 @@ a.yet     {color: hsl(217,71%,53%); background: white;}
          -khtml-user-select: none;
          -webkit-user-drag: none;
          -khtml-user-drag: none;}
+
+textarea.answer {height: 300px;}
