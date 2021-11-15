@@ -9,10 +9,18 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
-* /admin/users ... ユーザを一覧表示し、パスワードを初期化、エントリーを削除する。
-* limit answers a day
-* /admin/problem/:n 作ろうとしたけど、/admin/problems とかぶるんでやめる。
-あるいは /admin/problems を廃止して入れ替えるか。
+
+## 0.8.14
+### Changed
+- status.recents に問題番号
+
+## 0.8.13
+### Changed
+- textarea height 300px
+
+## 0.8.12
+### Added
+- display comments abbreviated.
 
 ## 0.8.11 - 2021-11-05
 ### Fixed

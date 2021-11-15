@@ -40,7 +40,7 @@
     <p>
       <b>recent 10:</b>
       {% for a in recents %}
-        <a href='/comment/{{a.id}}'>{{a.login}}</a>
+        <a href='/comment/{{a.id}}'>{{a.login}},{{a.num}}</a>
         &nbsp;
       {% endfor %}<br>
 
