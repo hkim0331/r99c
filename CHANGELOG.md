@@ -10,8 +10,12 @@ int func_test(void) {
 }
 ```
 
+## 0.8.14
+### Changed
+- status.recents に問題番号
+
 ## 0.8.13
-## Changed
+### Changed
 - textarea height 300px
 
 ## 0.8.12
