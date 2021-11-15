@@ -68,7 +68,7 @@
      {:login login
       :status (map #(solved? solved %) (map :num (db/problems)))
       :comments-rcvd (db/comments-rcvd {:login login})
-      :top-10 (db/top-users {:n 20})
+      :top-n (db/top-users {:n 20})
       :problems-solved (-> solved set count)
       :recents (db/recent-answers {:n 20})
       :comments (db/sent-comments {:login login})
