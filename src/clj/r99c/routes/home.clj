@@ -70,11 +70,11 @@
       :comments-rcvd (db/comments-rcvd {:login login})
       :top-10 (db/top-users {:n 20})
       :problems-solved (-> solved set count)
-      :recents (db/recent-answers {:n 10})
+      :recents (db/recent-answers {:n 20})
       :comments (db/sent-comments {:login login})
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)
-      :recent-comments (db/recent-comments {:n 15})})))
+      :recent-comments (db/recent-comments {:n 20})})))
 
 (defn problems-page
   "display problems."

@@ -38,16 +38,16 @@
     <p>{{class-chart|safe}}</p>
 
     <p>
-      <b>recent 10:</b>
-      {% for a in recents %}
-        <a href='/comment/{{a.id}}'>{{a.login}},{{a.num}}</a>
-        &nbsp;
-      {% endfor %}<br>
-
-      <b>top 20:</b>
+      <b>top 20</b><br>
       {% for user in top-10 %}
       {{user.login}}({{user.count}})
       &nbsp;
+      {% endfor %}<br>
+
+      <b>recent 20</b><br>
+      {% for a in recents %}
+        <a href='/comment/{{a.id}}'>{{a.login}},{{a.num}}</a>
+        &nbsp;
       {% endfor %}<br>
 
       {% for c in recent-comments %}

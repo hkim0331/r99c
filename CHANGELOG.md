@@ -9,8 +9,12 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
+## 0.8.15 - 2021-11-15
+### Changed
+- top 20, recent 20, comments 20
+- display order. was recent/top/comments, new top/recent/comments
 
-## 0.8.14
+## 0.8.14 - 2021-11-15
 ### Changed
 - status.recents に問題番号
 
