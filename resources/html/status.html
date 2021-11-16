@@ -22,49 +22,46 @@
       <b>comments sent: </b>
       <a href='/comments-sent/{{login}}'>{{comments.count}}</a><br>
       <b>problems solved: </b>{{problems-solved}}/99</p>
-<!--
-    <table>
-      <tr><th>date</th><th>answers</th><th>comments sent</th></tr>
-      {% for row in individual %}
-        <tr><td>{{row.create_at}}</td>
-            <td>{{row.count}}</td>
-            <td>under construction</td></tr>
-      {% endfor %}
-    </table>
-  -->
 
     <h3>Class Statistics</h3>
 
     <p>{{class-chart|safe}}</p>
 
-    <p>
-      <b>top 20</b><br>
-      {% for user in top-10 %}
+    <div>
+      <h4>top 20 (total submissions)</h4>
+      <p>
+      {% for user in top-n %}
       {{user.login}}({{user.count}})
       &nbsp;
-      {% endfor %}<br>
+      {% endfor %}
+      </p>
 
-      <b>recent 20</b><br>
+      <h4>top 20 [problems solved]</h4>
+      <p>
+
+      {% for user in top-distinct-n %}
+      {{user.login}}[{{user.count}}]
+      &nbsp;
+      {% endfor %}
+      </p>
+
+      <h4>recent 20</h4>
+      <p>
       {% for a in recents %}
-        <a href='/comment/{{a.id}}'>{{a.login}},{{a.num}}</a>
+        <a href='/comment/{{a.id}}'>{{a.login}}</a>,{{a.num}}
         &nbsp;
-      {% endfor %}<br>
+      {% endfor %}
+      </p>
 
+      <h4>comments</h4>
       {% for c in recent-comments %}
       <p>{{c.create_at|date:shortDateTime}},
         <b>{{c.p_num}}</b>,
         from <b>{{c.from_login}}</b> to <b>{{c.to_login}}</b>,<br>&nbsp;&nbsp;
         <a href='/comment/{{c.a_id}}'>{{c.comment|abbreviate:30}}</a></p>
       {% endfor %}
-    </p>
-<!--
-    <table>
-      <tr><th>date</th><th>answers</th></tr>
-      {% for row in all-answers %}
-        <tr><td>{{row.create_at}}</td><td>{{row.count}}</td></tr>
-      {% endfor %}
-    </table>
-  -->
+    </div>
+
   <hr>
 
     <h3>Change {{login}}'s password</h3>

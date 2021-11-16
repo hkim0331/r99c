@@ -128,6 +128,13 @@ WHERE login != 'hkimura'
 GROUP BY login
 ORDER BY count(num) DESC limit :n
 
+-- :name top-users-distinct :? :*
+-- :doc get top n users order by distinct(num)
+SELECT login, count(distinct(num)) FROM answers
+WHERE login != 'hkimura'
+GROUP BY login
+ORDER BY count(distinct(num)) DESC limit :n
+
 -- ----------------
 -- comments section
 -- ----------------
