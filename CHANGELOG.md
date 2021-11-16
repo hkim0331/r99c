@@ -9,6 +9,13 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
+
+## 0.8.16 - 2021-11-16
+### Added
+- top 20 [problem solved]
+### Changed
+- status page looks improve
+
 ## 0.8.15 - 2021-11-15
 ### Changed
 - top 20, recent 20, comments 20
