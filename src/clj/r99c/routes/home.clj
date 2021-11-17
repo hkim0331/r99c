@@ -173,6 +173,9 @@
     ;;(timbre/debug  "login" login "sent" sent)
     (layout/render request "comments-sent.html" {:sent sent})))
 
+(defn ch-pass-form [request]
+  (layout/render request "ch-pass-form.html" {:login (login request)}))
+
 (defn ch-pass [{{:keys [old new]} :params :as request}]
   (let [login (login request)
         user (db/get-user {:login login})]
@@ -189,7 +192,8 @@
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get status-page}]
-   ["/ch_pass" {:post ch-pass}]
+   ["/ch-pass" {:get ch-pass-form
+                :post ch-pass}]
    ["/problems" {:get problems-page}]
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]
