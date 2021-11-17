@@ -48,7 +48,7 @@
       <h4>recent 20</h4>
       <p>
       {% for a in recents %}
-        <a href='/comment/{{a.id}}'>{{a.login}}</a>,{{a.num}}
+        <a href='/comment/{{a.id}}'>{{a.login}}</a>-{{a.num}}
         &nbsp;
       {% endfor %}
       </p>
@@ -66,6 +66,9 @@
 
     <h3>Change {{login}}'s password</h3>
 
+    <p>パスワード変更は <a href='/ch-pass'>あっち</a> へ移動しました。</p>
+
+<!--
     <form method='post' action='/ch_pass'>
       {% csrf-field %}
       <input type='hidden' name='login' value='{{login}}'>
@@ -73,5 +76,6 @@
          new <input name='new'></p>
     <input type='submit' value='change' class='button is-danger is-small'>
     </form>
+-->
   </div>
 {% endblock %}

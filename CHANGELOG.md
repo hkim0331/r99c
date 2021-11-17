@@ -10,6 +10,23 @@ int func_test(void) {
 }
 ```
 
+* /admin/codes/:login
+
+## 0.8.19 - 2021-11-17
+### Changed
+- register button disabled
+
+## 0.8.18 - 2021-11-17
+### Changed
+- /admin, フォームをコメントアウトする代わりに、ボタンを disabled
+- パスワード変更を status.html から外に出す。
+### Added
+- /ch-pass エンドポイントを作成
+
+## 0.8.17 - 2021-11-17
+### Changed
+- dash の方が comma よりも見やすい
+
 ## 0.8.16 - 2021-11-16
 ### Added
 - top 20 [problem solved]
