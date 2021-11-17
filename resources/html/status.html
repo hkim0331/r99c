@@ -48,7 +48,7 @@
       <h4>recent 20</h4>
       <p>
       {% for a in recents %}
-        <a href='/comment/{{a.id}}'>{{a.login}}</a>,{{a.num}}
+        <a href='/comment/{{a.id}}'>{{a.login}}</a>-{{a.num}}
         &nbsp;
       {% endfor %}
       </p>

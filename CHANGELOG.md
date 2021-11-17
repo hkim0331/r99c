@@ -10,6 +10,10 @@ int func_test(void) {
 }
 ```
 
+## 0.8.17 - 2021-11-17
+### Changed
+- dash の方が comma よりも見やすい
+
 ## 0.8.16 - 2021-11-16
 ### Added
 - top 20 [problem solved]
