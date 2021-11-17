@@ -10,6 +10,7 @@ int func_test(void) {
 }
 ```
 * get ch-pass-form, parameter login
+* /admin/codes/:login
 
 
 ## 0.8.18-SNAPSHOT
