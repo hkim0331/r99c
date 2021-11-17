@@ -9,6 +9,8 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
+* get ch-pass-form, parameter login
+* admin, disable button
 
 ## 0.8.17 - 2021-11-17
 ### Changed
