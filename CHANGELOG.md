@@ -10,7 +10,11 @@ int func_test(void) {
 }
 ```
 * get ch-pass-form, parameter login
-* admin, disable button
+
+
+## 0.8.18-SNAPSHOT
+- /admin, フォームをコメントアウトする代わりに、ボタンを disabled
+
 
 ## 0.8.17 - 2021-11-17
 ### Changed
