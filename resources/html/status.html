@@ -13,6 +13,9 @@
 
     <p>{{individual-chart|safe}}</p>
 
+    <p>&rArr; <a href='/profile'>detail</a></p>
+
+<!--
     <p>
       <b>comments received:</b>
       {% for c in comments-rcvd %}
@@ -22,7 +25,7 @@
       <b>comments sent: </b>
       <a href='/comments-sent/{{login}}'>{{comments.count}}</a><br>
       <b>problems solved: </b>{{problems-solved}}/99</p>
-
+    -->
     <h3>Class Statistics</h3>
 
     <p>{{class-chart|safe}}</p>
@@ -63,19 +66,5 @@
     </div>
 
   <hr>
-
-    <h3>Change {{login}}'s password</h3>
-
-    <p>パスワード変更は <a href='/ch-pass'>あっち</a> へ移動しました。</p>
-
-<!--
-    <form method='post' action='/ch_pass'>
-      {% csrf-field %}
-      <input type='hidden' name='login' value='{{login}}'>
-      <p>old <input type='password' name='old'>
-         new <input name='new'></p>
-    <input type='submit' value='change' class='button is-danger is-small'>
-    </form>
--->
   </div>
 {% endblock %}

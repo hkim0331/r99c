@@ -9,12 +9,33 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
-
 * /admin/codes/:login
 
+* r99のタブが今「Welcome to r99」ですが、
+問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
+何番を解いているタブを開いているか分かるようにしてほしいです！
+
+
+## 0.8.20 - 2021-11-18
+### Added
+- /profile
+### Removed
+- status.html から profile 分を削除、profile.html として独立させた。
+- 不必要な SQL 呼び出しを削除、移動させた。
+- get /ch-pass はいらないな。
+### Changed
+- (timbre/set-level! :info)
+- ナビの Password を Profile に
+
+## 0.8.19 - 2021-11-17
+### Changed
+- register button disabled
+
 ## 0.8.18 - 2021-11-17
+### Changed
 - /admin, フォームをコメントアウトする代わりに、ボタンを disabled
 - パスワード変更を status.html から外に出す。
+### Added
 - /ch-pass エンドポイントを作成
 
 ## 0.8.17 - 2021-11-17
