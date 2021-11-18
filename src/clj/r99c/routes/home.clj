@@ -67,12 +67,9 @@
      "status.html"
      {:login login
       :status (map #(solved? solved %) (map :num (db/problems)))
-      ;;:comments-rcvd (db/comments-rcvd {:login login})
       :top-n (db/top-users {:n 20})
       :top-distinct-n (db/top-users-distinct {:n 20})
-      ;;:problems-solved (-> solved set count)
       :recents (db/recent-answers {:n 20})
-      ;;:comments (db/sent-comments {:login login})
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)
       :recent-comments (db/recent-comments {:n 20})})))
@@ -120,7 +117,6 @@
   (if (re-matches #"\s*" (strip-answer answer))
     {}
     (let [r (exec/sh ["gcc" "-xc" "-fsyntax-only" "-"] {:in answer})]
-      ;;(timbre/debug "validate-answer:" (:exit @r))
       (:err @r))))
 
 (defn create-answer!
@@ -135,7 +131,6 @@
                           :num (Integer/parseInt num)
                           :answer answer
                           :md5 (-> answer strip-answer digest/md5)})
-      ;; changed, return to the problem page just solved
       (redirect (str "/answer/" num))
       (catch Exception e
         (redirect (str "/answer/" num))))))
@@ -204,8 +199,7 @@
    ["/" {:get status-page}]
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]
-   ["/ch-pass" {:get ch-pass-form
-                :post ch-pass}]
+   ["/ch-pass" {:post ch-pass}]
    ["/comment/:id" {:get  comment-form
                     :post create-comment!}]
    ["/comments-sent/:login" {:get comments-sent}]

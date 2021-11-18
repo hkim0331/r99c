@@ -13,7 +13,13 @@ int func_test(void) {
 * /admin/codes/:login
 
 ## 0.8.20-SNAPSHOT
-* /profile/:login
+### Added
+- /profile
+### Removed
+- status.html から profile 分を削除、profile.html として独立させた。
+- 不必要な SQL 呼び出しを削除、移動させた。
+- get /ch-pass はいらないな。
+
 
 ## 0.8.19 - 2021-11-17
 ### Changed
