@@ -15,7 +15,7 @@
    [selmer.filters :refer [add-filter!]]
    [taoensso.timbre :as timbre]))
 
-(timbre/set-level! :debug)
+(timbre/set-level! :info)
 
 (defn- to-date-str [s]
   (-> (str s)
@@ -165,7 +165,6 @@
 (defn comments-sent [request]
   (let [login (get-in request [:path-params :login])
         sent (db/comments-sent {:login login})]
-    ;;(timbre/debug  "login" login "sent" sent)
     (layout/render request "comments-sent.html" {:sent sent})))
 
 (defn ch-pass-form [request]
