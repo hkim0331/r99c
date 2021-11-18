@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="content">
-    <h2>{{login}} Profile</h2>
+    <h2>{{login}}'s Profile</h2>
 
     <h4>comments received</h4>
       <p>{% for c in comments-rcvd %}
@@ -18,9 +18,15 @@
     <h4>total submissions</h4>
       <p>{{submissions}}</p>
 
+    <h4>last submissions</h4>
+      <p>(under construction)</p>
+
+    <h4>last login</h4>
+      <p>(under construction)</p>
+
     <hr>
 
-    <h3>Change {{login}}'s password</h3>
+    <h4>Change {{login}}'s password</h4>
 
     <form method='post' action='/ch-pass'>
       {% csrf-field %}
