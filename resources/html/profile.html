@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="content">
+    <h2>{{login}} Profile</h2>
+
+    <h4>comments received</h4>
+      <p>{% for c in comments-rcvd %}
+        <a href='/comment/{{c.a_id}}'>{{c.p_num}}</a>
+        &nbsp;
+        {% endfor %}</p>
+
+    <h4>comments sent</h4>
+      <p><a href='/comments-sent/{{login}}'>{{comments.count}}</a></p>
+
+    <h4>problems solved</h4>
+      <p>{{solved}}/99</p>
+
+    <h4>total submissions</h4>
+      <p>{{submissions}}</p>
+
+    <hr>
+
+    <h3>Change {{login}}'s password</h3>
+
+    <form method='post' action='/ch-pass'>
+      {% csrf-field %}
+      <input type='hidden' name='login' value='{{login}}'>
+      <p>old <input type='password' name='old'>
+         new <input name='new'></p>
+      <input type='submit' value='change' class='button is-danger is-small'>
+    </form>
+
+  </div>
+{% endblock %}

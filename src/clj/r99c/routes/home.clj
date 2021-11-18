@@ -67,12 +67,12 @@
      "status.html"
      {:login login
       :status (map #(solved? solved %) (map :num (db/problems)))
-      :comments-rcvd (db/comments-rcvd {:login login})
+      ;;:comments-rcvd (db/comments-rcvd {:login login})
       :top-n (db/top-users {:n 20})
       :top-distinct-n (db/top-users-distinct {:n 20})
-      :problems-solved (-> solved set count)
+      ;;:problems-solved (-> solved set count)
       :recents (db/recent-answers {:n 20})
-      :comments (db/sent-comments {:login login})
+      ;;:comments (db/sent-comments {:login login})
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)
       :recent-comments (db/recent-comments {:n 20})})))
@@ -187,14 +187,14 @@
                      {:message "did not match old password"}))))
 
 (defn profile [request]
-  (let [login (or (get-in request [:path-params :login])
-                  (login request))]
+  (let [login (login request)
+        solved (map #(:num %) (db/answers-by {:login login}))]
     (layout/render request "profile.html"
                    {:login login
                     :comments-rcvd (db/comments-rcvd {:login login})
                     :comments (db/sent-comments {:login login})
-                    :solved 3
-                    :submissions 4})))
+                    :solved (-> solved set count)
+                    :submissions (-> solved count)})))
 
 (defn home-routes []
   [""
