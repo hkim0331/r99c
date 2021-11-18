@@ -186,17 +186,28 @@
       (layout/render request "error.html"
                      {:message "did not match old password"}))))
 
+(defn profile [request]
+  (let [login (or (get-in request [:path-params :login])
+                  (login request))]
+    (layout/render request "profile.html"
+                   {:login login
+                    :comments-rcvd (db/comments-rcvd {:login login})
+                    :comments (db/sent-comments {:login login})
+                    :solved 3
+                    :submissions 4})))
+
 (defn home-routes []
   [""
    {:middleware [middleware/auth
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get status-page}]
-   ["/ch-pass" {:get ch-pass-form
-                :post ch-pass}]
-   ["/problems" {:get problems-page}]
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]
+   ["/ch-pass" {:get ch-pass-form
+                :post ch-pass}]
    ["/comment/:id" {:get  comment-form
                     :post create-comment!}]
-   ["/comments-sent/:login" {:get comments-sent}]])
+   ["/comments-sent/:login" {:get comments-sent}]
+   ["/problems" {:get problems-page}]
+   ["/profile" {:get profile}]])
