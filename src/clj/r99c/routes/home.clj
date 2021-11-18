@@ -67,12 +67,12 @@
      "status.html"
      {:login login
       :status (map #(solved? solved %) (map :num (db/problems)))
-      :comments-rcvd (db/comments-rcvd {:login login})
+      ;;:comments-rcvd (db/comments-rcvd {:login login})
       :top-n (db/top-users {:n 20})
       :top-distinct-n (db/top-users-distinct {:n 20})
-      :problems-solved (-> solved set count)
+      ;;:problems-solved (-> solved set count)
       :recents (db/recent-answers {:n 20})
-      :comments (db/sent-comments {:login login})
+      ;;:comments (db/sent-comments {:login login})
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)
       :recent-comments (db/recent-comments {:n 20})})))
@@ -186,17 +186,28 @@
       (layout/render request "error.html"
                      {:message "did not match old password"}))))
 
+(defn profile [request]
+  (let [login (login request)
+        solved (map #(:num %) (db/answers-by {:login login}))]
+    (layout/render request "profile.html"
+                   {:login login
+                    :comments-rcvd (db/comments-rcvd {:login login})
+                    :comments (db/sent-comments {:login login})
+                    :solved (-> solved set count)
+                    :submissions (-> solved count)})))
+
 (defn home-routes []
   [""
    {:middleware [middleware/auth
                  middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get status-page}]
-   ["/ch-pass" {:get ch-pass-form
-                :post ch-pass}]
-   ["/problems" {:get problems-page}]
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]
+   ["/ch-pass" {:get ch-pass-form
+                :post ch-pass}]
    ["/comment/:id" {:get  comment-form
                     :post create-comment!}]
-   ["/comments-sent/:login" {:get comments-sent}]])
+   ["/comments-sent/:login" {:get comments-sent}]
+   ["/problems" {:get problems-page}]
+   ["/profile" {:get profile}]])

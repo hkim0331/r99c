@@ -12,6 +12,9 @@ int func_test(void) {
 
 * /admin/codes/:login
 
+## 0.8.20-SNAPSHOT
+* /profile/:login
+
 ## 0.8.19 - 2021-11-17
 ### Changed
 - register button disabled
