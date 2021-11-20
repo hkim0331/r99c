@@ -1,17 +1,8 @@
 (ns r99c.charts
   (:require [hiccup.core :refer [html]]))
 
-;; no use
-;; (defn- acc-aux [coll ret]
-;;   (if (empty? coll)
-;;     ret
-;;     (acc-aux (rest coll) (conj ret (+ (last ret) (first coll))))))
-
-;; (defn- acc [coll]
-;;   (acc-aux coll [0]))
-
-;; (defn- line-chart [coll w h])
-
+;; FIXME: w h で渡されてくるのは viewbox のサイズ。
+;;        プロットが viewbox に収まるように調整するのは bar-char の仕事。
 (defn bar-chart [coll w h]
   (let [n (count coll)
         dx (/ w n)]
@@ -29,16 +20,18 @@
   (zipmap (map (comp val first)  coll)
           (map (comp val second) coll)))
 
+;; s/coll/ys
+;; 2.5 は縮尺。
 (defn class-chart
   [answers period width height]
   (let [tmp (->date-count answers)
-        coll (for [d period]
-               (get tmp d 0))]
-    (html (bar-chart (map #(/ % 2) coll) width height))))
+        ys  (for [d period]
+              (get tmp d 0))]
+    (html (bar-chart (map #(/ % 2.5) ys) width height))))
 
 (defn individual-chart
   [answers period width height]
   (let [tmp (->date-count answers)
-        coll (for [d period]
-               (get tmp d 0))]
-    (html (bar-chart (map #(* % 13) coll) width height))))
+        ys  (for [d period]
+              (get tmp d 0))]
+    (html (bar-chart (map #(* % 13) ys) width height))))
