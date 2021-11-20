@@ -15,17 +15,6 @@
 
     <p>&rArr; <a href='/profile'>detail</a></p>
 
-<!--
-    <p>
-      <b>comments received:</b>
-      {% for c in comments-rcvd %}
-      <a href='/comment/{{c.a_id}}'>{{c.p_num}}</a>
-      &nbsp;
-      {% endfor %}<br>
-      <b>comments sent: </b>
-      <a href='/comments-sent/{{login}}'>{{comments.count}}</a><br>
-      <b>problems solved: </b>{{problems-solved}}/99</p>
-    -->
     <h3>Class Statistics</h3>
 
     <p>{{class-chart|safe}}</p>
