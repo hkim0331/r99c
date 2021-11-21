@@ -15,6 +15,10 @@ int func_test(void) {
 何番を解いているタブを開いているか分かるようにしてほしいです！
 
 
+## 0.8.22 - 2021-11-21
+### Added
+- fake no-check button
+
 ## 0.8.21 - 2021-11-20
 ### Changed
 - プロットレンジからはみ出たため、class statistics(y方向データ）を縮尺する。
