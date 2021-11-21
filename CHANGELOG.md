@@ -10,11 +10,18 @@ int func_test(void) {
 }
 ```
 * /admin/codes/:login
-
 * r99のタブが今「Welcome to r99」ですが、
 問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
 何番を解いているタブを開いているか分かるようにしてほしいです！
 
+
+## 0.8.22 - 2021-11-21
+### Added
+- fake no-check button
+
+## 0.8.21 - 2021-11-20
+### Changed
+- プロットレンジからはみ出たため、class statistics(y方向データ）を縮尺する。
 
 ## 0.8.20 - 2021-11-18
 ### Added
