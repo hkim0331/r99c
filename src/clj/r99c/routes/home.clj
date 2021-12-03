@@ -109,14 +109,23 @@
       (str/replace #"[ \t]" "")
       remove-comments))
 
+(defn- not-empty? [answer]
+  (re-find #"\S" (strip answer)))
+
 ;; 0.9.0
 (defn- space-rule?
   "check answer follows r99 space rule"
-  [_]
-  true)
-
-(defn- not-empty? [answer]
-  (re-find #"\S" (strip answer)))
+  [s]
+  (every? nil?
+          [(re-find #"include<" s)
+           (re-find #"\)\{" s)
+           (re-find #"if\(" s)
+           (re-find #"for\(" s)
+           (re-find #"while\(" s)
+           (re-find #"}else" s)
+           (re-find #"else\{" s)
+           (re-find #"\n\s*else" s)
+           (re-find #" \+\+" s)]))
 
 ;; https://github.com/hozumi/clj-commons-exec
 (defn- can-compile? [answer]
@@ -124,9 +133,11 @@
     (timbre/debug "gcc" @r)
     (nil? (:err @r))))
 
-;; (every? true? ((juxt f g h) s)) is not same with (and (f s) (g s) (h s)).
+;; (every? true? ((juxt f g h) s)) is not same as (and (f s) (g s) (h s)).
 (defn- validate? [answer]
-  (and (space-rule? answer) (not-empty? (strip answer)) (can-compile? answer)))
+  (and (not-empty? (strip answer))
+       (space-rule? answer)
+       (can-compile? answer)))
 
 (defn create-answer!
   [{{:keys [num answer]} :params :as request}]

@@ -16,6 +16,7 @@ int func_test(void) {
 
 ## 0.9.0-SNAPSHOT
 - refactored home/validate?
+- defined home/space-rule?
 
 ## 0.8.23 - 2021-11-28
 - login `waring` message
