@@ -109,6 +109,7 @@
       (str/replace #"[ \t]" "")
       remove-comments))
 
+;; 0.9.0
 (defn- space-rule?
   "check answer follows r99 space rule"
   [_]
@@ -123,6 +124,7 @@
     (timbre/debug "gcc" @r)
     (nil? (:err @r))))
 
+;; (every? true? ((juxt f g h) s)) is not same with (and (f s) (g s) (h s)).
 (defn- validate? [answer]
   (and (space-rule? answer) (not-empty? (strip answer)) (can-compile? answer)))
 
