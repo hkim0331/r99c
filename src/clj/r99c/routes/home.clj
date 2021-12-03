@@ -15,7 +15,7 @@
    [selmer.filters :refer [add-filter!]]
    [taoensso.timbre :as timbre]))
 
-(timbre/set-level! :info)
+(timbre/set-level! :debug)
 
 (defn- to-date-str [s]
   (-> (str s)
@@ -104,36 +104,56 @@
 (defn- remove-comments [s]
   (apply str (remove #(str/starts-with? % "//") (str/split-lines s))))
 
-(defn- strip-answer [s]
+(defn- strip [s]
   (-> s
       (str/replace #"[ \t]" "")
       remove-comments))
 
+(defn- not-empty? [answer]
+  (re-find #"\S" (strip answer)))
+
+;; 0.9.0
+(defn- space-rule?
+  "check answer follows r99 space rule"
+  [s]
+  (every? nil?
+          [(re-find #"include<" s)
+           (re-find #"\)\{" s)
+           (re-find #"if\(" s)
+           (re-find #"for\(" s)
+           (re-find #"while\(" s)
+           (re-find #"}else" s)
+           (re-find #"else\{" s)
+           (re-find #"\n\s*else" s)
+           (re-find #" \+\+" s)]))
+
 ;; https://github.com/hozumi/clj-commons-exec
-(defn- validate-answer
-  "syntax check by `gcc -fsyntaxonly`"
-  [answer]
-  (timbre/debug "answer:" answer)
-  (if (re-matches #"\s*" (strip-answer answer))
-    {}
-    (let [r (exec/sh ["gcc" "-xc" "-fsyntax-only" "-"] {:in answer})]
-      (:err @r))))
+(defn- can-compile? [answer]
+  (let [r (exec/sh ["gcc" "-xc" "-fsyntax-only" "-"] {:in answer})]
+    (timbre/debug "gcc" @r)
+    (nil? (:err @r))))
+
+;; (every? true? ((juxt f g h) s)) is not same as (and (f s) (g s) (h s)).
+(defn- validate? [answer]
+  (and (not-empty? (strip answer))
+       (space-rule? answer)
+       (can-compile? answer)))
 
 (defn create-answer!
   [{{:keys [num answer]} :params :as request}]
-  (if-let [errors (validate-answer answer)]
-    (layout/render request "error.html"
-                   {:status 406
-                    :title "プログラムにエラーがあります。"
-                    :message "ブラウザのバックで戻って、修正後、再提出してください。"})
+  (if (validate? answer)
     (try
       (db/create-answer! {:login (login request)
                           :num (Integer/parseInt num)
                           :answer answer
-                          :md5 (-> answer strip-answer digest/md5)})
+                          :md5 (-> answer strip digest/md5)})
       (redirect (str "/answer/" num))
-      (catch Exception e
-        (redirect (str "/answer/" num))))))
+      (catch Exception _
+        (redirect (str "/answer/" num))))
+    (layout/render request "error.html"
+                   {:status 406
+                    :title "プログラムにエラーがあります。"
+                    :message "ブラウザのバックで戻って、修正後、再提出してください。"})))
 
 (defn comment-form
   "take answer id as path-parameter, show the answer with
