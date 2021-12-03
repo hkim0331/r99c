@@ -14,8 +14,10 @@ int func_test(void) {
 問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
 何番を解いているタブを開いているか分かるようにしてほしいです！
 
-## 0.9.0-SNAPSHOT
+## 0.9.0 - 2021-12-04
+### Changed
 - refactored home/validate?
+### Added
 - defined home/space-rule?
 
 ## 0.8.23 - 2021-11-28
