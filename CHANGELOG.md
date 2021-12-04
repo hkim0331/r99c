@@ -13,10 +13,12 @@ int func_test(void) {
 - r99のタブが今「Welcome to r99」ですが、
 問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
 何番を解いているタブを開いているか分かるようにしてほしいです！
-- last submission
 - change color?
+- comments all
+
 
 ## 0.9.4-SNAPSHOT
+- last submission
 - /profile, last submission からのリンクは comment/{id} がいい。
 
 ## 0.9.3 - 2021-12-04
