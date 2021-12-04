@@ -148,10 +148,12 @@
       (redirect (str "/answer/" num))
       (catch Exception _
         (redirect (str "/answer/" num))))
-    (layout/render request "error.html"
-                   {:status 406
-                    :title "プログラムにエラーがあります。"
-                    :message "ブラウザのバックで戻って、修正後、再提出してください。"})))
+    (do
+      (timbre/info "validation failed" (login request))
+      (layout/render request "error.html"
+                     {:status 406
+                      :title "プログラムにエラーがあります。"
+                      :message "ブラウザのバックで戻って、修正後、再提出してください。"}))))
 
 (defn comment-form
   "take answer id as path-parameter, show the answer with
@@ -207,7 +209,7 @@
                     :chart (individual-chart individual period 600 150)
                     :comments-rcvd (db/comments-rcvd {:login login})
                     :comments (db/sent-comments {:login login})
-                    :solved (-> solved set count)
+                    :solved (->> solved (map :num) distinct count)
                     :submissions (-> solved count)
                     :last (apply max-key :id solved)})))
 
