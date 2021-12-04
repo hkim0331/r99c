@@ -15,6 +15,15 @@ int func_test(void) {
 何番を解いているタブを開いているか分かるようにしてほしいです！
 * last submission
 
+## 0.9.2 - 2021-12-04
+simply can see who is recently submit answers.
+### Changed
+- status page
+  remove raning to ranking page
+- profile page
+  show chat
+### Added
+- ranking page
 
 ## 0.9.1 - 2021-12-04
 ### Added
