@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="content">
+    <h2>Ranking</h2>
+    <h4>top 20 (total submissions)</h4>
+      <p>
+      {% for user in top-n %}
+      {{user.login}}({{user.count}})
+      &nbsp;
+      {% endfor %}
+      </p>
+
+
+    <h4>top 20 [problems solved]</h4>
+      <p>
+      {% for user in top-distinct-n %}
+      {{user.login}}[{{user.count}}]
+      &nbsp;
+      {% endfor %}
+      </p>
+  </div>
+{% endblock %}

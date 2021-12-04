@@ -67,8 +67,6 @@
      "status.html"
      {:login login
       :status (map #(solved? solved %) (map :num (db/problems)))
-      :top-n (db/top-users {:n 20})
-      :top-distinct-n (db/top-users-distinct {:n 20})
       :recents (db/recent-answers {:n 20})
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)
@@ -202,14 +200,23 @@
 
 (defn profile [request]
   (let [login (login request)
-        solved (db/answers-by {:login login})]
+        solved (db/answers-by {:login login})
+        individual (db/answers-by-date-login {:login login})]
     (layout/render request "profile.html"
                    {:login login
+                    :chart (individual-chart individual period 600 150)
                     :comments-rcvd (db/comments-rcvd {:login login})
                     :comments (db/sent-comments {:login login})
                     :solved (-> solved set count)
                     :submissions (-> solved count)
                     :last (apply max-key :id solved)})))
+
+(defn ranking [request]
+  (let [login (login request)
+        solved (db/answers-by {:login login})]
+    (layout/render request "ranking.html"
+                   {:top-n (db/top-users {:n 20})
+                    :top-distinct-n (db/top-users-distinct {:n 20})})))
 
 (defn home-routes []
   [""
@@ -224,4 +231,5 @@
                     :post create-comment!}]
    ["/comments-sent/:login" {:get comments-sent}]
    ["/problems" {:get problems-page}]
-   ["/profile" {:get profile}]])
+   ["/profile" {:get profile}]
+   ["/ranking" {:get ranking}]])
