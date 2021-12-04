@@ -1,25 +1,31 @@
 # CHANGELOG.md
 
 ## Unreleased
-* post logout
-* problems の表示に、C のソースをデコレートして表示する。
+- post logout
+- problems の表示に、C のソースをデコレートして表示する。
   markdown なら以下ができれば十分だが。
 ```c
 int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
-* /admin/codes/:login
-* r99のタブが今「Welcome to r99」ですが、
+- /admin/codes/:login
+- r99のタブが今「Welcome to r99」ですが、
 問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
 何番を解いているタブを開いているか分かるようにしてほしいです！
-* last submission
+- last submission
+- change color?
+
+## 0.9.3 - 2021-12-04
+### Fixed
+- /profile provlems-solved.
+- timbre/info failure validation
 
 ## 0.9.2 - 2021-12-04
 simply can see who is recently submit answers.
 ### Changed
 - status page
-  remove raning to ranking page
+  remove raning to rankig page
 - profile page
   show chat
 ### Added
