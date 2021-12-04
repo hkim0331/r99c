@@ -202,13 +202,14 @@
 
 (defn profile [request]
   (let [login (login request)
-        solved (map #(:num %) (db/answers-by {:login login}))]
+        solved (db/answers-by {:login login})]
     (layout/render request "profile.html"
                    {:login login
                     :comments-rcvd (db/comments-rcvd {:login login})
                     :comments (db/sent-comments {:login login})
                     :solved (-> solved set count)
-                    :submissions (-> solved count)})))
+                    :submissions (-> solved count)
+                    :last (apply max-key :id solved)})))
 
 (defn home-routes []
   [""
