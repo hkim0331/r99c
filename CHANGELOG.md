@@ -21,7 +21,7 @@ int func_test(void) {
 simply can see who is recently submit answers.
 ### Changed
 - status page
-  remove raning to ranking page
+  remove raning to rankig page
 - profile page
   show chat
 ### Added
