@@ -16,10 +16,14 @@ int func_test(void) {
 - last submission
 - change color?
 
+## 0.9.4-SNAPSHOT
+- /profile, last submission からのリンクは comment/{id} がいい。
+
 ## 0.9.3 - 2021-12-04
 ### Fixed
 - /profile provlems-solved.
-- timbre/info failure validation
+- timbre/info failure validation をログするには、start.sh で
+  標準出力をリダイレクトする。
 
 ## 0.9.2 - 2021-12-04
 simply can see who is recently submit answers.
