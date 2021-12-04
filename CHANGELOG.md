@@ -16,9 +16,10 @@ int func_test(void) {
 * last submission
 
 
-## 0.9.1-SNAPSHOT
+## 0.9.1 - 2021-12-04
 ### Added
 - comment, to who?
+- last submission
 
 ## 0.9.0 - 2021-12-04
 ### Changed
