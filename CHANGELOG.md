@@ -14,12 +14,16 @@ int func_test(void) {
 問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
 何番を解いているタブを開いているか分かるようにしてほしいです！
 - change color?
-- comments all
+- confirm on password change
 
 
-## 0.9.4-SNAPSHOT
-- last submission
+## 0.9.4
+### Changed
 - /profile, last submission からのリンクは comment/{id} がいい。
+- top 30
+### Added
+- comments all
+- last submission
 
 ## 0.9.3 - 2021-12-04
 ### Fixed

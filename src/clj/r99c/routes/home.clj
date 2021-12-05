@@ -27,6 +27,7 @@
     (->> (take days (p/periodic-seq start-day (t/days 1)))
          (map to-date-str))))
 
+;; 2021-10-11 から 130日間
 (def ^:private period (make-period 2021 10 11 130))
 
 (defn login
@@ -67,11 +68,14 @@
      "status.html"
      {:login login
       :status (map #(solved? solved %) (map :num (db/problems)))
-      :recents (db/recent-answers {:n 20})
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)
+      :recents (db/recent-answers {:n 20})
       :recent-comments (db/recent-comments {:n 20})})))
 
+(defn comments [request]
+  (layout/render request "comments.html"
+                 {:comments (drop 20 (db/comments))}))
 (defn problems-page
   "display problems."
   [request]
@@ -110,7 +114,6 @@
 (defn- not-empty? [answer]
   (re-find #"\S" (strip answer)))
 
-;; 0.9.0
 (defn- space-rule?
   "check answer follows r99 space rule"
   [s]
@@ -217,20 +220,22 @@
   (let [login (login request)
         solved (db/answers-by {:login login})]
     (layout/render request "ranking.html"
-                   {:top-n (db/top-users {:n 20})
-                    :top-distinct-n (db/top-users-distinct {:n 20})})))
+                   {:top-n (db/top-users {:n 30})
+                    :top-distinct-n (db/top-users-distinct {:n 30})})))
+
+
 
 (defn home-routes []
-  [""
-   {:middleware [middleware/auth
-                 middleware/wrap-csrf
-                 middleware/wrap-formats]}
+  ["" {:middleware [middleware/auth
+                    middleware/wrap-csrf
+                    middleware/wrap-formats]}
    ["/" {:get status-page}]
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]
    ["/ch-pass" {:post ch-pass}]
    ["/comment/:id" {:get  comment-form
                     :post create-comment!}]
+   ["/comments" {:get comments}]
    ["/comments-sent/:login" {:get comments-sent}]
    ["/problems" {:get problems-page}]
    ["/profile" {:get profile}]
