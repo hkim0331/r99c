@@ -192,4 +192,9 @@ ORDER BY create_at DESC;
 -- :doc retrieve recent n comments
 SELECT * FROM comments
 ORDER BY create_at DESC
-limit :n
+limit :n;
+
+-- :name comments :? :*
+-- :doc retrieve all comments
+SELECT * FROM comments
+ORDER BY create_at DESC;
