@@ -17,7 +17,7 @@ int func_test(void) {
 - confirm on password change
 
 
-## 0.9.4
+## 0.9.5 - 2021-12-05
 ### Changed
 - /profile, last submission からのリンクは comment/{id} がいい。
 - top 30
