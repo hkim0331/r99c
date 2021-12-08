@@ -22,6 +22,7 @@
 
 ;; s/coll/ys
 ;; 2.5 は縮尺。
+;; FIXME: DRY!
 (defn class-chart
   [answers period width height]
   (let [tmp (->date-count answers)
@@ -35,3 +36,10 @@
         ys  (for [d period]
               (get tmp d 0))]
     (html (bar-chart (map #(* % 13) ys) width height))))
+
+(defn comment-chart
+  [answers period width height]
+  (let [tmp (->date-count answers)
+        ys  (for [d period]
+              (get tmp d 0))]
+    (html (bar-chart (map #(* % 5) ys) width height))))

@@ -198,3 +198,10 @@ limit :n;
 -- :doc retrieve all comments
 SELECT * FROM comments
 ORDER BY create_at DESC;
+
+-- :name comments-by-date-login :? :*
+-- :doc how may comments by from_login?
+SELECT create_at::date::text, count(*) FROM comments
+where from_login = :login
+GROUP BY create_at::date
+ORDER BY create_at::date

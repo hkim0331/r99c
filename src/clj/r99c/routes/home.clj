@@ -7,7 +7,7 @@
    [clj-time.periodic :as p]
    [clojure.string :as str]
    [digest]
-   [r99c.charts :refer [class-chart individual-chart]]
+   [r99c.charts :refer [class-chart individual-chart comment-chart]]
    [r99c.db.core :as db]
    [r99c.layout :as layout]
    [r99c.middleware :as middleware]
@@ -76,6 +76,7 @@
 (defn comments [request]
   (layout/render request "comments.html"
                  {:comments (drop 20 (db/comments))}))
+
 (defn problems-page
   "display problems."
   [request]
@@ -103,7 +104,9 @@
                       :same []
                       :differ answers}))))
 
-(defn- remove-comments [s]
+(defn- remove-comments
+  "remove lines starting from //, which is a comment in C"
+  [s]
   (apply str (remove #(str/starts-with? % "//") (str/split-lines s))))
 
 (defn- strip [s]
@@ -115,7 +118,7 @@
   (re-find #"\S" (strip answer)))
 
 (defn- space-rule?
-  "check answer follows r99 space rule"
+  "R99 space-char rules"
   [s]
   (every? nil?
           [(re-find #"include<" s)
@@ -206,10 +209,12 @@
 (defn profile [request]
   (let [login (login request)
         solved (db/answers-by {:login login})
-        individual (db/answers-by-date-login {:login login})]
+        individual (db/answers-by-date-login {:login login})
+        comments (db/comments-by-date-login {:login login})]
     (layout/render request "profile.html"
                    {:login login
                     :chart (individual-chart individual period 600 150)
+                    :comment-chart (comment-chart comments period 600 150)
                     :comments-rcvd (db/comments-rcvd {:login login})
                     :comments (db/sent-comments {:login login})
                     :solved (->> solved (map :num) distinct count)
