@@ -15,7 +15,17 @@ int func_test(void) {
 何番を解いているタブを開いているか分かるようにしてほしいです！
 - change color?
 - confirm on password change
+- comments all はヘビーすぎるか？ pager の導入
+- top commenters
+- なんでバリデーションが通らなかったか？メッセージを表示する。
 
+
+## 0.10.0 - 2021-12-08
+### Added
+- comments chart in profile page.
+### Changed
+- DRY! chart.clj
+- recent submission の時刻
 
 ## 0.9.5 - 2021-12-05
 ### Changed
