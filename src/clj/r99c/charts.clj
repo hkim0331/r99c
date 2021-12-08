@@ -33,27 +33,12 @@
 
 (defn class-chart
   [answers period width height]
-  (chart #(/ % 2.5) answers period width height))
-
-  ;; (let [tmp (->date-count answers)
-  ;;       ys  (for [d period]
-  ;;             (get tmp d 0))]
-  ;;   (html (bar-chart (map #(/ % 2.5) ys) width height))))
+  (chart #(/ % 4.5) answers period width height "orange"))
 
 (defn individual-chart
   [answers period width height]
   (chart #(* % 13) answers period width height))
 
-  ;; (let [tmp (->date-count answers)
-  ;;       ys  (for [d period]
-  ;;             (get tmp d 0))]
-  ;;   (html (bar-chart (map #(* % 13) ys) width height))))
-
 (defn comment-chart
   [answers period width height]
-  (chart #(* % 5) answers period width height))
-
-  ;; (let [tmp (->date-count answers)
-  ;;       ys  (for [d period]
-  ;;             (get tmp d 0))]
-  ;;   (html (bar-chart (map #(* % 5) ys) width height))))
+  (chart #(* % 4) answers period width height "green"))
