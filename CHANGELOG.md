@@ -18,7 +18,7 @@ int func_test(void) {
 - comments all はヘビーすぎるか？ pager の導入
 - top commenters
 - なんでバリデーションが通らなかったか？メッセージを表示する。
-
+- chart y 軸を動的に。
 
 ## 0.10.0 - 2021-12-08
 ### Added
