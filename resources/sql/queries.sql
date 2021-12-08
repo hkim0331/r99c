@@ -205,3 +205,11 @@ SELECT create_at::date::text, count(*) FROM comments
 where from_login = :login
 GROUP BY create_at::date
 ORDER BY create_at::date
+
+-- :name comments-counts :? :*
+-- :doc who sent most comments?
+SELECT from_login, count(*) FROM comments
+WHERE from_login != 'hkimura'
+GROUP BY from_login
+ORDER BY count(*) DESC
+limit :n;

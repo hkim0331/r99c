@@ -221,13 +221,19 @@
                     :submissions (-> solved count)
                     :last (apply max-key :id solved)})))
 
-(defn ranking [request]
-  (let [login (login request)
-        solved (db/answers-by {:login login})]
-    (layout/render request "ranking.html"
-                   {:top-n (db/top-users {:n 30})
-                    :top-distinct-n (db/top-users-distinct {:n 30})})))
+;; (defn ranking [request]
+;;   (let [login (login request)
+;;         solved (db/answers-by {:login login})]
+;;     (layout/render request "ranking.html"
+;;                    {:top-n (db/top-users {:n 30})
+;;                     :top-distinct-n (db/top-users-distinct {:n 30})
+;;                     :comments (db/comments-counts {:n 30})})))
 
+(defn ranking [request]
+  (layout/render request "ranking.html"
+                 {:top-n (db/top-users {:n 30})
+                  :top-distinct-n (db/top-users-distinct {:n 30})
+                  :comments (db/comments-counts {:n 30})}))
 
 
 (defn home-routes []

@@ -1,7 +1,7 @@
 (ns r99c.routes.login
   (:require
    [buddy.hashers :as hashers]
-   [clojure.java.io :as io]
+   ;;[clojure.java.io :as io]
    [r99c.layout :as layout]
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
@@ -9,7 +9,7 @@
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
-(def ^:private version "0.10.0")
+(def ^:private version "0.10.1")
 
 (def users-schema
   [[:sid
