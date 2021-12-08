@@ -18,5 +18,12 @@
       &nbsp;
       {% endfor %}
       </p>
-  </div>
+
+    <h4>top 30 commenter</h4>
+    <p>
+      {% for c in comments %}
+      {{c.from_login}}({{c.count}})
+      &nbsp;
+      {% endfor %}
+    </p>
 {% endblock %}
