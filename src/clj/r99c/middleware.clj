@@ -2,7 +2,7 @@
   (:require
    [clojure.tools.logging :as log]
    [muuntaja.middleware :refer [wrap-format wrap-params]]
-   [r99c.config :refer [env]]
+   ;;[r99c.config :refer [env]]
    [r99c.env :refer [defaults]]
    [r99c.layout :refer [error-page]]
    [r99c.middleware.formats :as formats]
@@ -11,7 +11,7 @@
    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
    [ring.middleware.flash :refer [wrap-flash]]
    ;;
-   [buddy.auth :refer [authenticated? throw-unauthorized]]
+   [buddy.auth :refer [authenticated? #_throw-unauthorized]]
    [buddy.auth.accessrules :refer [restrict]]
    [buddy.auth.backends.session :refer [session-backend]]
    [buddy.auth.middleware :refer [wrap-authorization wrap-authentication]]
