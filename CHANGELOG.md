@@ -20,6 +20,7 @@ int func_test(void) {
 - なんでバリデーションが通らなかったか？メッセージを表示する。
 - chart y 軸を動的に。
 
+
 ## 0.10.1 - 2021-12-08
 ### Added
 - top 30 commenters in ranking page.
