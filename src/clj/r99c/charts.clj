@@ -41,4 +41,4 @@
 
 (defn comment-chart
   [answers period width height]
-  (chart #(* % 4) answers period width height "green"))
+  (chart #(* % 30) answers period width height "green"))
