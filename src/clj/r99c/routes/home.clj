@@ -120,32 +120,41 @@
 (defn- space-rule?
   "R99 space-char rules"
   [s]
-  (every? nil?
-          [(re-find #"include<" s)
-           (re-find #"\)\{" s)
-           (re-find #"if\(" s)
-           (re-find #"for\(" s)
-           (re-find #"while\(" s)
-           (re-find #"}else" s)
-           (re-find #"else\{" s)
-           (re-find #"\n\s*else" s)
-           (re-find #" \+\+" s)]))
+  (or (every? nil?
+              [(re-find #"include<" s)
+               (re-find #"\)\{" s)
+               (re-find #"if\(" s)
+               (re-find #"for\(" s)
+               (re-find #"while\(" s)
+               (re-find #"}else" s)
+               (re-find #"else\{" s)
+               (re-find #"\n\s*else" s)
+               (re-find #" \+\+" s)])
+      (throw (Exception. "R99のスペースルールに抵触しています。"))))
 
 ;; https://github.com/hozumi/clj-commons-exec
 (defn- can-compile? [answer]
   (let [r (exec/sh ["gcc" "-xc" "-fsyntax-only" "-"] {:in answer})]
     (timbre/debug "gcc" @r)
-    (nil? (:err @r))))
+    (if-let [err (:err @r)]
+      (throw (Exception. err))
+      true)))
 
 ;; (every? true? ((juxt f g h) s)) is not same as (and (f s) (g s) (h s)).
-(defn- validate? [answer]
-  (and (not-empty? (strip answer))
-       (space-rule? answer)
-       (can-compile? answer)))
+;; (defn- validate? [answer]
+;;   (try
+;;     (not-empty? (strip answer))
+;;     (space-rule? answer)
+;;     (can-compile? answer)
+;;     (catch Exception e (throw e))))
 
 (defn create-answer!
   [{{:keys [num answer]} :params :as request}]
-  (if (validate? answer)
+  (try
+    (when-not (not-empty? (strip answer))
+      (throw (Exception. "回答がカラです。")))
+    (space-rule? answer)
+    (can-compile? answer)
     (try
       (db/create-answer! {:login (login request)
                           :num (Integer/parseInt num)
@@ -154,12 +163,12 @@
       (redirect (str "/answer/" num))
       (catch Exception _
         (redirect (str "/answer/" num))))
-    (do
+    (catch Exception e
       (timbre/info "validation failed" (login request))
       (layout/render request "error.html"
                      {:status 406
-                      :title "プログラムにエラーがあります。"
-                      :message "ブラウザのバックで戻って、修正後、再提出してください。"}))))
+                      :title "ブラウザのバックで戻って、修正後、再提出してください。"
+                      :message (.getMessage e)}))))
 
 (defn comment-form
   "take answer id as path-parameter, show the answer with
