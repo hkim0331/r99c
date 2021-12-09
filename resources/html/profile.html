@@ -15,12 +15,10 @@
       <a href='/comment/{{c.a_id}}'>{{c.p_num}}</a>
       &nbsp;
       {% endfor %}</p>
-
-
-
+<!--
     <h4>last login</h4>
       <p>(under construction)</p>
-
+-->
     <h4>last submission</h4>
       <p>{{last.create_at|date:shortDateTime}},
         <a href='/comment/{{last.id}}'>{{last.num}}</a></p>
