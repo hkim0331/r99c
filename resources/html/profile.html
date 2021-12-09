@@ -3,8 +3,12 @@
   <div class="content">
     <h2>{{login}}'s Profile</h2>
 
-    <h4>activities</h4>
+    <h4>submissions</h4>
     <p>{{chart|safe}}</p>
+
+    <h4>comments sent</h4>
+    <p>{{comment-chart|safe}}</p>
+    <p>total <a href='/comments-sent/{{login}}'>{{comments.count}}</a></p>
 
     <h4>comments received</h4>
     <p>{% for c in comments-rcvd %}
@@ -12,9 +16,7 @@
       &nbsp;
       {% endfor %}</p>
 
-    <h4>comments sent</h4>
-    <p>total <a href='/comments-sent/{{login}}'>{{comments.count}}</a></p>
-    <p>{{comment-chart|safe}}</p>
+
 
     <h4>last login</h4>
       <p>(under construction)</p>

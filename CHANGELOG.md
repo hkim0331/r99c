@@ -13,13 +13,15 @@ int func_test(void) {
 - r99のタブが今「Welcome to r99」ですが、
 問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
 何番を解いているタブを開いているか分かるようにしてほしいです！
-- change color?
 - confirm on password change
-- comments all はヘビーすぎるか？ pager の導入
-- top commenters
+- comments all に pager の導入
 - なんでバリデーションが通らなかったか？メッセージを表示する。
 - chart y 軸を動的に。
 
+## 0.10.2 - 2021-12-08
+### Changed
+- adjust chart scales.
+- change chart colors.
 
 ## 0.10.1 - 2021-12-08
 ### Added
