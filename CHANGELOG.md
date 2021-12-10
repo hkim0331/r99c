@@ -15,8 +15,9 @@ int func_test(void) {
 何番を解いているタブを開いているか分かるようにしてほしいです！
 - confirm on password change
 - comments all に pager の導入
-
 - chart y 軸を動的に。
+- もうちょっと上手にバリデーション
+
 
 ## 0.11.0 - 2021-12-09
 ### Added
