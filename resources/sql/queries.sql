@@ -28,7 +28,7 @@ SELECT * from users;
 -- problems section
 -- ----------------
 
--- :name create-problem! :! :n
+-- :name create-problem! :! :1
 -- :doc creates a new problem record
 INSERT INTO problems
 (num, problem)
@@ -67,11 +67,12 @@ SELECT COUNT(*) FROM problems
 -- answers section
 -- --------------
 
--- :name create-answer! :! :n
+-- :name create-answer! :! :1
 -- :doc creates a new problem record
 INSERT INTO answers
 (login, num, answer, md5)
 VALUES (:login, :num, :answer, :md5)
+RETURNING id
 
 -- :name get-answer :? :1
 -- :doc retrieves the most recent answer to `num` from user `login`
