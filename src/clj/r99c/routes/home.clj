@@ -163,7 +163,8 @@
                            :answer answer
                            :md5 (-> answer strip digest/md5)})]
         (timbre/info "id" id)
-        (redirect (str "/comment/" id)))
+        ;;(redirect (str "/comment/" id)))
+        (redirect (str "/answers/" num)))
       (catch Exception _
         (layout/render request "error.html"
                        {:status 406
