@@ -157,11 +157,13 @@
                       :title error
                       :message "ブラウザのバックで戻って、修正後、再提出してください。"}))
     (try
-      (db/create-answer! {:login (login request)
-                          :num (Integer/parseInt num)
-                          :answer answer
-                          :md5 (-> answer strip digest/md5)})
-      (redirect (str "/answer/" num))
+      (let [{:keys [id]} (db/create-answer!
+                          {:login (login request)
+                           :num (Integer/parseInt num)
+                           :answer answer
+                           :md5 (-> answer strip digest/md5)})]
+        (timbre/info "id" id)
+        (redirect (str "/comment/" id)))
       (catch Exception _
         (layout/render request "error.html"
                        {:status 406
