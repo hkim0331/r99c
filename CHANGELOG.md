@@ -16,6 +16,7 @@ int func_test(void) {
 - confirm on password change
 - comments all に pager の導入
 - chart y 軸を動的に。
+- /comments に問題番号を表示する
 
 ## 0.12.1 - 2021-12-10
 ### resume
