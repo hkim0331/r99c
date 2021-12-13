@@ -1,7 +1,6 @@
 # CHANGELOG.md
 
 ## Unreleased
-- post logout
 - problems の表示に、C のソースをデコレートして表示する。
   markdown なら以下ができれば十分だが。
 ```c
@@ -9,7 +8,6 @@ int func_test(void) {
   return 1==1 && 2==2 && 3==3;
 }
 ```
-- /admin/codes/:login
 - r99のタブが今「Welcome to r99」ですが、
 問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
 何番を解いているタブを開いているか分かるようにしてほしいです！
@@ -90,7 +88,7 @@ simply can see who is recently submit answers.
 - defined home/space-rule?
 
 ## 0.8.23 - 2021-11-28
-- login `waring` message
+- login `warning` message
 
 ## 0.8.22 - 2021-11-21
 ### Added
