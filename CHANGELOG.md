@@ -17,6 +17,9 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
+## 0.12.2 - 2021-12-13
+- /comments に問題番号を表示する
+
 ## 0.12.1 - 2021-12-10
 ### resume
 - 自分の回答よりも他人の回答
