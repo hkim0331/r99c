@@ -2,7 +2,6 @@
 
 ## Unreleased
 - problems の表示に、C のソースをデコレートして表示する。
-  markdown なら以下ができれば十分だが。
 ```c
 int func_test(void) {
   return 1==1 && 2==2 && 3==3;
@@ -11,9 +10,11 @@ int func_test(void) {
 - r99のタブが今「Welcome to r99」ですが、
 問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
 何番を解いているタブを開いているか分かるようにしてほしいです！
-- confirm on password change
 - comments all に pager の導入
 - chart y 軸を動的に。
+
+## 0.12.3 - 2021-12-14
+- confirm on password change
 
 ## 0.12.2 - 2021-12-13
 - /comments に問題番号を表示する
