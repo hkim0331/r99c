@@ -13,10 +13,16 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
+## 0.13.0 - 2021-12-15
+## Added
+- /comments/:num /comment/:id ページから。その問題についたコメントを一覧表示する。
+
 ## 0.12.3 - 2021-12-14
+### Added
 - confirm on password change
 
 ## 0.12.2 - 2021-12-13
+### Changed
 - /comments に問題番号を表示する
 
 ## 0.12.1 - 2021-12-10
