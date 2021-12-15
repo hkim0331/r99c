@@ -73,10 +73,6 @@
       :recents (db/recent-answers {:n 20})
       :recent-comments (db/recent-comments {:n 20})})))
 
-(defn comments [request]
-  (layout/render request "comments.html"
-                 {:comments (drop 20 (db/comments))}))
-
 (defn problems-page
   "display problems."
   [request]
@@ -89,7 +85,6 @@
   (let [num (Integer/parseInt (get-in request [:path-params :num]))
         problem (db/get-problem {:num num})
         answers (db/answers-to {:num num})]
-
     (if-let [answer (db/get-answer {:num num :login (login request)})]
       ;; can group when already answered
       (let [answers (group-by #(= (:md5 answer) (:md5 %)) answers)]
@@ -204,6 +199,15 @@
         sent (db/comments-sent {:login login})]
     (layout/render request "comments-sent.html" {:sent sent})))
 
+(defn comments [request]
+  (layout/render request "comments.html"
+                 {:comments (drop 20 (db/comments))}))
+
+(defn comments-by-num [request]
+  (let [num (Integer/parseInt (get-in request [:path-params :num]))]
+    (layout/render request "comments.html"
+                   {:comments (db/comments-by-num {:num num})})))
+
 (defn ch-pass-form [request]
   (layout/render request "ch-pass-form.html" {:login (login request)}))
 
@@ -238,7 +242,6 @@
                   :top-distinct-n (db/top-users-distinct {:n 30})
                   :comments (db/comments-counts {:n 30})}))
 
-
 (defn home-routes []
   ["" {:middleware [middleware/auth
                     middleware/wrap-csrf
@@ -251,6 +254,7 @@
                     :post create-comment!}]
    ["/comments" {:get comments}]
    ["/comments-sent/:login" {:get comments-sent}]
+   ["/comments/:num" {:get comments-by-num}]
    ["/problems" {:get problems-page}]
    ["/profile" {:get profile}]
    ["/ranking" {:get ranking}]])

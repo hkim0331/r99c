@@ -200,6 +200,12 @@ limit :n;
 SELECT * FROM comments
 ORDER BY create_at DESC;
 
+-- :name comments-by-num :? :*
+-- :doc retrieve comments directed to num
+SELECT * FROM comments
+WHERE p_num = :num
+ORDER BY create_at DESC;
+
 -- :name comments-by-date-login :? :*
 -- :doc how may comments by from_login?
 SELECT create_at::date::text, count(*) FROM comments
