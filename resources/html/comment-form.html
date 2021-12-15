@@ -21,6 +21,7 @@
   <pre>{{c.comment|wrap66}}</pre>
   {% endfor %}
 
+
   <form method='post'>
     {% csrf-field %}
     <input type='hidden' name='p_num' value='{{problem.num}}'>
@@ -30,6 +31,11 @@
               placeholder='Your comment please.'></textarea><br>
     <input type='submit' value='comment' class='button is-warning is-small'>
   </form>
+
+  <br>
+
+  <p>Other comments to this problem ...
+    <a href='/comments/{{problem.num}}'>✏️</a></p>
 
   </div>
 {% endblock %}
