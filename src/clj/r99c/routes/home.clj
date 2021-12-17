@@ -8,6 +8,7 @@
    [clojure.string :as str]
    [digest]
    [r99c.charts :refer [class-chart individual-chart comment-chart]]
+   [r99c.check-indent :refer [check-indent]]
    [r99c.db.core :as db]
    [r99c.layout :as layout]
    [r99c.middleware :as middleware]
@@ -143,28 +144,34 @@
     (catch Exception e (.getMessage e))))
 
 (defn create-answer!
-  [{{:keys [num answer]} :params :as request}]
-  (if-let [error (validate answer)]
-    (do
-      (timbre/info "validation failed" (login request) error)
-      (layout/render request "error.html"
-                     {:status 406
-                      :title error
-                      :message "ブラウザのバックで戻って、修正後、再提出してください。"}))
-    (try
-      (let [{:keys [id]} (db/create-answer!
-                          {:login (login request)
-                           :num (Integer/parseInt num)
-                           :answer answer
-                           :md5 (-> answer strip digest/md5)})]
-        (timbre/info "id" id)
-        ;;(redirect (str "/comment/" id)))
-        (redirect (str "/answer/" num)))
-      (catch Exception _
-        (layout/render request "error.html"
-                       {:status 406
-                        :title "database error"
-                        :message "can not insert"})))))
+  [{{:keys [num answer action]} :params :as request}]
+  ;;(timbre/debug "indent-check" action)
+  (if (= action "check")
+   (layout/render request "error.html"
+                          {:status 200
+                           :title "indent checker"
+                           :message (check-indent answer)})
+   (if-let [error (validate answer)]
+     (do
+       (timbre/info "validation failed" (login request) error)
+       (layout/render request "error.html"
+                      {:status 406
+                       :title error
+                       :message "ブラウザのバックで戻って、修正後、再提出してください。"}))
+     (try
+       (let [{:keys [id]} (db/create-answer!
+                           {:login (login request)
+                            :num (Integer/parseInt num)
+                            :answer answer
+                            :md5 (-> answer strip digest/md5)})]
+         (timbre/info "id" id)
+         ;;(redirect (str "/comment/" id)))
+         (redirect (str "/answer/" num)))
+       (catch Exception _
+         (layout/render request "error.html"
+                        {:status 406
+                         :title "database error"
+                         :message "can not insert"}))))))
 
 
 (defn comment-form
