@@ -13,6 +13,9 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
+## 0.14.2 - 2021-12-18
+### Bugfix
+- check indents are all evens
 
 ## 0.14.1 - 2021-12-18
 ### Added

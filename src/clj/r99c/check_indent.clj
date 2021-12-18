@@ -1,7 +1,9 @@
 ;;; FIXME: indent 4
 
 (ns r99c.check-indent
-  (:require [clojure.string :as str]))
+  (:require
+   [clojure.string :as str]
+   #_[taoensso.timbre :as timbre]))
 
 (defn- remove-comments
   [lines]
@@ -42,20 +44,28 @@
   [diff curls only]
   (let [d (concat (map only diff) [0])
         c (map only curls)]
+    ;;(timbre/debug d)
+    ;;(timbre/debug c)
     (= d c)))
 
+(defn- skel [s]
+  (-> s
+      str/split-lines
+      remove-comments
+      remove-blank-lines
+      remove-close-open))
+
 (defn check-indent [s]
-  (let [lines (-> s
-                  str/split-lines
-                  remove-comments
-                  remove-blank-lines
-                  remove-close-open)
-        diffs (diff (indents lines))
+  (let [lines (skel s)
+        indents (indents lines)
+        diffs (diff indents)
         curls (curlys lines)]
-    (if (and (check-aux diffs curls #(if (= 2 %) 2 0))
-             (check-aux (reverse diffs) (reverse curls) #(if (= -2 %) -2 0)))
+    (if (and
+         (every? even? indents)
+         (check-aux diffs curls #(if (= 2 %) 2 0))
+         (check-aux (reverse diffs) (reverse curls) #(if (= -2 %) -2 0)))
       "GOOD"
       "NG")))
 
 (comment
-  (check-indent (slurp "str_rm.c")))
+  (check-indent (slurp "sample.c")))
