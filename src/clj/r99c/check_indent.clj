@@ -1,3 +1,5 @@
+;;; FIXME: indent 4
+
 (ns r99c.check-indent
   (:require [clojure.string :as str]))
 
@@ -32,18 +34,9 @@
     (re-find #"\}" line) -2
     :else 0))
 
-;; must be a multiple arity function
 (defn- curlys
   [lines]
   (map curly lines))
-
-;; forward と backward、two pass で。
-
-;; (def skel (-> (slurp "str_rm.c")
-;;               str/split-lines
-;;               remove-comments
-;;               remove-blank-lines
-;;               remove-close-open))
 
 (defn- check-aux
   [diff curls only]
@@ -61,7 +54,7 @@
         curls (curlys lines)]
     (if (and (check-aux diffs curls #(if (= 2 %) 2 0))
              (check-aux (reverse diffs) (reverse curls) #(if (= -2 %) -2 0)))
-      "no error"
+      "GOOD"
       "NG")))
 
 (comment
