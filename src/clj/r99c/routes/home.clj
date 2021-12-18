@@ -147,10 +147,9 @@
   [{{:keys [num answer action]} :params :as request}]
   ;;(timbre/debug "indent-check" action)
   (if (= action "check")
-   (layout/render request "error.html"
-                          {:status 200
-                           :title "indent checker"
-                           :message (check-indent answer)})
+   (layout/render request "indent-check.html"
+                          {:message "result of indent check:"
+                           :result (check-indent answer)})
    (if-let [error (validate answer)]
      (do
        (timbre/info "validation failed" (login request) error)

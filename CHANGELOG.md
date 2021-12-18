@@ -13,11 +13,17 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
+
+## 0.14.1 - 2021-12-18
+### Added
+- indent-check.html
+
 ## 0.14.0-SNAPSHOT
+### Added
 - indent checker
 
 ## 0.13.0 - 2021-12-15
-## Added
+### Added
 - /comments/:num /comment/:id ページから。その問題についたコメントを一覧表示する。
 
 ## 0.12.3 - 2021-12-14
