@@ -33,7 +33,7 @@
 
     <h4>Change {{login}}'s password</h4>
 
-    <form method='post' action='/ch-pass'>
+    <form method='post' action='/ch-pass' onSubmit="return ok()">
       {% csrf-field %}
       <input type='hidden' name='login' value='{{login}}'>
       <p>old <input type='password' name='old'>
