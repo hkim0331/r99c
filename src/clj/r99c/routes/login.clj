@@ -9,7 +9,7 @@
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
-(def ^:private version "0.14.3")
+(def ^:private version "0.14.4")
 
 (def users-schema
   [[:sid
@@ -53,9 +53,13 @@
     (if (and (seq user)
              (= (:login user) login)
              (hashers/check password (:password user)))
-      (-> (redirect "/")
-          (assoc-in [:session :identity] (keyword login)))
-      (redirect "/login"))))
+      (do
+       (timbre/info "login success" login)
+       (-> (redirect "/")
+           (assoc-in [:session :identity] (keyword login))))
+      (do
+       (timbre/info "login faild" login)
+       (redirect "/login")))))
 
 (defn logout [_]
   (-> (redirect "/")
