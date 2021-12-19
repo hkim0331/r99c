@@ -53,9 +53,13 @@
     (if (and (seq user)
              (= (:login user) login)
              (hashers/check password (:password user)))
-      (-> (redirect "/")
-          (assoc-in [:session :identity] (keyword login)))
-      (redirect "/login"))))
+      (do
+       (timbre/info "login success" login)
+       (-> (redirect "/")
+           (assoc-in [:session :identity] (keyword login))))
+      (do
+       (timbre/info "login faild" login)
+       (redirect "/login")))))
 
 (defn logout [_]
   (-> (redirect "/")
