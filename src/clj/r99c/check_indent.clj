@@ -3,7 +3,7 @@
 (ns r99c.check-indent
   (:require
    [clojure.string :as str]
-   #_[taoensso.timbre :as timbre]))
+   [taoensso.timbre :as timbre]))
 
 (defn- remove-comments
   [lines]
@@ -60,6 +60,7 @@
         indents (indents lines)
         diffs (diff indents)
         curls (curlys lines)]
+    (timbre/debug "check-indent invoked")
     (if (and
          (every? even? indents)
          (check-aux diffs curls #(if (= 2 %) 2 0))

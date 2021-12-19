@@ -165,7 +165,7 @@
                             :num (Integer/parseInt num)
                             :answer answer
                             :md5 (-> answer strip digest/md5)})]
-         (timbre/info "id" id)
+         (timbre/debug "create-answer id:" id)
          ;;(redirect (str "/comment/" id)))
          (redirect (str "/answer/" num)))
        (catch Exception _
