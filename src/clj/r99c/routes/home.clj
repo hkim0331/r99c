@@ -103,7 +103,9 @@
 (defn- remove-comments
   "remove lines starting from //, which is a comment in C"
   [s]
-  (apply str (remove #(str/starts-with? % "//") (str/split-lines s))))
+  (apply
+    str
+    (interpose "\n" (remove #(str/starts-with? % "//") (str/split-lines s)))))
 
 (defn- strip [s]
   (-> s
