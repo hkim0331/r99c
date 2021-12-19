@@ -15,7 +15,7 @@ int func_test(void) {
 
 ## 0.14.4 - 2021-12-19
 ### Added
-- log login
+- log login users
 
 ## 0.14.3 - 2021-12-19
 ### bugfix
