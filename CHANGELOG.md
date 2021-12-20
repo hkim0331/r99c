@@ -12,6 +12,11 @@ int func_test(void) {
 何番を解いているタブを開いているか分かるようにしてほしいです！
 - comments all に pager の導入
 - chart y 軸を動的に。
+- validate check indent
+
+## 0.14.5 - 2021-12-20
+### Added
+- display last login timestamp in profile page.
 
 ## 0.14.4 - 2021-12-19
 ### Added
