@@ -142,6 +142,8 @@
   (try
     (not-empty? (strip answer))
     (space-rule? (remove-comments answer))
+    ;; 0.14.5
+    (check-indent answer)
     (can-compile? answer)
     (catch Exception e (.getMessage e))))
 
@@ -236,6 +238,7 @@
         comments (db/comments-by-date-login {:login login})]
     (layout/render request "profile.html"
                    {:login login
+                    :user (db/get-user {:login login})
                     :chart (individual-chart individual period 600 150)
                     :comment-chart (comment-chart comments period 600 150)
                     :comments-rcvd (db/comments-rcvd {:login login})

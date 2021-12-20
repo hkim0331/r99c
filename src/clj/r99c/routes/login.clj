@@ -9,7 +9,7 @@
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
-(def ^:private version "0.14.4")
+(def ^:private version "0.14.5")
 
 (def users-schema
   [[:sid
@@ -55,6 +55,7 @@
              (hashers/check password (:password user)))
       (do
        (timbre/info "login success" login)
+       (db/login {:login login})
        (-> (redirect "/")
            (assoc-in [:session :identity] (keyword login))))
       (do

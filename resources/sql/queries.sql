@@ -24,6 +24,11 @@ WHERE login = :login
 -- :doc get all users
 SELECT * from users;
 
+-- :name login :! :1
+UPDATE users
+SET last_login = CURRENT_TIMESTAMP
+WHERE login = :login
+
 -- ----------------
 -- problems section
 -- ----------------
