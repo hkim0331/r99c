@@ -13,6 +13,9 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
+## 0.14.6 - 2021-12-20
+### Added
+- display 'enabled indent check' on login page.
 
 ## 0.14.5 - 2021-12-20
 ### Added
