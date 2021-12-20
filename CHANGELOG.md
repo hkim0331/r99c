@@ -15,7 +15,6 @@ int func_test(void) {
 
 
 ## 0.14.5 - 2021-12-20
-(not yet deployed)
 ### Added
 - display last login timestamp in profile page.
 - enable check-indent
