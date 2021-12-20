@@ -8,7 +8,7 @@
 
     <h4>comments sent</h4>
     <p>{{comment-chart|safe}}</p>
-    
+
     <h4>comments received</h4>
     <p>{% for c in comments-rcvd %}
       <a href='/comment/{{c.a_id}}'>{{c.p_num}}</a>
@@ -19,7 +19,7 @@
       <p>(under construction)</p>
 -->
     <h4>last login</h4>
-    <p>{{user.last_login}}</p>
+    <p>{{user.last_login|date:shortDateTime}}</p>
 
     <h4>last submission</h4>
       <p>{{last.create_at|date:shortDateTime}},
