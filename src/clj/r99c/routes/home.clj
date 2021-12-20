@@ -128,7 +128,8 @@
                      (re-find #"}else" s)
                      (re-find #"else\{" s)
                      (re-find #"\n\s*else" s)
-                     (re-find #" \+\+" s)])
+                     (re-find #" \+\+" s)
+                     (re-find #"\+\+ " s)])
     (throw (Exception. "against R99 space rules"))))
 
 ;; https://github.com/hozumi/clj-commons-exec
@@ -142,12 +143,13 @@
   (try
     (not-empty? (strip answer))
     (space-rule? (remove-comments answer))
+    ;; 0.14.5
+    (check-indent answer)
     (can-compile? answer)
     (catch Exception e (.getMessage e))))
 
 (defn create-answer!
   [{{:keys [num answer action]} :params :as request}]
-  ;;(timbre/debug "indent-check" action)
   (if (= action "check")
    (layout/render request "indent-check.html"
                           {:message "result of indent check:"
@@ -236,6 +238,7 @@
         comments (db/comments-by-date-login {:login login})]
     (layout/render request "profile.html"
                    {:login login
+                    :user (db/get-user {:login login})
                     :chart (individual-chart individual period 600 150)
                     :comment-chart (comment-chart comments period 600 150)
                     :comments-rcvd (db/comments-rcvd {:login login})

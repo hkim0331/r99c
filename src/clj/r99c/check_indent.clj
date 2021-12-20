@@ -3,7 +3,7 @@
 (ns r99c.check-indent
   (:require
    [clojure.string :as str]
-   #_[taoensso.timbre :as timbre]))
+   [taoensso.timbre :as timbre]))
 
 (defn- remove-comments
   [lines]
@@ -60,12 +60,12 @@
         indents (indents lines)
         diffs (diff indents)
         curls (curlys lines)]
-    (if (and
-         (every? even? indents)
-         (check-aux diffs curls #(if (= 2 %) 2 0))
-         (check-aux (reverse diffs) (reverse curls) #(if (= -2 %) -2 0)))
-      "GOOD"
-      "NG")))
+    ;;(timbre/debug "check-indent invoked")
+    (when-not (and
+               (every? even? indents)
+               (check-aux diffs curls #(if (= 2 %) 2 0))
+               (check-aux (reverse diffs) (reverse curls) #(if (= -2 %) -2 0)))
+      (throw (Exception. "R99 のインデントルールに抵触してます。")))))
 
 (comment
   (check-indent (slurp "sample.c")))
