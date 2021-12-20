@@ -142,6 +142,8 @@
   (try
     (not-empty? (strip answer))
     (space-rule? (remove-comments answer))
+    ;; 0.14.5
+    (check-indent answer)
     (can-compile? answer)
     (catch Exception e (.getMessage e))))
 
@@ -165,7 +167,7 @@
                             :num (Integer/parseInt num)
                             :answer answer
                             :md5 (-> answer strip digest/md5)})]
-         (timbre/debug "create-answer id:" id)
+         (timbre/info "id" id)
          ;;(redirect (str "/comment/" id)))
          (redirect (str "/answer/" num)))
        (catch Exception _
@@ -231,13 +233,12 @@
 
 (defn profile [request]
   (let [login (login request)
-        user (db/get-user {:login login})
         solved (db/answers-by {:login login})
         individual (db/answers-by-date-login {:login login})
         comments (db/comments-by-date-login {:login login})]
     (layout/render request "profile.html"
                    {:login login
-                    :user user
+                    :user (db/get-user {:login login})
                     :chart (individual-chart individual period 600 150)
                     :comment-chart (comment-chart comments period 600 150)
                     :comments-rcvd (db/comments-rcvd {:login login})
