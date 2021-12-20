@@ -60,7 +60,6 @@
         indents (indents lines)
         diffs (diff indents)
         curls (curlys lines)]
-    (timbre/debug "check-indent invoked")
     (if (and
          (every? even? indents)
          (check-aux diffs curls #(if (= 2 %) 2 0))
