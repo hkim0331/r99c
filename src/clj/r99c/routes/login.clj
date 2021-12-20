@@ -55,6 +55,7 @@
              (hashers/check password (:password user)))
       (do
        (timbre/info "login success" login)
+       (db/login {:login login})
        (-> (redirect "/")
            (assoc-in [:session :identity] (keyword login))))
       (do

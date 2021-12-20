@@ -231,11 +231,13 @@
 
 (defn profile [request]
   (let [login (login request)
+        user (db/get-user {:login login})
         solved (db/answers-by {:login login})
         individual (db/answers-by-date-login {:login login})
         comments (db/comments-by-date-login {:login login})]
     (layout/render request "profile.html"
                    {:login login
+                    :user user
                     :chart (individual-chart individual period 600 150)
                     :comment-chart (comment-chart comments period 600 150)
                     :comments-rcvd (db/comments-rcvd {:login login})
