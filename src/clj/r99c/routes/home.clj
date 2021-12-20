@@ -128,7 +128,8 @@
                      (re-find #"}else" s)
                      (re-find #"else\{" s)
                      (re-find #"\n\s*else" s)
-                     (re-find #" \+\+" s)])
+                     (re-find #" \+\+" s)
+                     (re-find #"\+\+ " s)])
     (throw (Exception. "against R99 space rules"))))
 
 ;; https://github.com/hozumi/clj-commons-exec
@@ -142,38 +143,38 @@
   (try
     (not-empty? (strip answer))
     (space-rule? (remove-comments answer))
+    ;; 0.14.5
+    (check-indent answer)
     (can-compile? answer)
     (catch Exception e (.getMessage e))))
 
 (defn create-answer!
   [{{:keys [num answer action]} :params :as request}]
   (if (= action "check")
-    (do
-      (timbre/debug "indent-check by" (login request))
-      (layout/render request "indent-check.html"
-                     {:message "result of indent check:"
-                      :result (check-indent answer)}))
-    (if-let [error (validate answer)]
-      (do
-        (timbre/info "validation failed" (login request) error)
-        (layout/render request "error.html"
-                       {:status 406
-                        :title error
-                        :message "ブラウザのバックで戻って、修正後、再提出してください。"}))
-      (try
-        (let [{:keys [id]} (db/create-answer!
-                            {:login (login request)
-                             :num (Integer/parseInt num)
-                             :answer answer
-                             :md5 (-> answer strip digest/md5)})]
-          (timbre/debug "create-answer id:" id)
-          ;;(redirect (str "/comment/" id)))
-          (redirect (str "/answer/" num)))
-        (catch Exception _
-          (layout/render request "error.html"
-                         {:status 406
-                          :title "database error"
-                          :message "can not insert"}))))))
+   (layout/render request "indent-check.html"
+                          {:message "result of indent check:"
+                           :result (check-indent answer)})
+   (if-let [error (validate answer)]
+     (do
+       (timbre/info "validation failed" (login request) error)
+       (layout/render request "error.html"
+                      {:status 406
+                       :title error
+                       :message "ブラウザのバックで戻って、修正後、再提出してください。"}))
+     (try
+       (let [{:keys [id]} (db/create-answer!
+                           {:login (login request)
+                            :num (Integer/parseInt num)
+                            :answer answer
+                            :md5 (-> answer strip digest/md5)})]
+         (timbre/info "id" id)
+         ;;(redirect (str "/comment/" id)))
+         (redirect (str "/answer/" num)))
+       (catch Exception _
+         (layout/render request "error.html"
+                        {:status 406
+                         :title "database error"
+                         :message "can not insert"}))))))
 
 
 (defn comment-form
@@ -237,6 +238,7 @@
         comments (db/comments-by-date-login {:login login})]
     (layout/render request "profile.html"
                    {:login login
+                    :user (db/get-user {:login login})
                     :chart (individual-chart individual period 600 150)
                     :comment-chart (comment-chart comments period 600 150)
                     :comments-rcvd (db/comments-rcvd {:login login})

@@ -13,6 +13,13 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
+
+## 0.14.5 - 2021-12-20
+(not yet deployed)
+### Added
+- display last login timestamp in profile page.
+- enable check-indent
+
 ## 0.14.4 - 2021-12-19
 ### Added
 - log login users
