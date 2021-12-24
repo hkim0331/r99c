@@ -28,7 +28,7 @@
     (->> (take days (p/periodic-seq start-day (t/days 1)))
          (map to-date-str))))
 
-;; 2021-10-11 から 130日間
+;; 2021-10-11 から 130 日間
 (def ^:private period (make-period 2021 10 11 130))
 
 (defn login
