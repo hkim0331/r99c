@@ -17,6 +17,8 @@ int func_test(void) {
 ### Added
 - indent any. can indent 2 or 4.
 - can not indent one, since indents must be even.
+### Changed
+- home.clj: (timbre/set-level! :info)
 
 ## 0.14.6 - 2021-12-20
 ### Added
