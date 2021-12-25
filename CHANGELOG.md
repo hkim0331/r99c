@@ -13,6 +13,11 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
+
+## 0.14.8 - 2021-12-25
+### Added
+- weely scores in /profile page.
+
 ## 0.14.7 - 2021-12-24
 ### Added
 - indent any. can indent 2 or 4.

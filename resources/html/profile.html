@@ -34,6 +34,12 @@
     <h4>comments sent</h4>
       <p><a href='/comments-sent/{{login}}'>{{comments.count}}</a></p>
 
+    <h4>Weekly</h4>
+    <p>("week" submits comments)<br>
+    {% for w in weekly %}
+    {{w}}<br>
+    {% endfor %}</p>
+
     <hr>
 
     <h4>Change {{login}}'s password</h4>
