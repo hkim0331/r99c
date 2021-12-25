@@ -3,7 +3,7 @@
 (ns r99c.check-indent
   (:require
    [clojure.string :as str]
-   [taoensso.timbre :as timbre]))
+   #_[taoensso.timbre :as timbre]))
 
 (defn- remove-comments
   [lines]
@@ -32,8 +32,8 @@
 (defn- curly
   [line]
   (cond
-    (re-find #"\{" line) 2
-    (re-find #"\}" line) -2
+    (re-find #"\{" line) 1
+    (re-find #"\}" line) -1
     :else 0))
 
 (defn- curlys
@@ -44,8 +44,6 @@
   [diff curls only]
   (let [d (concat (map only diff) [0])
         c (map only curls)]
-    ;;(timbre/debug d)
-    ;;(timbre/debug c)
     (= d c)))
 
 (defn- skel [s]
@@ -55,16 +53,20 @@
       remove-blank-lines
       remove-close-open))
 
+;; indent any
+(defn- normalize [v]
+  (let [c (first (remove zero? v))]
+    (map #(/ % c) v)))
+
 (defn check-indent [s]
   (let [lines (skel s)
         indents (indents lines)
-        diffs (diff indents)
+        diffs (normalize (diff indents))
         curls (curlys lines)]
-    ;;(timbre/debug "check-indent invoked")
     (when-not (and
                (every? even? indents)
-               (check-aux diffs curls #(if (= 2 %) 2 0))
-               (check-aux (reverse diffs) (reverse curls) #(if (= -2 %) -2 0)))
+               (check-aux diffs curls #(if (= 1 %) 1 0))
+               (check-aux (reverse diffs) (reverse curls) #(if (= -1 %) -1 0)))
       (throw (Exception. "R99 のインデントルールに抵触してます。")))))
 
 (comment

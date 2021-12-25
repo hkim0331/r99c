@@ -13,6 +13,13 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
+## 0.14.7 - 2021-12-24
+### Added
+- indent any. can indent 2 or 4.
+- can not indent one, since indents must be even.
+### Changed
+- home.clj: (timbre/set-level! :info)
+
 ## 0.14.6 - 2021-12-20
 ### Added
 - display 'enabled indent check' on login page.
