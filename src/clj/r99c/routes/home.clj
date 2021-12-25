@@ -231,6 +231,31 @@
       (layout/render request "error.html"
                      {:message "did not match old password"}))))
 
+(def weeks ["2021-10-11" "2021-10-18" "2021-10-25"
+            "2021-11-01" "2021-11-08" "2021-11-15" "2021-11-22" "2021-11-29"
+            "2021-12-06" "2021-12-13" "2021-12-20" "2021-12-31"
+            "2022-01-03" "2022-01-10" "2022-01-17" "2022-01-24" "2022-01-31"
+            "2022-02-07"])
+
+(defn before [s1 s2]
+ (< (compare s1 s2) 0))
+
+(defn count-up [m]
+  (reduce + (map :count m)))
+
+(defn weekly-aux [weeks indiv ret]
+  (if (empty? weeks)
+    ret
+    (let [[this-week rst]
+          (partition-by #(before (first weeks) (:create_at %)) indiv)]
+      (recur (rest weeks) rst (conj ret (count-up this-week))))))
+
+(defn weekly [weeks by-date-login]
+  (weekly-aux weeks by-date-login []))
+
+(defn make-weekly [weeks indiv comments]
+ (apply map list [weeks indiv comments]))
+
 (defn profile [request]
   (let [login (login request)
         solved (db/answers-by {:login login})
@@ -245,7 +270,11 @@
                     :comments (db/sent-comments {:login login})
                     :solved (->> solved (map :num) distinct count)
                     :submissions (-> solved count)
-                    :last (apply max-key :id solved)})))
+                    :last (apply max-key :id solved)
+                    :weekly (make-weekly
+                              weeks
+                              (weekly weeks individual)
+                              (weekly weeks comments))})))
 
 (defn ranking [request]
   (layout/render request "ranking.html"
