@@ -268,9 +268,10 @@
                     :submissions (-> solved count)
                     :last (apply max-key :id solved)
                     :weekly (make-weekly
-                              weeks
-                              (weekly weeks individual)
-                              (weekly weeks comments))})))
+                             weeks
+                             (weekly weeks individual)
+                             (weekly weeks comments))
+                    :groups (filter #(< 200 (:num %)) solved)})))
 
 (defn ranking [request]
   (layout/render request "ranking.html"
