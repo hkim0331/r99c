@@ -47,7 +47,8 @@
 
       <ul>
       {% for n in groups %}
-        <li>{{n.num}}</li>
+        <li><a href='/comment/{{n.id}}'>{{n.num}}</a>
+          {{n.create_at|date:shortDateTime}}</li>
       {% endfor %}
       </ul>
 
