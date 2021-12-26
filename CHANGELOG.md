@@ -14,6 +14,9 @@ int func_test(void) {
 - chart y 軸を動的に。
 
 
+## 0.14.9 - 2021-12-26
+- show group assignments answer in /profile page.
+
 ## 0.14.8 - 2021-12-25
 ### Added
 - weely scores in /profile page.

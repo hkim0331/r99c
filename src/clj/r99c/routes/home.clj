@@ -163,7 +163,7 @@
                            :num (Integer/parseInt num)
                            :answer answer
                            :md5 (-> answer strip digest/md5)})]
-        (timbre/info (str "/comment/id" id))
+        (timbre/info (str "/comment/" id))
         ;;(redirect (str "/comment/" id)))
         (redirect (str "/answer/" num)))
       (catch Exception _
@@ -268,9 +268,10 @@
                     :submissions (-> solved count)
                     :last (apply max-key :id solved)
                     :weekly (make-weekly
-                              weeks
-                              (weekly weeks individual)
-                              (weekly weeks comments))})))
+                             weeks
+                             (weekly weeks individual)
+                             (weekly weeks comments))
+                    :groups (filter #(< 200 (:num %)) solved)})))
 
 (defn ranking [request]
   (layout/render request "ranking.html"

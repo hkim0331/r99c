@@ -34,11 +34,23 @@
     <h4>comments sent</h4>
       <p><a href='/comments-sent/{{login}}'>{{comments.count}}</a></p>
 
-    <h4>Weekly</h4>
-    <p>("week" submits comments)<br>
-    {% for w in weekly %}
-    {{w}}<br>
-    {% endfor %}</p>
+    <h4>weekly</h4>
+
+    <p>("week" submits comments)</p>
+      <ul>
+      {% for w in weekly %}
+      <li>{{w}}</li>
+      {% endfor %}
+      </ul>
+
+    <h4>group assignments</h4>
+
+      <ul>
+      {% for n in groups %}
+        <li><a href='/comment/{{n.id}}'>{{n.num}}</a>
+          {{n.create_at|date:shortDateTime}}</li>
+      {% endfor %}
+      </ul>
 
     <hr>
 
