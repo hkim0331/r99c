@@ -14,6 +14,10 @@ int func_test(void) {
 - chart y 軸を動的に。
 
 
+## 0.15.0-SNAPSHOT
+### Changed
+- date format in comment-form.
+
 ## 0.14.9 - 2021-12-26
 - show group assignments answer in /profile page.
 
