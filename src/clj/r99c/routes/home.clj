@@ -104,8 +104,8 @@
   "remove lines starting from //, which is a comment in C"
   [s]
   (apply
-    str
-    (interpose "\n" (remove #(str/starts-with? % "//") (str/split-lines s)))))
+   str
+   (interpose "\n" (remove #(str/starts-with? % "//") (str/split-lines s)))))
 
 (defn- strip [s]
   (-> s
@@ -233,8 +233,8 @@
             "2022-01-03" "2022-01-10" "2022-01-17" "2022-01-24" "2022-01-31"
             "2022-02-07"])
 
-(defn before [s1 s2]
- (< (compare s1 s2) 0))
+(defn before? [s1 s2]
+  (< (compare s1 s2) 0))
 
 (defn count-up [m]
   (reduce + (map :count m)))
@@ -243,14 +243,28 @@
   (if (empty? weeks)
     ret
     (let [[this-week rst]
-          (partition-by #(before (first weeks) (:create_at %)) indiv)]
+          (partition-by #(before? (first weeks) (:create_at %)) indiv)]
       (recur (rest weeks) rst (conj ret (count-up this-week))))))
 
 (defn weekly [weeks by-date-login]
   (weekly-aux weeks by-date-login []))
 
 (defn make-weekly [weeks indiv comments]
- (apply map list [weeks indiv comments]))
+  (for [w weeks]
+    [w (filter #(= w (:create_at %)) indiv)
+     (filter #(= w (:create_at %)) comments)]))
+
+(defn bin-count [rng data]
+  (loop [rng rng data data ret []]
+    (if (empty? rng)
+      ret
+      (let [[f & rst] rng]
+        (recur rst
+               (remove #(before? (:creat_at %) f) data)
+               (conj ret [f
+                          (-> (filter #(before? (:create_at %) f) data)
+                              (println "d= " data)
+                              count-up)]))))))
 
 (defn profile [request]
   (let [login (login request)
@@ -267,6 +281,7 @@
                     :solved (->> solved (map :num) distinct count)
                     :submissions (-> solved count)
                     :last (apply max-key :id solved)
+                    ;; bug
                     :weekly (make-weekly
                              weeks
                              (weekly weeks individual)
