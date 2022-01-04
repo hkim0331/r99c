@@ -104,8 +104,8 @@
   "remove lines starting from //, which is a comment in C"
   [s]
   (apply
-    str
-    (interpose "\n" (remove #(str/starts-with? % "//") (str/split-lines s)))))
+   str
+   (interpose "\n" (remove #(str/starts-with? % "//") (str/split-lines s)))))
 
 (defn- strip [s]
   (-> s
@@ -234,7 +234,7 @@
             "2022-02-07"])
 
 (defn before? [s1 s2]
- (< (compare s1 s2) 0))
+  (< (compare s1 s2) 0))
 
 (defn count-up [m]
   (reduce + (map :count m)))
