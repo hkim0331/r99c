@@ -14,12 +14,16 @@ int func_test(void) {
 - chart y 軸を動的に。
 - BUG indent check
 
+## 0.15.3 - 2022-01-04
+### Fix
+- added remove-open-close in check_indent.clj
+
 ## 0.15.2 - 2022-01-04
 ### Added
 - announce bugfix at login page.
 
 ## 0.15.1 - 2022-01-04
-### Bug fix
+### Fix
 - correct [submit commit] in /profile.
 
 ## 0.15.0-SNAPSHOT
