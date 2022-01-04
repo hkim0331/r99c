@@ -214,8 +214,8 @@
     (layout/render request "comments.html"
                    {:comments (db/comments-by-num {:num num})})))
 
-(defn ch-pass-form [request]
-  (layout/render request "ch-pass-form.html" {:login (login request)}))
+;; (defn ch-pass-form [request]
+;;   (layout/render request "ch-pass-form.html" {:login (login request)}))
 
 (defn ch-pass [{{:keys [old new]} :params :as request}]
   (let [login (login request)
