@@ -12,6 +12,7 @@ int func_test(void) {
   何番を解いているタブを開いているか分かるようにしてほしいです！
 - comments all に pager の導入
 - chart y 軸を動的に。
+- BUG indent check
 
 ## 0.15.1 - 2022-01-04
 ### Bug fix
