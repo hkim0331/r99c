@@ -13,6 +13,9 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
+## 0.15.1 - 2022-01-04
+### Bug fix
+- correct [submit commit] in /profile.
 
 ## 0.15.0-SNAPSHOT
 ### Changed

@@ -13,3 +13,5 @@ a.yet     {color: hsl(217,71%,53%); background: white;}
          -khtml-user-drag: none;}
 
 textarea.answer {height: 300px;}
+
+.red {color: red;}
