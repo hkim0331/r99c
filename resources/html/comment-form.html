@@ -17,7 +17,7 @@
 
   <h3>Comments</h3>
   {% for c in comments %}
-  <p>from <b>{{c.from_login}}</b>, at {{c.create_at}}</p>
+  <p>from <b>{{c.from_login}}</b>, at {{c.create_at|date:shortDateTime}}</p>
   <pre>{{c.comment|wrap66}}</pre>
   {% endfor %}
 
