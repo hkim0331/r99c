@@ -118,7 +118,7 @@ ORDER BY create_at::date
 -- :name recent-answers :? :*
 -- :doc fetch recent n answers
 SELECT * FROM answers
-WHERE login != 'hkimura'
+WHERE login != 'user'
 ORDER by id DESC
 limit :n
 
@@ -130,14 +130,14 @@ WHERE md5 = :md5
 -- :name top-users :? :*
 -- :doc get top n users
 SELECT login, count(num) FROM answers
-WHERE login != 'hkimura'
+-- WHERE login != 'hkimura'
 GROUP BY login
 ORDER BY count(num) DESC limit :n
 
 -- :name top-users-distinct :? :*
 -- :doc get top n users order by distinct(num)
 SELECT login, count(distinct(num)) FROM answers
-WHERE login != 'hkimura'
+-- WHERE login != 'hkimura'
 GROUP BY login
 ORDER BY count(distinct(num)) DESC limit :n
 
@@ -221,7 +221,7 @@ ORDER BY create_at::date
 -- :name comments-counts :? :*
 -- :doc who sent most comments?
 SELECT from_login, count(*) FROM comments
-WHERE from_login != 'hkimura'
+-- WHERE from_login != 'hkimura'
 GROUP BY from_login
 ORDER BY count(*) DESC
 limit :n;
