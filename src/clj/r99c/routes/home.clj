@@ -104,8 +104,8 @@
   "remove lines starting from //, which is a comment in C"
   [s]
   (apply
-    str
-    (interpose "\n" (remove #(str/starts-with? % "//") (str/split-lines s)))))
+   str
+   (interpose "\n" (remove #(str/starts-with? % "//") (str/split-lines s)))))
 
 (defn- strip [s]
   (-> s
@@ -234,23 +234,32 @@
             "2022-02-07"])
 
 (defn before? [s1 s2]
- (< (compare s1 s2) 0))
+  (< (compare s1 s2) 0))
 
 (defn count-up [m]
   (reduce + (map :count m)))
 
-(defn weekly-aux [weeks indiv ret]
-  (if (empty? weeks)
-    ret
-    (let [[this-week rst]
-          (partition-by #(before? (:create_at %) (first weeks)) indiv)]
-      (recur (rest weeks) rst (conj ret (count-up this-week))))))
+;; (defn weekly-aux [weeks indiv ret]
+;;   (if (empty? weeks)
+;;     ret
+;;     (let [[this-week rst]
+;;           (partition-by #(before? (first weeks) (:create_at %)) indiv)]
+;;       (recur (rest weeks) rst (conj ret (count-up this-week))))))
 
-(defn weekly [weeks by-date-login]
-  (weekly-aux weeks by-date-login []))
+;; (defn weekly [weeks by-date-login]
+;;   (weekly-aux weeks by-date-login []))
 
-(defn make-weekly [weeks indiv comments]
- (apply map list [weeks indiv comments]))
+;; (defn make-weekly [weeks indiv comments]
+;;  (apply map list [weeks indiv comments]))
+
+(defn bin-count [data bin]
+  (loop [data data bin bin ret []]
+    (if (empty? bin)
+      ret
+      (let [p (group-by #(before? (:create_at %) (first bin)) data)
+            f (p true)
+            s (p false)]
+        (recur s (rest bin)(conj ret (count-up f)))))))
 
 (defn profile [request]
   (let [login (login request)
@@ -267,10 +276,10 @@
                     :solved (->> solved (map :num) distinct count)
                     :submissions (-> solved count)
                     :last (apply max-key :id solved)
-                    :weekly (make-weekly
+                    :weekly (map list
                              weeks
-                             (weekly weeks individual)
-                             (weekly weeks comments))
+                             (bin-count individual weeks)
+                             (bin-count comments weeks))
                     :groups (filter #(< 200 (:num %)) solved)})))
 
 (defn ranking [request]

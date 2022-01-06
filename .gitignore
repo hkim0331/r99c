@@ -21,3 +21,4 @@ profiles.clj
 /node_modules
 migrate.sh
 start.sh
+/indent-check.c

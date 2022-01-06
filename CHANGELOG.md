@@ -8,14 +8,33 @@ int func_test(void) {
 }
 ```
 - r99のタブが今「Welcome to r99」ですが、
-問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
-何番を解いているタブを開いているか分かるようにしてほしいです！
+  問題ページを開いている場合例えば40番なら「Welcome to r99-40」など
+  何番を解いているタブを開いているか分かるようにしてほしいです！
 - comments all に pager の導入
 - chart y 軸を動的に。
 - profile bug
 - indent check bug, initialize arrays?
 
 
+## 0.15.5 - 2022-01-06
+### Added
+- check_indent.clj: exapand-tabs
+
+## 0.15.4 - 2022-01-05
+### Changed
+- display hkimura info
+
+## 0.15.3 - 2022-01-04
+### Fix
+- added remove-open-close in check_indent.clj
+
+## 0.15.2 - 2022-01-04
+### Added
+- announce bugfix at login page.
+
+## 0.15.1 - 2022-01-04
+### Fix
+- correct [submit commit] in /profile.
 
 ## 0.15.0-SNAPSHOT
 ### Changed
@@ -30,7 +49,7 @@ int func_test(void) {
 
 ## 0.14.7 - 2021-12-24
 ### Added
-- indent any. can indent 2 or 4.
+- indent any. accept indent 2 or 4.
 - can not indent one, since indents must be even.
 ### Changed
 - home.clj: (timbre/set-level! :info)
@@ -219,8 +238,8 @@ simply can see who is recently submit answers.
 - (wrap n s) s を n 文字で折り返す。
 ### Fixme
 - Selmer filter に引数を渡したい。今は、
-(add-filter! :wrap66 (fn [x] (wrap 66 x)))
-66 を引数で渡したい。
+  (add-filter! :wrap66 (fn [x] (wrap 66 x)))
+  66 を引数で渡したい。
 
 ## 0.8.8 - 2021-11-03
 ### Fixed
@@ -291,8 +310,8 @@ simply can see who is recently submit answers.
 
 ## 0.7.0 - 2021-10-18
 - feature/svg-plot branch. date オブジェクトだと、
-org.java.Time.DateTime と java.time.LocalDate の見かけは一緒でもマッチは取れるか？
-面倒だ、文字列に変換してしまおう。
+  org.java.Time.DateTime と java.time.LocalDate の見かけは一緒でもマッチは取れるか？
+  面倒だ、文字列に変換してしまおう。
 ### Fixme
 - HugSQL で `select date '2021-10-10' + integer '135'` の書き方がわからない。
 ### Changed
@@ -319,7 +338,7 @@ hotfix 0.6.10 start.
 ## 0.6.8 - 2021-10-18
 * defined/installed r99c.service
 * /answer/:n で回答リンクの表示を抑制しない。リンク先で制限かける。
-リンクをたどろうとしたらエラーの方がいい。
+  リンクをたどろうとしたらエラーの方がいい。
 
 ## 0.6.7 - 2021-10-17
 * display individual/class answers with SVG graph.
@@ -335,7 +354,7 @@ gitignore する。
 ## 0.6.6 - 2021-10-17
 ### Fixed
 * 回答つけてないユーザは /comment/:n を見れない。home/comment-from に細工。
-403 を返す。
+  403 を返す。
 
 ## 0.6.5 - 2021-10-17
 ### Added
@@ -385,13 +404,13 @@ https://on-ze.com/archives/5744
 * answer-form.html: s/Answer to/New Answer to/
 * Navbar: /Home の代わりに /problems をリンク
 * problems.html: {{p.problem|safe}}.
-内容の修正は docs/seed-problems.html でやらないと本番に反映しない。
+  内容の修正は docs/seed-problems.html でやらないと本番に反映しない。
 
 ## 0.4.0 - 2021-10-11
-* 回答を表示できるようになった。エンドポイントは /comment/:id. 回答を表示するとは
-すなわち、コメントできるってことだ。
+* 回答を表示できるようになった。エンドポイントは /comment/:id
+  回答を表示するとはすなわち、コメントできるってことだ。
 * answer をボタンに。button is-primary is-small でもやや大きすぎ、ブサイク。
-https://bulma.io/documentation/overview/colors/
+  https://bulma.io/documentation/overview/colors/
 
 ## 0.3.5 - 2021-10-10
 * VScode バグ？操作ミス？ src/clj/r99croutes/home.clj が CHANGELOG.md の内容で
@@ -406,7 +425,7 @@ https://bulma.io/documentation/overview/colors/
 ## 0.3.3  - 2021-10-10
 ### Added
 * problems ... defined table and a route /problems
-* answers ... defined table and a route /answer:num
+* answers .... defined table and a route /answer:num
 * /status
 
 ## 0.3.2 - 2021-10-09
@@ -421,7 +440,7 @@ https://bulma.io/documentation/overview/colors/
 /admin/ から問題を入れる。
 
 ## 0.3.1 - 2021-10-06
-* deply test onto app.melt.
+* deploy test version onto app.melt.
 
 ## 0.3.0 - 2021-10-06
 ### Added

@@ -13,6 +13,10 @@
   [lines]
   (filter (partial re-find #"\S") lines))
 
+(defn- remove-open-close
+  [lines]
+  (remove (partial re-find #"\{.*\}") lines))
+
 (defn- remove-close-open
   [lines]
   (remove (partial re-find #"\}.*\{") lines))
@@ -46,12 +50,18 @@
         c (map only curls)]
     (= d c)))
 
+(defn- expand-tabs
+  [s]
+  (str/replace s #"\t" "  "))
+
 (defn- skel [s]
   (-> s
+      expand-tabs
       str/split-lines
       remove-comments
       remove-blank-lines
-      remove-close-open))
+      remove-close-open
+      remove-open-close))
 
 ;; indent any
 (defn- normalize [v]
@@ -70,4 +80,4 @@
       (throw (Exception. "R99 のインデントルールに抵触してます。")))))
 
 (comment
-  (check-indent (slurp "sample.c")))
+  (check-indent (slurp "indent-check.c")))
