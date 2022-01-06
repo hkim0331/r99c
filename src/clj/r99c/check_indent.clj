@@ -14,8 +14,8 @@
   (filter (partial re-find #"\S") lines))
 
 (defn- remove-open-close
-   [lines]
-   (remove (partial re-find #"\{.*\}") lines))
+  [lines]
+  (remove (partial re-find #"\{.*\}") lines))
 
 (defn- remove-close-open
   [lines]
@@ -50,8 +50,13 @@
         c (map only curls)]
     (= d c)))
 
+(defn- expand-tabs
+  [s]
+  (str/replace s #"\t" "  "))
+
 (defn- skel [s]
   (-> s
+      expand-tabs
       str/split-lines
       remove-comments
       remove-blank-lines
