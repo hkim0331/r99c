@@ -13,6 +13,9 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
+## 0.15.5 - 2022-01-06
+### Added
+- check_indent.clj: exapand-tabs
 
 ## 0.15.4 - 2022-01-05
 ### Changed
@@ -21,7 +24,6 @@ int func_test(void) {
 ## 0.15.3 - 2022-01-04
 ### Fix
 - added remove-open-close in check_indent.clj
-
 
 ## 0.15.2 - 2022-01-04
 ### Added
