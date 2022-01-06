@@ -13,7 +13,7 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 
-## 0.15.5-SNAPSHOT
+## 0.15.5 - 2022-01-06
 ### Added
 - check_indent.clj: exapand-tabs
 
