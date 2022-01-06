@@ -22,7 +22,6 @@ int func_test(void) {
 ### Fix
 - added remove-open-close in check_indent.clj
 
-
 ## 0.15.2 - 2022-01-04
 ### Added
 - announce bugfix at login page.
