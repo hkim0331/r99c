@@ -233,7 +233,7 @@
             "2022-01-03" "2022-01-10" "2022-01-17" "2022-01-24" "2022-01-31"
             "2022-02-07"])
 
-(defn before [s1 s2]
+(defn before? [s1 s2]
  (< (compare s1 s2) 0))
 
 (defn count-up [m]
@@ -243,7 +243,7 @@
   (if (empty? weeks)
     ret
     (let [[this-week rst]
-          (partition-by #(before (first weeks) (:create_at %)) indiv)]
+          (partition-by #(before? (:create_at %) (first weeks)) indiv)]
       (recur (rest weeks) rst (conj ret (count-up this-week))))))
 
 (defn weekly [weeks by-date-login]
