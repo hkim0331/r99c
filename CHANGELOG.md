@@ -33,7 +33,7 @@ int func_test(void) {
 
 ## 0.15.1 - 2022-01-04
 ### Fix
-- correct [submit commit] in /profile.
+- profile bug fixed. correct [submit commit] in /profile.
 
 ## 0.15.0-SNAPSHOT
 ### Changed
