@@ -87,7 +87,6 @@
         problem (db/get-problem {:num num})
         answers (db/answers-to {:num num})]
     (if-let [answer (db/get-answer {:num num :login (login request)})]
-      ;; can group when already answered
       (let [answers (group-by #(= (:md5 answer) (:md5 %)) answers)]
         (layout/render request
                        "answer-form.html"
@@ -143,7 +142,6 @@
   (try
     (not-empty? (strip answer))
     (space-rule? (remove-comments answer))
-    ;; 0.14.5
     (check-indent answer)
     (can-compile? answer)
     (catch Exception e (.getMessage e))))
@@ -164,7 +162,6 @@
                            :answer answer
                            :md5 (-> answer strip digest/md5)})]
         (timbre/info (str "/comment/" id))
-        ;;(redirect (str "/comment/" id)))
         (redirect (str "/answer/" num)))
       (catch Exception _
         (layout/render request "error.html"
@@ -214,9 +211,6 @@
     (layout/render request "comments.html"
                    {:comments (db/comments-by-num {:num num})})))
 
-;; (defn ch-pass-form [request]
-;;   (layout/render request "ch-pass-form.html" {:login (login request)}))
-
 (defn ch-pass [{{:keys [old new]} :params :as request}]
   (let [login (login request)
         user (db/get-user {:login login})]
@@ -229,7 +223,7 @@
 
 (def weeks ["2021-10-11" "2021-10-18" "2021-10-25"
             "2021-11-01" "2021-11-08" "2021-11-15" "2021-11-22" "2021-11-29"
-            "2021-12-06" "2021-12-13" "2021-12-20" "2021-12-31"
+            "2021-12-06" "2021-12-13" "2021-12-20" "2021-12-27"
             "2022-01-03" "2022-01-10" "2022-01-17" "2022-01-24" "2022-01-31"
             "2022-02-07"])
 
@@ -238,19 +232,6 @@
 
 (defn count-up [m]
   (reduce + (map :count m)))
-
-;; (defn weekly-aux [weeks indiv ret]
-;;   (if (empty? weeks)
-;;     ret
-;;     (let [[this-week rst]
-;;           (partition-by #(before? (first weeks) (:create_at %)) indiv)]
-;;       (recur (rest weeks) rst (conj ret (count-up this-week))))))
-
-;; (defn weekly [weeks by-date-login]
-;;   (weekly-aux weeks by-date-login []))
-
-;; (defn make-weekly [weeks indiv comments]
-;;  (apply map list [weeks indiv comments]))
 
 (defn bin-count [data bin]
   (loop [data data bin bin ret []]

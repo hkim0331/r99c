@@ -14,6 +14,9 @@ int func_test(void) {
 - chart y 軸を動的に。
 - 二次元配列の初期化コードでインデントルール違反を出さない
 
+## 0.15.6-SNAPSHOT
+- remove useless codes.
+- use (restart-db) after updating queries.sql
 
 ## 0.15.5 - 2022-01-06
 ### Added

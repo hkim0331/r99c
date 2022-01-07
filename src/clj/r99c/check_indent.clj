@@ -1,5 +1,3 @@
-;;; FIXME: indent 4
-
 (ns r99c.check-indent
   (:require
    [clojure.string :as str]
