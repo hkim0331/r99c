@@ -13,8 +13,10 @@ int func_test(void) {
 - comments all に pager の導入
 - chart y 軸を動的に。
 - 二次元配列の初期化コードでインデントルール違反を出さない
+- グループ課題に〆切
 
-## 0.15.6-SNAPSHOT
+## 0.15.6 2022-01-08
+- グループ回答を個人成績に含めない。
 - remove useless codes.
 - use (restart-db) after updating queries.sql
 
