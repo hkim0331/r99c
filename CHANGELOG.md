@@ -12,7 +12,17 @@ int func_test(void) {
   何番を解いているタブを開いているか分かるようにしてほしいです！
 - comments all に pager の導入
 - chart y 軸を動的に。
+- 二次元配列の初期化コードでインデントルール違反を出さない
+- グループ課題に〆切
 
+## 0.15.6 2022-01-08
+- グループ回答を個人成績に含めない。
+- remove useless codes.
+- use (restart-db) after updating queries.sql
+
+## 0.15.5 - 2022-01-06
+### Added
+- check_indent.clj: exapand-tabs
 
 ## 0.15.4 - 2022-01-05
 ### Changed
@@ -22,14 +32,13 @@ int func_test(void) {
 ### Fix
 - added remove-open-close in check_indent.clj
 
-
 ## 0.15.2 - 2022-01-04
 ### Added
 - announce bugfix at login page.
 
 ## 0.15.1 - 2022-01-04
 ### Fix
-- correct [submit commit] in /profile.
+- profile bug fixed. correct [submit commit] in /profile.
 
 ## 0.15.0-SNAPSHOT
 ### Changed

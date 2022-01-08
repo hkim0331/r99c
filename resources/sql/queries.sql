@@ -1,3 +1,6 @@
+-- -------------
+-- users section
+-- -------------
 -- :name create-user! :! :n
 -- :doc creates a new user record
 INSERT INTO users
@@ -111,7 +114,7 @@ ORDER BY create_at::date
 -- :name answers-by-date-login :? :*
 -- :doc how may answers by login?
 SELECT create_at::date::text, count(*) FROM answers
-where login = :login
+where login = :login and num < 200
 GROUP BY create_at::date
 ORDER BY create_at::date
 
