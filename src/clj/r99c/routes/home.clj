@@ -256,7 +256,7 @@
                     :comments (db/sent-comments {:login login})
                     :solved (->> solved (map :num) distinct count)
                     :submissions (-> solved count)
-                    :last (apply max-key :id solved)
+                    :last (apply max-key :id solved);; error if solved is empty
                     :weekly (map list
                              weeks
                              (bin-count individual weeks)

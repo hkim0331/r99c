@@ -79,7 +79,7 @@
       (db/create-user! (assoc (dissoc params :password)
                               :password (hashers/derive (:password params))))
       (redirect "/login")
-      (catch Exception e
+      (catch Exception _
         (redirect "/register")))))
 
 (defn login-routes []
