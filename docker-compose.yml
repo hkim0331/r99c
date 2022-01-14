@@ -1,0 +1,26 @@
+version: "3"
+services:
+  db:
+    image: postgres:12.9-alpine
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - TZ=Asia/Tokyo
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+
+  app:
+    image: r99c
+    environment:
+      LEIN_REPL_PORT: 7000
+      LEIN_REPL_HOST: 0.0.0.0
+    ports:
+      - "3000:3000"
+      - "7000:7000"
+    volumes:
+      - .:/usr/src/app
+
+volumes:
+  data:
+    driver: local
