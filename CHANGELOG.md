@@ -33,7 +33,7 @@ int func_test(void) {
 - display hkimura info
 
 ## 0.15.3 - 2022-01-04
-### Fix
+### Fixed
 - added remove-open-close in check_indent.clj
 
 ## 0.15.2 - 2022-01-04
@@ -41,7 +41,7 @@ int func_test(void) {
 - announce bugfix at login page.
 
 ## 0.15.1 - 2022-01-04
-### Fix
+### Fixed
 - profile bug fixed. correct [submit commit] in /profile.
 
 ## 0.15.0-SNAPSHOT
@@ -76,12 +76,12 @@ int func_test(void) {
 - log login users
 
 ## 0.14.3 - 2021-12-19
-### bugfix
+### Fixed
 - str/split-lines removes "\n"
   resume the "\n" before apply space-rule?
 
 ## 0.14.2 - 2021-12-18
-### Bugfix
+### fixed
 - check indents are all evens
 
 ## 0.14.1 - 2021-12-18
