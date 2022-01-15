@@ -16,6 +16,7 @@
    [selmer.filters :refer [add-filter!]]
    [taoensso.timbre :as timbre]))
 
+;; FIXME: env から取りたい。
 (timbre/set-level! :info)
 
 (defn- to-date-str [s]
@@ -268,9 +269,10 @@
 
 (defn ranking [request]
   (layout/render request "ranking.html"
-                 {:top-n (db/top-users {:n 30})
-                  :top-distinct-n (db/top-users-distinct {:n 30})
-                  :comments (db/comments-counts {:n 30})}))
+                 {:submissions (take 30 (db/submissions))
+                  :solved      (take 30 (db/solved))
+                  :comments    (take 30 (db/comments-counts))
+                  :login (login request)}))
 
 (defn home-routes []
   ["" {:middleware [middleware/auth

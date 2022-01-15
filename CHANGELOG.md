@@ -15,6 +15,8 @@ int func_test(void) {
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
 - macOS の java -v 17.0.1
+- 環境変数から timbre/level を
+- ranking all
 
 ## 0.16.2 - 2022-01-15
 no docker in develop on macOS.

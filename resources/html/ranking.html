@@ -2,27 +2,39 @@
 {% block content %}
   <div class="content">
     <h2>Ranking</h2>
-    <h4>top 30 (total submissions)</h4>
+    <h4>total submissions</h4>
       <p>
-      {% for user in top-n %}
+      {% for user in submissions %}
+      {% ifequal user.login login %}
+      <span class="red">{{user.login}}({{user.count}})</span>
+      {% else %}
       {{user.login}}({{user.count}})
+      {% endifequal %}
       &nbsp;
       {% endfor %}
       </p>
 
 
-    <h4>top 30 [problems solved]</h4>
+    <h4>problems solved</h4>
       <p>
-      {% for user in top-distinct-n %}
+      {% for user in solved %}
+      {% ifequal user.login login %}
+      <span class='red'>{{user.login}}[{{user.count}}]</span>
+      {% else %}
       {{user.login}}[{{user.count}}]
+      {% endifequal%}
       &nbsp;
       {% endfor %}
       </p>
 
-    <h4>top 30 commenter</h4>
+    <h4>comments sent</h4>
     <p>
       {% for c in comments %}
+      {% ifequal c.from_login login %}
+      <span class='red'>{{c.from_login}}({{c.count}})</span>
+      {% else %}
       {{c.from_login}}({{c.count}})
+      {% endifequal %}
       &nbsp;
       {% endfor %}
     </p>
