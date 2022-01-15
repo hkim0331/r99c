@@ -14,8 +14,15 @@ int func_test(void) {
 - chart y 軸を動的に。
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
+- macOS の java -v 17.0.1
 
-## 0.16.0 - 2022-01-15
+## 0.16.2 - 2022-01-15
+no docker in develop on macOS.
+app.melt は java11、postgres 12.9
+- clojure:openjdk-11-lein-buster
+- postgres:12.9-alpine
+
+## 0.16.1 - 2022-01-15
 ### Docker
 - clojure:openjdk-18-lein-2.9.8-slim-bullseye
 - postgres:2.9-alpine
