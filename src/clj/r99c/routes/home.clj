@@ -274,11 +274,31 @@
                   :comments    (take 30 (db/comments-counts))
                   :login (login request)
                   :n 30}))
-(defn not-yet [request]
- (layout/render request "error.html"
-                     {:status 403
-                      :title "🔥under construction🔥"
-                      :message "sorry, not yet."}))
+
+(defn rank-display [request submissions]
+  (layout/render request "ranking-all.html"))
+
+(defn rank-submissions [request]
+  (layout/render request "ranking-all.html"
+                 {:data (db/submissions)
+                  :title "Ranking Submissions"
+                  :login (login request)}))
+
+(defn rank-solved [request]
+  (layout/render request "ranking-all.html"
+                 {:data (db/solved)
+                  :title "Ranking Solved"
+                  :login (login request)}))
+
+(defn rank-comments [request]
+  (let [data (map (fn [x] {:login (:from_login x),
+                           :count (:count x)})
+                  (db/comments-counts))]
+    (timbre/info "data" (first data))
+    (layout/render request "ranking-all.html"
+                   {:data data
+                    :title "Comments Ranking"
+                    :login (login request)})))
 
 (defn home-routes []
   ["" {:middleware [middleware/auth
@@ -296,6 +316,6 @@
    ["/problems" {:get problems-page}]
    ["/profile" {:get profile}]
    ["/ranking" {:get ranking}]
-   ["/rank/submissions" {:get not-yet}]
-   ["/rank/solved"      {:get not-yet}]
-   ["/rank/comments"    {:get not-yet}]])
+   ["/rank/submissions" {:get rank-submissions}]
+   ["/rank/solved"      {:get rank-solved}]
+   ["/rank/comments"    {:get rank-comments}]])
