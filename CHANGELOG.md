@@ -23,6 +23,12 @@ no docker in develop on macOS.
 app.melt は java11、postgres 12.9
 - clojure:openjdk-11-lein-buster
 - postgres:12.9-alpine
+### Added
+input を利用した棒グラフでサブミット数他を表示。
+自分は自分のアカウント、他はサブミット数で。
+- /rank/submissions
+- /rank/solved
+- /rank/comments
 
 ## 0.16.1 - 2022-01-15
 ### Docker
