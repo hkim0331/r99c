@@ -15,6 +15,7 @@ int func_test(void) {
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
 
+## 
 ## 0.15.7 - 2022-01-10
 ### Fixed
 - when solved is empty, could not (apply max-key :id solved)
