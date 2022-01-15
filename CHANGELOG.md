@@ -16,7 +16,9 @@ int func_test(void) {
 - グループ課題に〆切
 
 ## 0.16.0 - 2022-01-15
-- docker
+### Docker
+- clojure:openjdk-18-lein-2.9.8-slim-bullseye
+- postgres:2.9-alpine
 
 ## 0.15.7 - 2022-01-10
 ### Fixed
