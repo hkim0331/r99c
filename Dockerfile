@@ -1,4 +1,4 @@
-FROM clojure:openjdk-18-lein-2.9.8-slim-bullseye
+FROM clojure:openjdk-11-lein-buster
 
 COPY project.clj /usr/src/app/
 WORKDIR /usr/src/app

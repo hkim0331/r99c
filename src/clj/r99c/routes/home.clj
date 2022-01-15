@@ -16,6 +16,7 @@
    [selmer.filters :refer [add-filter!]]
    [taoensso.timbre :as timbre]))
 
+;; FIXME: env から取りたい。
 (timbre/set-level! :info)
 
 (defn- to-date-str [s]
@@ -268,9 +269,36 @@
 
 (defn ranking [request]
   (layout/render request "ranking.html"
-                 {:top-n (db/top-users {:n 30})
-                  :top-distinct-n (db/top-users-distinct {:n 30})
-                  :comments (db/comments-counts {:n 30})}))
+                 {:submissions (take 30 (db/submissions))
+                  :solved      (take 30 (db/solved))
+                  :comments    (take 30 (db/comments-counts))
+                  :login (login request)
+                  :n 30}))
+
+(defn rank-display [request submissions]
+  (layout/render request "ranking-all.html"))
+
+(defn rank-submissions [request]
+  (layout/render request "ranking-all.html"
+                 {:data (db/submissions)
+                  :title "Ranking Submissions"
+                  :login (login request)}))
+
+(defn rank-solved [request]
+  (layout/render request "ranking-all.html"
+                 {:data (db/solved)
+                  :title "Ranking Solved"
+                  :login (login request)}))
+
+(defn rank-comments [request]
+  (let [data (map (fn [x] {:login (:from_login x),
+                           :count (:count x)})
+                  (db/comments-counts))]
+    (timbre/info "data" (first data))
+    (layout/render request "ranking-all.html"
+                   {:data data
+                    :title "Comments Ranking"
+                    :login (login request)})))
 
 (defn home-routes []
   ["" {:middleware [middleware/auth
@@ -287,4 +315,7 @@
    ["/comments/:num" {:get comments-by-num}]
    ["/problems" {:get problems-page}]
    ["/profile" {:get profile}]
-   ["/ranking" {:get ranking}]])
+   ["/ranking" {:get ranking}]
+   ["/rank/submissions" {:get rank-submissions}]
+   ["/rank/solved"      {:get rank-solved}]
+   ["/rank/comments"    {:get rank-comments}]])

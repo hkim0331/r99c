@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="content">
+    <h2>{{title}}</h2>
+    <div>
+      <ol>
+      {% for user in data %}
+       <li><input style="width:{{user.count}}px;" disabled=disabled>
+       {% ifequal user.login login %}
+       <span class='red'>{{login}}</span>
+       {% else %}
+       {{user.count}}
+       {% endifequal %}</li>
+      {% endfor %}
+      </ol>
+    </div>
+  </div>
+{% endblock %}
