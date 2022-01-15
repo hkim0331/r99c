@@ -272,7 +272,13 @@
                  {:submissions (take 30 (db/submissions))
                   :solved      (take 30 (db/solved))
                   :comments    (take 30 (db/comments-counts))
-                  :login (login request)}))
+                  :login (login request)
+                  :n 30}))
+(defn not-yet [request]
+ (layout/render request "error.html"
+                     {:status 403
+                      :title "🔥under construction🔥"
+                      :message "sorry, not yet."}))
 
 (defn home-routes []
   ["" {:middleware [middleware/auth
@@ -289,4 +295,7 @@
    ["/comments/:num" {:get comments-by-num}]
    ["/problems" {:get problems-page}]
    ["/profile" {:get profile}]
-   ["/ranking" {:get ranking}]])
+   ["/ranking" {:get ranking}]
+   ["/rank/submissions" {:get not-yet}]
+   ["/rank/solved"      {:get not-yet}]
+   ["/rank/comments"    {:get not-yet}]])

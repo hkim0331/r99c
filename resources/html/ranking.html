@@ -2,7 +2,8 @@
 {% block content %}
   <div class="content">
     <h2>Ranking</h2>
-    <h4>total submissions</h4>
+
+    <h4>Total Submissions Top {{n}}</h4>
       <p>
       {% for user in submissions %}
       {% ifequal user.login login %}
@@ -12,22 +13,23 @@
       {% endifequal %}
       &nbsp;
       {% endfor %}
+      &rArr; <a href="/rank/submissions">All</a>
       </p>
 
-
-    <h4>problems solved</h4>
+      <h4>Problems Solved Top {{n}}</h4>
       <p>
       {% for user in solved %}
       {% ifequal user.login login %}
       <span class='red'>{{user.login}}[{{user.count}}]</span>
       {% else %}
-      {{user.login}}[{{user.count}}]
+      {{user.login}}({{user.count}})
       {% endifequal%}
       &nbsp;
       {% endfor %}
+      &rArr; <a href="/rank/solved">All</a>
       </p>
 
-    <h4>comments sent</h4>
+    <h4>Comments Sent Top {{n}}</h4>
     <p>
       {% for c in comments %}
       {% ifequal c.from_login login %}
@@ -37,5 +39,6 @@
       {% endifequal %}
       &nbsp;
       {% endfor %}
+      &rArr; <a href="/rank/comments">All</a>
     </p>
 {% endblock %}
