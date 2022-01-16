@@ -16,13 +16,13 @@ int func_test(void) {
 - グループ課題に〆切
 - macOS の java -v 17.0.1
 - 環境変数から timbre/level を
-- ranking all
+
+
+## 0.17.0-SNAPSHOT
+### Added
+- postgres:2.9-alpine, clojure:jdk-17-lein-2.9.8-bullseye
 
 ## 0.16.2 - 2022-01-15
-no docker in develop on macOS.
-app.melt は java11、postgres 12.9
-- clojure:openjdk-11-lein-buster
-- postgres:12.9-alpine
 ### Added
 input を利用した棒グラフでサブミット数他を表示。
 自分は自分のアカウント、他はサブミット数で。
