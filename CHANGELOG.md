@@ -14,13 +14,14 @@ int func_test(void) {
 - chart y 軸を動的に。
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
-- macOS の java -v 17.0.1
-- 環境変数から timbre/level を
-
 
 ## 0.17.0-SNAPSHOT
 ### Added
-- postgres:2.9-alpine, clojure:jdk-17-lein-2.9.8-bullseye
+- macOS の開発環境に合わせ、
+  postgres:4.1-alpine, clojure:jdk-17-lein-2.9.8-bullseye で
+  Dockerfile, docker-compose.yml を用意。nuc.local で動作を確認。
+- timbre/set-level! 環境変数を見てセットする。ただ、developは debug、
+  production は info にあらかじめセットされている模様。必要ないか。
 
 ## 0.16.2 - 2022-01-15
 ### Added
