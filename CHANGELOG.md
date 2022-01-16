@@ -26,7 +26,7 @@ int func_test(void) {
 ## 0.16.2 - 2022-01-15
 ### Added
 input を利用した棒グラフでサブミット数他を表示。
-自分は自分のアカウント、他はサブミット数で。
+自分は自分のアカウント名、他はサブミット数で。
 - /rank/submissions
 - /rank/solved
 - /rank/comments
