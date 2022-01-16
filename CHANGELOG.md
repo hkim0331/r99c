@@ -15,6 +15,10 @@ int func_test(void) {
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
 
+## 0.17.1 - 2022-01-16
+### Fixed
+- dependencies に入れてない environ を home.clj から require していた。
+
 ## 0.17.0 - 2022-01-16
 ### Added
 - macOS の開発環境に合わせ、
