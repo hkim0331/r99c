@@ -15,13 +15,15 @@ int func_test(void) {
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
 
-## 0.17.0-SNAPSHOT
+## 0.17.0 - 2022-01-16
 ### Added
 - macOS の開発環境に合わせ、
   postgres:4.1-alpine, clojure:jdk-17-lein-2.9.8-bullseye で
   Dockerfile, docker-compose.yml を用意。nuc.local で動作を確認。
+- 開発は生 macOS で。docker は別の PC、環境に開発環境を持ち出すためと位置付ける。
 - timbre/set-level! 環境変数を見てセットする。ただ、developは debug、
   production は info にあらかじめセットされている模様。必要ないか。
+
 
 ## 0.16.2 - 2022-01-15
 ### Added
