@@ -7,6 +7,7 @@
    [clj-time.periodic :as p]
    [clojure.string :as str]
    [digest]
+   [environ.core :refer [env]]
    [r99c.charts :refer [class-chart individual-chart comment-chart]]
    [r99c.check-indent :refer [check-indent]]
    [r99c.db.core :as db]
@@ -16,8 +17,12 @@
    [selmer.filters :refer [add-filter!]]
    [taoensso.timbre :as timbre]))
 
-;; FIXME: env から取りたい。
-(timbre/set-level! :info)
+;; no use.
+(comment
+  (when-let [level (env :r99c-log-level)]
+    (timbre/set-level! (keyword level)))
+  (timbre/debug "debug is on")
+  (timbre/info "info is on"))
 
 (defn- to-date-str [s]
   (-> (str s)
@@ -294,7 +299,6 @@
   (let [data (map (fn [x] {:login (:from_login x),
                            :count (:count x)})
                   (db/comments-counts))]
-    (timbre/info "data" (first data))
     (layout/render request "ranking-all.html"
                    {:data data
                     :title "Comments Ranking"

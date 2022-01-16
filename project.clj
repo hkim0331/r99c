@@ -1,4 +1,4 @@
-(defproject r99c "0.16.2"
+(defproject r99c "0.17.0"
 
   :description "r99 revised with clojure"
   :url "https://r99.melt.kyutech.ac.jp"
@@ -33,7 +33,7 @@
    [ring/ring-core "1.9.4"]
    [ring/ring-defaults "0.3.3"]
    [selmer "1.12.44"]
-    ;;
+   ;;
    [buddy/buddy-auth "3.0.1"]
    [buddy/buddy-hashers "1.8.1"]
    [clj-time/clj-time "0.14.0"]
