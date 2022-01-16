@@ -9,7 +9,10 @@
        {% ifequal user.login login %}
        <span class='red'>{{login}}</span>
        {% else %}
-       {{user.count}}
+         {% if admin? %}
+           {{user.login}}
+         {% endif %}
+         {{user.count}}
        {% endifequal %}</li>
       {% endfor %}
       </ol>

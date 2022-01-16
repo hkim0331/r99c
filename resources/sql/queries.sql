@@ -28,6 +28,7 @@ WHERE login = :login
 SELECT * from users;
 
 -- :name login :! :1
+-- :doc update user's login time
 UPDATE users
 SET last_login = CURRENT_TIMESTAMP
 WHERE login = :login
