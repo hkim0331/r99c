@@ -16,7 +16,7 @@ int func_test(void) {
 - グループ課題に〆切
 - macOS の java -v 17.0.1
 - 環境変数から timbre/level を
-
+- BUG: インデントが一つもないコードを弾けてない
 
 ## 0.17.0-SNAPSHOT
 ### Added
