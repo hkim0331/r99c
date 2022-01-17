@@ -14,18 +14,33 @@ int func_test(void) {
 - chart y 軸を動的に。
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
-- macOS の java -v 17.0.1
-- 環境変数から timbre/level を
 - BUG: インデントが一つもないコードを弾けてない
+- macOS の java -v 17.0.1
+- 環境変数から timbre/level を。develop で debug、production で info は違ったか？
 
-## 0.17.0-SNAPSHOT
+## 0.17.2 - 2022-01-17
+## Changed
+- /rank/* input width px->mm. windows と mac/linux とでは px の定義が違うって？
+- /rank/* only admin can see login id.
+
+## 0.17.1 - 2022-01-16
+### Fixed
+- dependencies に入れてない environ を home.clj から require していた。
+
+## 0.17.0 - 2022-01-16
 ### Added
-- postgres:2.9-alpine, clojure:jdk-17-lein-2.9.8-bullseye
+- macOS の開発環境に合わせ、
+  postgres:4.1-alpine, clojure:jdk-17-lein-2.9.8-bullseye で
+  Dockerfile, docker-compose.yml を用意。nuc.local で動作を確認。
+- 開発は生 macOS で。docker は別の PC、環境に開発環境を持ち出すためと位置付ける。
+- timbre/set-level! 環境変数を見てセットする。ただ、developは debug、
+  production は info にあらかじめセットされている模様。必要ないか。
+
 
 ## 0.16.2 - 2022-01-15
 ### Added
 input を利用した棒グラフでサブミット数他を表示。
-自分は自分のアカウント、他はサブミット数で。
+自分は自分のアカウント名、他はサブミット数で。
 - /rank/submissions
 - /rank/solved
 - /rank/comments

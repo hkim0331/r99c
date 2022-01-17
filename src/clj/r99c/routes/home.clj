@@ -16,9 +16,6 @@
    [selmer.filters :refer [add-filter!]]
    [taoensso.timbre :as timbre]))
 
-;; FIXME: env から取りたい。
-(timbre/set-level! :info)
-
 (defn- to-date-str [s]
   (-> (str s)
       (subs 0 10)))
@@ -275,30 +272,35 @@
                   :login (login request)
                   :n 30}))
 
-(defn rank-display [request submissions]
-  (layout/render request "ranking-all.html"))
-
 (defn rank-submissions [request]
-  (layout/render request "ranking-all.html"
-                 {:data (db/submissions)
-                  :title "Ranking Submissions"
-                  :login (login request)}))
+  (let [login (login request)
+        admin? (:is_admin (db/get-user {:login login}))]
+    (layout/render request "ranking-all.html"
+                   {:data (db/submissions)
+                    :title "Ranking Submissions"
+                    :login  login
+                    :admin? admin?})))
 
 (defn rank-solved [request]
-  (layout/render request "ranking-all.html"
-                 {:data (db/solved)
-                  :title "Ranking Solved"
-                  :login (login request)}))
+  (let [login (login request)
+        admin? (:is_admin (db/get-user {:login login}))]
+    (layout/render request "ranking-all.html"
+                   {:data (db/solved)
+                    :title "Ranking Solved"
+                    :login  login
+                    :admin? admin?})))
 
 (defn rank-comments [request]
-  (let [data (map (fn [x] {:login (:from_login x),
+  (let [login (login request)
+        admin? (:is_admin (db/get-user {:login login}))
+        data (map (fn [x] {:login (:from_login x),
                            :count (:count x)})
                   (db/comments-counts))]
-    (timbre/info "data" (first data))
     (layout/render request "ranking-all.html"
                    {:data data
                     :title "Comments Ranking"
-                    :login (login request)})))
+                    :login  login
+                    :admin? admin?})))
 
 (defn home-routes []
   ["" {:middleware [middleware/auth
