@@ -14,10 +14,10 @@ int func_test(void) {
 - chart y 軸を動的に。
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
-- 環境変数は違ったか？
 
-## 0.18.0-SNAPSHOT
+## 0.18.0 - 2022-01-20
 - lein ancient upgrade
+- R99C_LOG_LEVEL
 
 ## 0.17.2 - 2022-01-17
 ## Changed

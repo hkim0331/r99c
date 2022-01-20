@@ -8,7 +8,7 @@
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
-(def ^:private version "0.17.2")
+(def ^:private version "0.18.0")
 
 (def users-schema
   [[:sid
