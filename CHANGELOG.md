@@ -15,6 +15,10 @@ int func_test(void) {
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
 
+## 0.18.0 - 2022-01-20
+- lein ancient upgrade
+- R99C_LOG_LEVEL
+
 ## 0.17.2 - 2022-01-17
 ## Changed
 - /rank/* input width px->mm. windows と mac/linux とでは px の定義が違うって？
