@@ -7,6 +7,7 @@
    [clj-time.periodic :as p]
    [clojure.string :as str]
    [digest]
+   [environ.core :refer [env]]
    [r99c.charts :refer [class-chart individual-chart comment-chart]]
    [r99c.check-indent :refer [check-indent]]
    [r99c.db.core :as db]
@@ -15,6 +16,9 @@
    [ring.util.response :refer [redirect]]
    [selmer.filters :refer [add-filter!]]
    [taoensso.timbre :as timbre]))
+
+(when-let [level (env :r99c-log-level)]
+  (timbre/set-level! (keyword level)))
 
 (defn- to-date-str [s]
   (-> (str s)

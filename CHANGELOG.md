@@ -16,6 +16,9 @@ int func_test(void) {
 - グループ課題に〆切
 - 環境変数は違ったか？
 
+## 0.18.0-SNAPSHOT
+- lein ancient upgrade
+
 ## 0.17.2 - 2022-01-17
 ## Changed
 - /rank/* input width px->mm. windows と mac/linux とでは px の定義が違うって？
