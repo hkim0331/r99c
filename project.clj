@@ -39,6 +39,7 @@
    [clj-time/clj-time "0.15.2"]
    [com.taoensso/timbre "5.1.2"]
    [digest "1.4.10"]
+   [environ/environ "1.2.0"]
    [hiccup "1.0.5"]
    [org.clojars.hozumi/clj-commons-exec "1.2.0"]]
 

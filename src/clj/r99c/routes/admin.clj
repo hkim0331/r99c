@@ -4,10 +4,8 @@
    [r99c.db.core :as db]
    [r99c.layout :as layout]
    [r99c.middleware :as middleware]
-   #_[ring.util.http-response :as response]
    [clojure.string :refer [split-lines starts-with? replace-first]]
-   [ring.util.response :refer [redirect]]
-   #_[clojure.pprint :refer [pprint]]))
+   [ring.util.response :refer [redirect]]))
 
 (defn- strip-li
   "strip <li> and </li> from s"
@@ -56,5 +54,5 @@
    ["/problems" {:get problems-page
                  :post update-problem!}]
    ;;["/users"    {:get users-page}]
-   ["/comments" {:get comments-page}]
+   ;;["/comments" {:get comments-page}]
    ["/seed-problems" {:post seed-problems!}]])
