@@ -130,7 +130,7 @@
                      (re-find #"else\{" s)
                      (re-find #"\n\s*else" s)
                      (re-find #" \+\+" s)
-                     (re-find #"\+\+ " s)])
+                     (re-find #"\+\+\s+[a-zA-Z]" s)])
     (throw (Exception. "against R99 space rules"))))
 
 ;; https://github.com/hozumi/clj-commons-exec
