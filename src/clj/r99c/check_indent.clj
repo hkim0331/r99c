@@ -1,5 +1,3 @@
-;;; FIXME: indent 4
-
 (ns r99c.check-indent
   (:require
    [clojure.string :as str]
@@ -74,10 +72,13 @@
         diffs (normalize (diff indents))
         curls (curlys lines)]
     (when-not (and
+               (< 0 (reduce + indents))
                (every? even? indents)
                (check-aux diffs curls #(if (= 1 %) 1 0))
                (check-aux (reverse diffs) (reverse curls) #(if (= -1 %) -1 0)))
       (throw (Exception. "R99 のインデントルールに抵触してます。")))))
 
 (comment
-  (check-indent (slurp "indent-check.c")))
+  (try
+    (check-indent (slurp "indent-check.c"))
+    (catch Exception e (.getMessage e))))

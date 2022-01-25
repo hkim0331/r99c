@@ -1,0 +1,26 @@
+version: "3"
+services:
+  db:
+    image: postgres:14.1-alpine
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=r99c_dev
+      - TZ=Asia/Tokyo
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./initdb.d:/docker-entrypoint-initdb.d
+      - data:/var/lib/postgresql/data
+  r99c:
+    image: hkim0331/r99c
+    environment:
+      LEIN_REPL_PORT: 46123
+      LEIN_REPL_HOST: 0.0.0.0
+    ports:
+      - "3000:3000"
+      - "46123:46123"
+    volumes:
+      - .:/usr/src/app
+volumes:
+  data:
+    driver: local

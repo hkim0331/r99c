@@ -1,7 +1,6 @@
 (ns r99c.routes.login
   (:require
    [buddy.hashers :as hashers]
-   ;;[clojure.java.io :as io]
    [r99c.layout :as layout]
    [r99c.db.core :as db]
    [r99c.middleware :as middleware]
@@ -79,7 +78,7 @@
       (db/create-user! (assoc (dissoc params :password)
                               :password (hashers/derive (:password params))))
       (redirect "/login")
-      (catch Exception e
+      (catch Exception _
         (redirect "/register")))))
 
 (defn login-routes []

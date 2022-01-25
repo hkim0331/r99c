@@ -4,10 +4,8 @@
    [r99c.db.core :as db]
    [r99c.layout :as layout]
    [r99c.middleware :as middleware]
-   [ring.util.http-response :as response]
    [clojure.string :refer [split-lines starts-with? replace-first]]
-   [ring.util.response :refer [redirect]]
-   [clojure.pprint :refer [pprint]]))
+   [ring.util.response :refer [redirect]]))
 
 (defn- strip-li
   "strip <li> and </li> from s"
@@ -39,7 +37,7 @@
       (redirect "/admin/problems")
       (redirect "/error.html"))))
 
-(defn users-page [request])
+;;(defn users-page [request])
 
 (defn comments-page [request]
   (let [from (db/comments-from)
@@ -55,6 +53,6 @@
    ["/" {:get  admin-page}]
    ["/problems" {:get problems-page
                  :post update-problem!}]
-   ["/users"    {:get users-page}]
-   ["/comments" {:get comments-page}]
+   ;;["/users"    {:get users-page}]
+   ;;["/comments" {:get comments-page}]
    ["/seed-problems" {:post seed-problems!}]])

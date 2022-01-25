@@ -12,6 +12,62 @@ int func_test(void) {
   何番を解いているタブを開いているか分かるようにしてほしいです！
 - comments all に pager の導入
 - chart y 軸を動的に。
+- 二次元配列の初期化コードでインデントルール違反を出さない
+- グループ課題に〆切
+
+## 0.18.3 - 2022-01-25
+### Fixed Bug
+- (re-find #"\+\+ " s) は "i++ )" にマッチしてしまう。
+  (re-find #"\+\+\s+[a-zA-Z]" s) で置き換え。
+
+## 0.18.2 - 2022-01-23
+### Fix Bug
+- インデントが一つもないコードを弾く。
+
+## 0.18.0 - 2022-01-20
+- lein ancient upgrade
+- R99C_LOG_LEVEL
+
+## 0.17.2 - 2022-01-17
+## Changed
+- /rank/* input width px->mm. windows と mac/linux とでは px の定義が違うって？
+- /rank/* only admin can see login id.
+
+## 0.17.1 - 2022-01-16
+### Fixed
+- dependencies に入れてない environ を home.clj から require していた。
+
+## 0.17.0 - 2022-01-16
+### Added
+- macOS の開発環境に合わせ、
+  postgres:4.1-alpine, clojure:jdk-17-lein-2.9.8-bullseye で
+  Dockerfile, docker-compose.yml を用意。nuc.local で動作を確認。
+- 開発は生 macOS で。docker は別の PC、環境に開発環境を持ち出すためと位置付ける。
+- timbre/set-level! 環境変数を見てセットする。ただ、developは debug、
+  production は info にあらかじめセットされている模様。必要ないか。
+
+
+## 0.16.2 - 2022-01-15
+### Added
+input を利用した棒グラフでサブミット数他を表示。
+自分は自分のアカウント名、他はサブミット数で。
+- /rank/submissions
+- /rank/solved
+- /rank/comments
+
+## 0.16.1 - 2022-01-15
+### Docker
+- clojure:openjdk-18-lein-2.9.8-slim-bullseye
+- postgres:2.9-alpine
+
+## 0.15.7 - 2022-01-10
+### Fixed
+- when solved is empty, could not (apply max-key :id solved)
+
+## 0.15.6 - 2022-01-08
+- グループ回答を個人成績に含めない。
+- remove useless codes.
+- use (restart-db) after updating queries.sql
 
 ## 0.15.5 - 2022-01-06
 ### Added
@@ -22,7 +78,7 @@ int func_test(void) {
 - display hkimura info
 
 ## 0.15.3 - 2022-01-04
-### Fix
+### Fixed
 - added remove-open-close in check_indent.clj
 
 ## 0.15.2 - 2022-01-04
@@ -30,8 +86,8 @@ int func_test(void) {
 - announce bugfix at login page.
 
 ## 0.15.1 - 2022-01-04
-### Fix
-- correct [submit commit] in /profile.
+### Fixed
+- profile bug fixed. correct [submit commit] in /profile.
 
 ## 0.15.0-SNAPSHOT
 ### Changed
@@ -65,12 +121,12 @@ int func_test(void) {
 - log login users
 
 ## 0.14.3 - 2021-12-19
-### bugfix
+### Fixed
 - str/split-lines removes "\n"
   resume the "\n" before apply space-rule?
 
 ## 0.14.2 - 2021-12-18
-### Bugfix
+### fixed
 - check indents are all evens
 
 ## 0.14.1 - 2021-12-18

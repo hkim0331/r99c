@@ -1,3 +1,6 @@
+-- -------------
+-- users section
+-- -------------
 -- :name create-user! :! :n
 -- :doc creates a new user record
 INSERT INTO users
@@ -25,6 +28,7 @@ WHERE login = :login
 SELECT * from users;
 
 -- :name login :! :1
+-- :doc update user's login time
 UPDATE users
 SET last_login = CURRENT_TIMESTAMP
 WHERE login = :login
@@ -111,7 +115,7 @@ ORDER BY create_at::date
 -- :name answers-by-date-login :? :*
 -- :doc how may answers by login?
 SELECT create_at::date::text, count(*) FROM answers
-where login = :login
+where login = :login and num < 200
 GROUP BY create_at::date
 ORDER BY create_at::date
 
@@ -127,19 +131,17 @@ limit :n
 SELECT * FROM answers
 WHERE md5 = :md5
 
--- :name top-users :? :*
+-- :name submissions :? :*
 -- :doc get top n users
 SELECT login, count(num) FROM answers
--- WHERE login != 'hkimura'
 GROUP BY login
-ORDER BY count(num) DESC limit :n
+ORDER BY count(num) DESC
 
--- :name top-users-distinct :? :*
+-- :name solved :? :*
 -- :doc get top n users order by distinct(num)
 SELECT login, count(distinct(num)) FROM answers
--- WHERE login != 'hkimura'
 GROUP BY login
-ORDER BY count(distinct(num)) DESC limit :n
+ORDER BY count(distinct(num)) DESC
 
 -- ----------------
 -- comments section
@@ -168,48 +170,48 @@ WHERE from_login = :login
 SELECT create_at::date::text, count(*) FROM comments
 WHERE from_login= :login
 GROUP BY create_at::date
-ORDER BY create_at::date;
+ORDER BY create_at::date
 
 -- :name comments-rcvd :? :*
 -- :doc list of comments received
 SELECT * from comments
 WHERE to_login = :login
-ORDER BY create_at DESC;
+ORDER BY create_at DESC
 
 -- :name comments-from :? :*
 -- :doc retrieve all comments
 SELECT from_login, count(*) from comments
 GROUP BY from_login
-ORDER BY count(*) DESC;
+ORDER BY count(*) DESC
 
 -- :name comments-to :? :*
 -- :doc retrieve all comments
 SELECT to_login, count(*) from comments
 GROUP BY to_login
-ORDER BY count(*) DESC;
+ORDER BY count(*) DESC
 
 -- :name comments-sent :? :*
 -- :doc  comments sent from from_login
 SELECT * FROM comments
 WHERE from_login = :login
-ORDER BY create_at DESC;
+ORDER BY create_at DESC
 
 -- :name recent-comments :? :*
 -- :doc retrieve recent n comments
 SELECT * FROM comments
 ORDER BY create_at DESC
-limit :n;
+limit :n
 
 -- :name comments :? :*
 -- :doc retrieve all comments
 SELECT * FROM comments
-ORDER BY create_at DESC;
+ORDER BY create_at DESC
 
 -- :name comments-by-num :? :*
 -- :doc retrieve comments directed to num
 SELECT * FROM comments
 WHERE p_num = :num
-ORDER BY create_at DESC;
+ORDER BY create_at DESC
 
 -- :name comments-by-date-login :? :*
 -- :doc how may comments by from_login?
@@ -224,4 +226,3 @@ SELECT from_login, count(*) FROM comments
 -- WHERE from_login != 'hkimura'
 GROUP BY from_login
 ORDER BY count(*) DESC
-limit :n;

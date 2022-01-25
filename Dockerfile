@@ -1,7 +1,8 @@
-FROM openjdk:8-alpine
+FROM clojure:openjdk-17-lein-2.9.8-bullseye
 
-COPY target/uberjar/r99c.jar /r99c/app.jar
+COPY project.clj /usr/src/app/
+WORKDIR /usr/src/app
+RUN lein deps
+COPY . /usr/src/app
 
-EXPOSE 3000
-
-CMD ["java", "-jar", "/r99c/app.jar"]
+CMD ["lein", "repl", ":headless"]
