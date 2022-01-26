@@ -308,11 +308,9 @@
 
 (defn answers-by-problems [request]
   (let [data (db/answers-by-problems)]
-    (layout/render request "ranking-all.html"
+    (layout/render request "answers-by-problems.html"
                    {:data data
-                    :title "Answers by Problems"
-                    :login "hkimura"
-                    :admin false})))
+                    :title "Answers by Problems"})))
 
 (defn home-routes []
   ["" {:middleware [middleware/auth
