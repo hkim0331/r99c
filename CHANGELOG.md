@@ -15,6 +15,15 @@ int func_test(void) {
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
 
+## 0.18.5 - 2022-01-27
+### Changed
+- admin only /answers
+
+## 0.18.4 - 2022-01-26
+### Added
+- /answers - answers-by-problems
+- forgot bump-version.sh
+
 ## 0.18.3 - 2022-01-25
 ### Fixed Bug
 - (re-find #"\+\+ " s) は "i++ )" にマッチしてしまう。
