@@ -306,11 +306,18 @@
                     :login  login
                     :admin? admin?})))
 
+(defn answers-by-problems [request]
+  (let [data (db/answers-by-problems)]
+    (layout/render request "answers-by-problems.html"
+                   {:data data
+                    :title "Answers by Problems"})))
+
 (defn home-routes []
   ["" {:middleware [middleware/auth
                     middleware/wrap-csrf
                     middleware/wrap-formats]}
    ["/" {:get status-page}]
+   ["/answers" {:get answers-by-problems}]
    ["/answer/:num" {:get  answer-page
                     :post create-answer!}]
    ["/ch-pass" {:post ch-pass}]

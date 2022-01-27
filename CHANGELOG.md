@@ -55,7 +55,6 @@ int func_test(void) {
 - timbre/set-level! 環境変数を見てセットする。ただ、developは debug、
   production は info にあらかじめセットされている模様。必要ないか。
 
-
 ## 0.16.2 - 2022-01-15
 ### Added
 input を利用した棒グラフでサブミット数他を表示。
