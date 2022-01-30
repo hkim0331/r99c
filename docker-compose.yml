@@ -12,7 +12,7 @@ services:
       - ./initdb.d:/docker-entrypoint-initdb.d
       - data:/var/lib/postgresql/data
   r99c:
-    image: hkim0331/r99c
+    build: .
     environment:
       LEIN_REPL_PORT: 46123
       LEIN_REPL_HOST: 0.0.0.0
