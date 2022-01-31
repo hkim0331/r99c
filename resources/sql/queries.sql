@@ -143,6 +143,12 @@ SELECT login, count(distinct(num)) FROM answers
 GROUP BY login
 ORDER BY count(distinct(num)) DESC
 
+-- :name answers-by-problems :? :*
+-- :doc how many answers to problems
+SELECT num, count(*) FROM answers
+GROUP BY num
+ORDER BY num
+
 -- ----------------
 -- comments section
 -- ----------------

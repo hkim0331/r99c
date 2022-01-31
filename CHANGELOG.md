@@ -14,7 +14,24 @@ int func_test(void) {
 - chart y 軸を動的に。
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
-- BUG: インデントが一つもないコードを弾けてない
+
+## 0.18.5 - 2022-01-27
+### Changed
+- admin only /answers
+
+## 0.18.4 - 2022-01-26
+### Added
+- /answers - answers-by-problems
+- forgot bump-version.sh
+
+## 0.18.3 - 2022-01-25
+### Fixed Bug
+- (re-find #"\+\+ " s) は "i++ )" にマッチしてしまう。
+  (re-find #"\+\+\s+[a-zA-Z]" s) で置き換え。
+
+## 0.18.2 - 2022-01-23
+### Fix Bug
+- インデントが一つもないコードを弾く。
 
 ## 0.18.0 - 2022-01-20
 - lein ancient upgrade
@@ -37,7 +54,6 @@ int func_test(void) {
 - 開発は生 macOS で。docker は別の PC、環境に開発環境を持ち出すためと位置付ける。
 - timbre/set-level! 環境変数を見てセットする。ただ、developは debug、
   production は info にあらかじめセットされている模様。必要ないか。
-
 
 ## 0.16.2 - 2022-01-15
 ### Added

@@ -11,7 +11,7 @@ services:
     volumes:
       - ./initdb.d:/docker-entrypoint-initdb.d
       - data:/var/lib/postgresql/data
-  app:
+  r99c:
     build: .
     environment:
       LEIN_REPL_PORT: 46123
