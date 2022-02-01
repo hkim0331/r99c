@@ -32,7 +32,7 @@
    [ring-webjars "0.2.0"]
    [ring/ring-core "1.9.5"]
    [ring/ring-defaults "0.3.3"]
-   [selmer "1.12.49"]
+   [selmer "1.12.50"]
    ;;
    [buddy/buddy-auth "3.0.323"]
    [buddy/buddy-hashers "1.8.158"]
