@@ -6,7 +6,7 @@ services:
       #- POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_DB=r99c_dev
       - POSTGRES_USER=postgres
-      - POSRGRES_PASS=password
+      - POSTGRES_PASSWORD=password
       - TZ=Asia/Tokyo
     ports:
       - "5432:5432"
