@@ -14,6 +14,12 @@ int func_test(void) {
 - chart y 軸を動的に。
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
+- sql/queries.sql には重複するものがありそう。
+  DB 側をシンプルにし clj で踏ん張るのがいいのか（自由が利きそう）、
+  できるだけ SQL で処理しデータ転送量を減らすのがいいのか、どっち？
+
+## 0.18.6 - 2022-02-02
+### Fixed bug
 - /profile, /ranking, rank/solved に表示する distinct solved count が
   グループ課題を含んでいる。
 
