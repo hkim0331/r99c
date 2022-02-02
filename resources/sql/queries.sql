@@ -140,6 +140,7 @@ ORDER BY count(num) DESC
 -- :name solved :? :*
 -- :doc get top n users order by distinct(num)
 SELECT login, count(distinct(num)) FROM answers
+WHERE num < 200
 GROUP BY login
 ORDER BY count(distinct(num)) DESC
 
