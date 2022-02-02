@@ -256,8 +256,12 @@
                     :comment-chart (comment-chart comments period 600 150)
                     :comments-rcvd (db/comments-rcvd {:login login})
                     :comments (db/sent-comments {:login login})
-                    :solved (->> solved (map :num) distinct count)
                     :submissions (-> solved count)
+                    :solved (->> solved
+                                 (map :num)
+                                 (remove #(< 200 %))
+                                 distinct
+                                 count)
                     ;; error if solved is empty
                     :last (if (seq solved)
                             (apply max-key :id solved)
