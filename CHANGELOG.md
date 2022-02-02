@@ -14,6 +14,8 @@ int func_test(void) {
 - chart y 軸を動的に。
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
+- /profile, /ranking, rank/solved に表示する distinct solved count が
+  グループ課題を含んでいる。
 
 ## 0.18.5 - 2022-01-27
 ### Changed
