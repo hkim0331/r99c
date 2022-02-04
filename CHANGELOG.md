@@ -17,7 +17,19 @@ int func_test(void) {
 - 最初のdocker-compose up 時にデータベースがすでにあるエラー
 - 期末試験。自分の回答以外、表示できないモード。
   環境変数で振る舞いを変えられないか？
+- sql/queries.sql には重複するものがありそう。
+  DB 側をシンプルにし clj で踏ん張るのがいいのか（自由が利きそう）、
+  できるだけ SQL で処理しデータ転送量を減らすのがいいのか、どっち？
 
+## 0.18.7 - 2022-02-02
+### Changed
+- number of submissions, number of solved の順に合わせる。
+- solved (exclude group assignments) を明記する。
+
+## 0.18.6 - 2022-02-02
+### Fixed bug
+- /profile, /ranking, rank/solved に表示する distinct solved count が
+  グループ課題を含んでいる。
 
 ## 0.18.5 - 2022-01-27
 ### Changed
