@@ -171,20 +171,28 @@
                         :title "database error"
                         :message "can not insert"})))))
 
+(defn- self-only?
+  []
+  (= "TRUE" (env :r99c-self-only)))
 
 (defn comment-form
-  "take answer id as path-parameter, show the answer with
-   comment form"
+  "Taking answer id as path-parameter, show the answer with
+   comment form."
   [request]
   (let [id (Integer/parseInt (get-in request [:path-params :id]))
         answer (db/get-answer-by-id {:id id})
-        num (:num answer)]
-    (if (db/get-answer {:num num :login (login request)})
+        num (:num answer)
+        my-answer (db/get-answer {:num num :login (login request)})]
+    (if my-answer
       (layout/render request "comment-form.html"
-                     {:answer answer
+                     {:answer   (if (self-only?)
+                                    my-answer
+                                    answer)
                       :problem  (db/get-problem {:num num})
                       :same-md5 (db/answers-same-md5 {:md5 (:md5 answer)})
-                      :comments (db/get-comments {:a_id id})})
+                      :comments (if (self-only?)
+                                    nil
+                                    (db/get-comments {:a_id id}))})
       (layout/render request "error.html"
                      {:status 403
                       :title "Access Forbidden"
@@ -256,8 +264,12 @@
                     :comment-chart (comment-chart comments period 600 150)
                     :comments-rcvd (db/comments-rcvd {:login login})
                     :comments (db/sent-comments {:login login})
-                    :solved (->> solved (map :num) distinct count)
                     :submissions (-> solved count)
+                    :solved (->> solved
+                                 (map :num)
+                                 (remove #(< 200 %))
+                                 distinct
+                                 count)
                     ;; error if solved is empty
                     :last (if (seq solved)
                             (apply max-key :id solved)
