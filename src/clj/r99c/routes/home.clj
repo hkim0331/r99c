@@ -20,6 +20,10 @@
 (when-let [level (env :r99c-log-level)]
   (timbre/set-level! (keyword level)))
 
+(defn- self-only?
+  []
+  (= "TRUE" (env :r99c-self-only)))
+
 (defn- to-date-str [s]
   (-> (str s)
       (subs 0 10)))
@@ -141,12 +145,13 @@
       (throw (Exception. err)))))
 
 (defn- validate [answer]
-  (try
-    (not-empty? (strip answer))
-    (space-rule? (remove-comments answer))
-    (check-indent answer)
-    (can-compile? answer)
-    (catch Exception e (.getMessage e))))
+  (when-not (self-only?)
+    (try
+      (not-empty? (strip answer))
+      (space-rule? (remove-comments answer))
+      (check-indent answer)
+      (can-compile? answer)
+      (catch Exception e (.getMessage e)))))
 
 (defn create-answer!
   [{{:keys [num answer]} :params :as request}]
@@ -171,9 +176,6 @@
                         :title "database error"
                         :message "can not insert"})))))
 
-(defn- self-only?
-  []
-  (= "TRUE" (env :r99c-self-only)))
 
 (defn comment-form
   "Taking answer id as path-parameter, show the answer with
