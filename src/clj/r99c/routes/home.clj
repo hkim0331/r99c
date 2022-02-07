@@ -171,20 +171,28 @@
                         :title "database error"
                         :message "can not insert"})))))
 
+(defn- self-only?
+  []
+  (= "TRUE" (env :r99c-self-only)))
 
 (defn comment-form
-  "take answer id as path-parameter, show the answer with
-   comment form"
+  "Taking answer id as path-parameter, show the answer with
+   comment form."
   [request]
   (let [id (Integer/parseInt (get-in request [:path-params :id]))
         answer (db/get-answer-by-id {:id id})
-        num (:num answer)]
-    (if (db/get-answer {:num num :login (login request)})
+        num (:num answer)
+        my-answer (db/get-answer {:num num :login (login request)})]
+    (if my-answer
       (layout/render request "comment-form.html"
-                     {:answer answer
+                     {:answer   (if (self-only?)
+                                    my-answer
+                                    answer)
                       :problem  (db/get-problem {:num num})
                       :same-md5 (db/answers-same-md5 {:md5 (:md5 answer)})
-                      :comments (db/get-comments {:a_id id})})
+                      :comments (if (self-only?)
+                                    nil
+                                    (db/get-comments {:a_id id}))})
       (layout/render request "error.html"
                      {:status 403
                       :title "Access Forbidden"
@@ -227,7 +235,7 @@
             "2021-11-01" "2021-11-08" "2021-11-15" "2021-11-22" "2021-11-29"
             "2021-12-06" "2021-12-13" "2021-12-20" "2021-12-27"
             "2022-01-03" "2022-01-10" "2022-01-17" "2022-01-24" "2022-01-31"
-            "2022-02-07"])
+            "2022-02-07" "2022-02-11"])
 
 (defn before? [s1 s2]
   (< (compare s1 s2) 0))
