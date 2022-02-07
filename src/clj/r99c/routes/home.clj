@@ -20,6 +20,10 @@
 (when-let [level (env :r99c-log-level)]
   (timbre/set-level! (keyword level)))
 
+(defn- self-only?
+  []
+  (= "TRUE" (env :r99c-self-only)))
+
 (defn- to-date-str [s]
   (-> (str s)
       (subs 0 10)))
@@ -141,12 +145,13 @@
       (throw (Exception. err)))))
 
 (defn- validate [answer]
-  (try
-    (not-empty? (strip answer))
-    (space-rule? (remove-comments answer))
-    (check-indent answer)
-    (can-compile? answer)
-    (catch Exception e (.getMessage e))))
+  (when-not (self-only?)
+    (try
+      (not-empty? (strip answer))
+      (space-rule? (remove-comments answer))
+      (check-indent answer)
+      (can-compile? answer)
+      (catch Exception e (.getMessage e)))))
 
 (defn create-answer!
   [{{:keys [num answer]} :params :as request}]
@@ -171,9 +176,6 @@
                         :title "database error"
                         :message "can not insert"})))))
 
-(defn- self-only?
-  []
-  (= "TRUE" (env :r99c-self-only)))
 
 (defn comment-form
   "Taking answer id as path-parameter, show the answer with
@@ -235,7 +237,7 @@
             "2021-11-01" "2021-11-08" "2021-11-15" "2021-11-22" "2021-11-29"
             "2021-12-06" "2021-12-13" "2021-12-20" "2021-12-27"
             "2022-01-03" "2022-01-10" "2022-01-17" "2022-01-24" "2022-01-31"
-            "2022-02-07" "2022-02-11"])
+            "2022-02-07" "2022-02-14"])
 
 (defn before? [s1 s2]
   (< (compare s1 s2) 0))
