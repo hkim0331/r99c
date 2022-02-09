@@ -144,18 +144,19 @@
     (when-let [err (:err @r)]
       (throw (Exception. err)))))
 
-(defn- validate [answer]
-  (when-not (self-only?)
-    (try
-      (not-empty? (strip answer))
-      (space-rule? (remove-comments answer))
-      (check-indent answer)
-      (can-compile? answer)
-      (catch Exception e (.getMessage e)))))
+(defn- validate
+  [answer]
+  (try
+    (not-empty? (strip answer))
+    (space-rule? (remove-comments answer))
+    (check-indent answer)
+    (can-compile? answer)
+    (catch Exception e (.getMessage e))))
 
 (defn create-answer!
   [{{:keys [num answer]} :params :as request}]
-  (if-let [error (validate answer)]
+  (if-let [error (and (not (self-only?))
+                      (validate answer))]
     (do
       (timbre/info "validation failed" (login request) error)
       (layout/render request "error.html"

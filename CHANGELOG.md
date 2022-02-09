@@ -26,10 +26,24 @@ int error() {
   return a[1] == '{' && a[5] == '}';
 }
 ```
+- (def frozen [320 330 340]) で `変更できない問題、回答` になる。
+- CREATE TABLE frozens (
+  num INT NOT NULL,
+  update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+- frozen のオンオフがオンラインでできる。
+    - /admin/freeze/:num
+    - /admin/frozen/
+    - /admin/defrost/:num
+
+## 0.20.0-SNAPSHOT
+### Changed
+- self-only? のチェックを validate から create-answer! に移した。
 
 ## 0.19.2 - 2022-02-07
 ### Added
-- self-only 時はバリデーションオフに。
+- 環境変数 R99C_SELF_ONLY=TRUE で self-only モード。
+- self-only 時はバリデーションをオフする。
 ### Changed
 - home.clj: 最終 weeks を 2022-02-14 に変更。
 

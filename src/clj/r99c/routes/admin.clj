@@ -45,6 +45,13 @@
     (layout/render request "comments.html" {:from from
                                             :to to})))
 
+(defn freeze! [request])
+
+(defn defrost! [request])
+
+(defn frozen [request])
+
+
 (defn admin-routes []
   ["/admin"
    {:middleware [middleware/admin
@@ -55,4 +62,7 @@
                  :post update-problem!}]
    ;;["/users"    {:get users-page}]
    ;;["/comments" {:get comments-page}]
-   ["/seed-problems" {:post seed-problems!}]])
+   ["/seed-problems" {:post seed-problems!}]
+   ["/freeze/:num"  {:post freeze!}]
+   ["/defrost/:num" {:post defrost!}]
+   ["/frozen"       {:get frozen}]])
