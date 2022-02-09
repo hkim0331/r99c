@@ -86,27 +86,30 @@
   (layout/render request "problems.html" {:problems (db/problems)}))
 
 (defn answer-page
-  "take problem number `num` as path parameter, prep answer to the
-   problem. "
+  "Take problem number `num` as path parameter, prep answer to the
+   problem."
   [request]
   (let [num (Integer/parseInt (get-in request [:path-params :num]))
         problem (db/get-problem {:num num})
-        answers (db/answers-to {:num num})]
+        answers (db/answers-to {:num num})
+        frozen?  (db/frozen? {:num num})]
     (if-let [answer (db/get-answer {:num num :login (login request)})]
       (let [answers (group-by #(= (:md5 answer) (:md5 %)) answers)]
         (layout/render request
                        "answer-form.html"
                        {:problem problem
                         :same (answers true)
-                        :differ (answers false)}))
+                        :differ (answers false)
+                        :frozen? frozen?}))
       (layout/render request
                      "answer-form.html"
                      {:problem problem
                       :same []
-                      :differ answers}))))
+                      :differ answers
+                      :frozen? frozen?}))))
 
 (defn- remove-comments
-  "remove lines starting from //, which is a comment in C"
+  "Remove lines starting from //, they are comments in C."
   [s]
   (apply
    str
@@ -144,18 +147,19 @@
     (when-let [err (:err @r)]
       (throw (Exception. err)))))
 
-(defn- validate [answer]
-  (when-not (self-only?)
-    (try
-      (not-empty? (strip answer))
-      (space-rule? (remove-comments answer))
-      (check-indent answer)
-      (can-compile? answer)
-      (catch Exception e (.getMessage e)))))
+(defn- validate
+  [answer]
+  (try
+    (not-empty? (strip answer))
+    (space-rule? (remove-comments answer))
+    (check-indent answer)
+    (can-compile? answer)
+    (catch Exception e (.getMessage e))))
 
 (defn create-answer!
   [{{:keys [num answer]} :params :as request}]
-  (if-let [error (validate answer)]
+  (if-let [error (and (not (self-only?))
+                      (validate answer))]
     (do
       (timbre/info "validation failed" (login request) error)
       (layout/render request "error.html"

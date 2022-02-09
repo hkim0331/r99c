@@ -233,3 +233,15 @@ SELECT from_login, count(*) FROM comments
 -- WHERE from_login != 'hkimura'
 GROUP BY from_login
 ORDER BY count(*) DESC
+
+-- ----------------
+-- frozens section
+-- ----------------
+
+-- :name frozen? :? :1
+-- :doc  num is frozen?
+SELECT * FROM frozens where num = :num
+
+-- :name frozens :? :*
+-- :doc retrieve frozen num list
+SELECT * FROM frozens
