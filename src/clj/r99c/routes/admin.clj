@@ -47,9 +47,11 @@
 
 (defn freeze! [request])
 
+(defn frozen? [request])
+
 (defn defrost! [request])
 
-(defn frozen [request])
+(defn frozens [request])
 
 
 (defn admin-routes []
@@ -64,5 +66,6 @@
    ;;["/comments" {:get comments-page}]
    ["/seed-problems" {:post seed-problems!}]
    ["/freeze/:num"  {:post freeze!}]
+   ["/froze/:num"   {:get frozen?}]
    ["/defrost/:num" {:post defrost!}]
-   ["/frozen"       {:get frozen}]])
+   ["/frozens"      {:get frozens}]])
