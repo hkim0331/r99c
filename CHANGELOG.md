@@ -1,7 +1,7 @@
 # CHANGELOG.md
 
 ## Unreleased
-- problems の表示に、C のソースをデコレートして表示する。
+- problems に C のコードをデコレートして表示する。
 ```c
 int func_test(void) {
   return 1==1 && 2==2 && 3==3;
@@ -26,15 +26,6 @@ int error() {
   return a[1] == '{' && a[5] == '}';
 }
 ```
-- (def frozen [320 330 340]) で 320, 330, 340 が `変更できない問題、回答` になる。
-- CREATE TABLE frozens (
-  num INT NOT NULL,
-  update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-- frozen のオンオフがオンラインでできる。
-    - /admin/freeze/:num
-    - /admin/frozen/
-    - /admin/defrost/:num
 
 ## 0.20.0 - 2022-02-09
 ### Added
