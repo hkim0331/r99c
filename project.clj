@@ -1,4 +1,4 @@
-(defproject r99c "0.18.7"
+(defproject r99c "0.20.0"
 
   :description "r99 revised with clojure"
   :url "https://r99.melt.kyutech.ac.jp"
@@ -24,7 +24,7 @@
    [org.clojure/clojure "1.10.3"]
    [org.clojure/tools.cli "1.0.206"]
    [org.clojure/tools.logging "1.2.4"]
-   [org.postgresql/postgresql "42.3.1"]
+   [org.postgresql/postgresql "42.3.2"]
    [org.webjars.npm/bulma "0.9.3"]
    [org.webjars.npm/material-icons "1.7.1"]
    [org.webjars/webjars-locator "0.42"]

@@ -20,6 +20,10 @@
 (when-let [level (env :r99c-log-level)]
   (timbre/set-level! (keyword level)))
 
+(defn- self-only?
+  []
+  (= "TRUE" (env :r99c-self-only)))
+
 (defn- to-date-str [s]
   (-> (str s)
       (subs 0 10)))
@@ -82,27 +86,30 @@
   (layout/render request "problems.html" {:problems (db/problems)}))
 
 (defn answer-page
-  "take problem number `num` as path parameter, prep answer to the
-   problem. "
+  "Take problem number `num` as path parameter, prep answer to the
+   problem."
   [request]
   (let [num (Integer/parseInt (get-in request [:path-params :num]))
         problem (db/get-problem {:num num})
-        answers (db/answers-to {:num num})]
+        answers (db/answers-to {:num num})
+        frozen?  (db/frozen? {:num num})]
     (if-let [answer (db/get-answer {:num num :login (login request)})]
       (let [answers (group-by #(= (:md5 answer) (:md5 %)) answers)]
         (layout/render request
                        "answer-form.html"
                        {:problem problem
                         :same (answers true)
-                        :differ (answers false)}))
+                        :differ (answers false)
+                        :frozen? frozen?}))
       (layout/render request
                      "answer-form.html"
                      {:problem problem
                       :same []
-                      :differ answers}))))
+                      :differ answers
+                      :frozen? frozen?}))))
 
 (defn- remove-comments
-  "remove lines starting from //, which is a comment in C"
+  "Remove lines starting from //, they are comments in C."
   [s]
   (apply
    str
@@ -140,7 +147,8 @@
     (when-let [err (:err @r)]
       (throw (Exception. err)))))
 
-(defn- validate [answer]
+(defn- validate
+  [answer]
   (try
     (not-empty? (strip answer))
     (space-rule? (remove-comments answer))
@@ -150,7 +158,8 @@
 
 (defn create-answer!
   [{{:keys [num answer]} :params :as request}]
-  (if-let [error (validate answer)]
+  (if-let [error (and (not (self-only?))
+                      (validate answer))]
     (do
       (timbre/info "validation failed" (login request) error)
       (layout/render request "error.html"
@@ -173,18 +182,23 @@
 
 
 (defn comment-form
-  "take answer id as path-parameter, show the answer with
-   comment form"
+  "Taking answer id as path-parameter, show the answer with
+   comment form."
   [request]
   (let [id (Integer/parseInt (get-in request [:path-params :id]))
         answer (db/get-answer-by-id {:id id})
-        num (:num answer)]
-    (if (db/get-answer {:num num :login (login request)})
+        num (:num answer)
+        my-answer (db/get-answer {:num num :login (login request)})]
+    (if my-answer
       (layout/render request "comment-form.html"
-                     {:answer answer
+                     {:answer   (if (self-only?)
+                                    my-answer
+                                    answer)
                       :problem  (db/get-problem {:num num})
                       :same-md5 (db/answers-same-md5 {:md5 (:md5 answer)})
-                      :comments (db/get-comments {:a_id id})})
+                      :comments (if (self-only?)
+                                    nil
+                                    (db/get-comments {:a_id id}))})
       (layout/render request "error.html"
                      {:status 403
                       :title "Access Forbidden"
@@ -227,7 +241,7 @@
             "2021-11-01" "2021-11-08" "2021-11-15" "2021-11-22" "2021-11-29"
             "2021-12-06" "2021-12-13" "2021-12-20" "2021-12-27"
             "2022-01-03" "2022-01-10" "2022-01-17" "2022-01-24" "2022-01-31"
-            "2022-02-07"])
+            "2022-02-07" "2022-02-14"])
 
 (defn before? [s1 s2]
   (< (compare s1 s2) 0))

@@ -15,11 +15,56 @@ int func_test(void) {
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
 - 最初のdocker-compose up 時にデータベースがすでにあるエラー
-- 期末試験。自分の回答以外、表示できないモード。
-  環境変数で振る舞いを変えられないか？
+  2度目はちゃんと立ち上がるからいいか。
 - sql/queries.sql には重複するものがありそう。
   DB 側をシンプルにし clj で踏ん張るのがいいのか（自由が利きそう）、
   できるだけ SQL で処理しデータ転送量を減らすのがいいのか、どっち？
+- "", '{','}'
+```c
+int error() {
+  char a[] = "a{bcd}e";
+  return a[1] == '{' && a[5] == '}';
+}
+```
+- (def frozen [320 330 340]) で 320, 330, 340 が `変更できない問題、回答` になる。
+- CREATE TABLE frozens (
+  num INT NOT NULL,
+  update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+- frozen のオンオフがオンラインでできる。
+    - /admin/freeze/:num
+    - /admin/frozen/
+    - /admin/defrost/:num
+
+## 0.20.0 - 2022-02-09
+### Added
+- (def frozen [320 330 340]) で 320, 330, 340 が `変更できない問題、回答` になる。
+- CREATE TABLE frozens (
+  num INT NOT NULL,
+  update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+- frozen のオンオフがオンラインでできる。
+    - /admin/freeze/:num
+    - /admin/frozen/
+    - /admin/defrost/:num
+
+### Changed
+- self-only? のチェックを validate から create-answer! に移した。
+
+## 0.19.2 - 2022-02-07
+### Added
+- 環境変数 R99C_SELF_ONLY=TRUE で self-only モード。
+- self-only 時はバリデーションをオフする。
+### Changed
+- home.clj: 最終 weeks を 2022-02-14 に変更。
+
+## 0.19.1 - 2022-02-06
+### Added
+- home.clj: weeks に 2022-02-11 追加。
+
+## 0.19.0 - 2022-02-06
+- 期末試験。自分の回答以外、表示できないモード。
+  環境変数 R99C_SELF_ONLY=TRUE で振る舞いを変える。
 
 ## 0.18.7 - 2022-02-02
 ### Changed
