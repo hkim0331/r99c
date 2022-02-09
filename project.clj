@@ -1,4 +1,4 @@
-(defproject r99c "0.19.2"
+(defproject r99c "0.20.0"
 
   :description "r99 revised with clojure"
   :url "https://r99.melt.kyutech.ac.jp"
