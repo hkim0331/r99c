@@ -180,6 +180,9 @@
                         :title "database error"
                         :message "can not insert"})))))
 
+(defn- require-my-answer?
+ []
+ (= (env :r99c-require-my-answer) "FALSE"))
 
 (defn comment-form
   "Taking answer id as path-parameter, show the answer with
@@ -189,16 +192,16 @@
         answer (db/get-answer-by-id {:id id})
         num (:num answer)
         my-answer (db/get-answer {:num num :login (login request)})]
-    (if my-answer
+    (if (or (require-my-answer?) my-answer)
       (layout/render request "comment-form.html"
                      {:answer   (if (self-only?)
-                                    my-answer
-                                    answer)
+                                  my-answer
+                                  answer)
                       :problem  (db/get-problem {:num num})
                       :same-md5 (db/answers-same-md5 {:md5 (:md5 answer)})
                       :comments (if (self-only?)
-                                    nil
-                                    (db/get-comments {:a_id id}))})
+                                  nil
+                                  (db/get-comments {:a_id id}))})
       (layout/render request "error.html"
                      {:status 403
                       :title "Access Forbidden"
@@ -256,7 +259,7 @@
       (let [p (group-by #(before? (:create_at %) (first bin)) data)
             f (p true)
             s (p false)]
-        (recur s (rest bin)(conj ret (count-up f)))))))
+        (recur s (rest bin) (conj ret (count-up f)))))))
 
 (defn profile [request]
   (let [login (login request)
@@ -281,9 +284,9 @@
                             (apply max-key :id solved)
                             [])
                     :weekly (map list
-                             weeks
-                             (bin-count individual weeks)
-                             (bin-count comments weeks))
+                                 weeks
+                                 (bin-count individual weeks)
+                                 (bin-count comments weeks))
                     :groups (filter #(< 200 (:num %)) solved)})))
 
 (defn ranking [request]
@@ -315,7 +318,7 @@
 (defn rank-comments [request]
   (let [login (login request)
         admin? (:is_admin (db/get-user {:login login}))
-        data (map (fn [x] {:login (:from_login x),
+        data (map (fn [x] {:login (:from_login x)
                            :count (:count x)})
                   (db/comments-counts))]
     (layout/render request "ranking-all.html"
