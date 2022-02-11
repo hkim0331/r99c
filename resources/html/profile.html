@@ -14,10 +14,7 @@
       <a href='/comment/{{c.a_id}}'>{{c.p_num}}</a>
       &nbsp;
       {% endfor %}</p>
-<!--
-    <h4>last login</h4>
-      <p>(under construction)</p>
--->
+
     <h4>last login</h4>
     <p>{{user.last_login|date:shortDateTime}}</p>
 
@@ -34,21 +31,21 @@
       <h4>comments sent</h4>
       <p><a href='/comments-sent/{{login}}'>{{comments.count}}</a></p>
 
-    <h4>weekly [submits comments]</h4>
-      <ul>
+    <h4>weekly [submissions comments]</h4>
+      <ol>
       {% for w in weekly %}
       <li>{{w|first}} {{w|drop:1}}</li>
       {% endfor %}
-      </ul>
+      </ol>
 
     <h4>group assignments</h4>
 
-      <ul>
+      <ol>
       {% for n in groups %}
         <li><a href='/comment/{{n.id}}'>{{n.num}}</a>
           {{n.create_at|date:shortDateTime}}</li>
       {% endfor %}
-      </ul>
+      </ol>
 
     <hr>
 

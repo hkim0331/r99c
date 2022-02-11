@@ -19,23 +19,29 @@ int func_test(void) {
 - sql/queries.sql には重複するものがありそう。
   DB 側をシンプルにし clj で踏ん張るのがいいのか（自由が利きそう）、
   できるだけ SQL で処理しデータ転送量を減らすのがいいのか、どっち？
-- "", '{','}'
+- "" の中、'{'、'}' をエスケープする。
 ```c
 int error() {
   char a[] = "a{bcd}e";
   return a[1] == '{' && a[5] == '}';
 }
 ```
+- REQUIRE\_MY\_ANSWER はあんまりか。
+  REQUIRE\_SOLVED あるいはREQUIRE\_SUBMISSION では？
+
+## 0.20.4 - 2022-02-11
+### Changed
+- profile.html: weekly の ul を ol に変更。
+- fix typo.
 
 ## 0.20.3 - 2022-02-10
-## Changed
-- 環境変数 R99C_REQUIRE_MY_ANSWER=FALSE で、回答を提出していない問題でも、
-他ユーザの回答を読めるように。
+### Changed
+- 環境変数 R99C\_REQUIRE\_MY\_ANSWER=FALSE で、回答を提出していない問題でも、
+  他ユーザの回答を読める。
 
 ## 0.20.2 - 2022-02-09
-## Fix Bug
+### Fixed bug
 - submit ボタンが２つ。
-
 
 ## 0.20.1 - 2022-02-09
 ### Changed
@@ -46,8 +52,7 @@ int error() {
 - (def frozen [320 330 340]) で 320, 330, 340 が `変更できない問題、回答` になる。
 - CREATE TABLE frozens (
   num INT NOT NULL,
-  update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+  update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 - frozen のオンオフがオンラインでできる。
     - /admin/freeze/:num
     - /admin/frozen/
@@ -58,7 +63,7 @@ int error() {
 
 ## 0.19.2 - 2022-02-07
 ### Added
-- 環境変数 R99C_SELF_ONLY=TRUE で self-only モード。
+- 環境変数 R99C\_SELF\_ONLY=TRUE で self-only モード。
 - self-only 時はバリデーションをオフする。
 ### Changed
 - home.clj: 最終 weeks を 2022-02-14 に変更。
@@ -68,8 +73,9 @@ int error() {
 - home.clj: weeks に 2022-02-11 追加。
 
 ## 0.19.0 - 2022-02-06
+### Added
 - 期末試験。自分の回答以外、表示できないモード。
-  環境変数 R99C_SELF_ONLY=TRUE で振る舞いを変える。
+  環境変数 R99C\_SELF\_ONLY=TRUE で振る舞いを変える。
 
 ## 0.18.7 - 2022-02-02
 ### Changed
