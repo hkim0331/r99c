@@ -1,7 +1,7 @@
 # CHANGELOG.md
 
 ## Unreleased
-- problems の表示に、C のソースをデコレートして表示する。
+- problems に C のコードをデコレートして表示する。
 ```c
 int func_test(void) {
   return 1==1 && 2==2 && 3==3;
@@ -15,9 +15,77 @@ int func_test(void) {
 - 二次元配列の初期化コードでインデントルール違反を出さない
 - グループ課題に〆切
 - 最初のdocker-compose up 時にデータベースがすでにあるエラー
-- 期末試験。自分の回答以外、表示できないモード。
-  環境変数で振る舞いを変えられないか？
+  2度目はちゃんと立ち上がるからいいか。
+- sql/queries.sql には重複するものがありそう。
+  DB 側をシンプルにし clj で踏ん張るのがいいのか（自由が利きそう）、
+  できるだけ SQL で処理しデータ転送量を減らすのがいいのか、どっち？
+- "" の中、'{'、'}' をエスケープする。
+```c
+int error() {
+  char a[] = "a{bcd}e";
+  return a[1] == '{' && a[5] == '}';
+}
+```
+- REQUIRE\_MY\_ANSWER はあんまりか。
+  REQUIRE\_SOLVED あるいはREQUIRE\_SUBMISSION では？
 
+## 0.20.4 - 2022-02-11
+### Changed
+- profile.html: weekly の ul を ol に変更。
+- fix typo.
+
+## 0.20.3 - 2022-02-10
+### Changed
+- 環境変数 R99C\_REQUIRE\_MY\_ANSWER=FALSE で、回答を提出していない問題でも、
+  他ユーザの回答を読める。
+
+## 0.20.2 - 2022-02-09
+### Fixed bug
+- submit ボタンが２つ。
+
+## 0.20.1 - 2022-02-09
+### Changed
+- 期末試験終了につき、新規投稿を受付停止してます。
+
+## 0.20.0 - 2022-02-09
+### Added
+- (def frozen [320 330 340]) で 320, 330, 340 が `変更できない問題、回答` になる。
+- CREATE TABLE frozens (
+  num INT NOT NULL,
+  update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+- frozen のオンオフがオンラインでできる。
+    - /admin/freeze/:num
+    - /admin/frozen/
+    - /admin/defrost/:num
+
+### Changed
+- self-only? のチェックを validate から create-answer! に移した。
+
+## 0.19.2 - 2022-02-07
+### Added
+- 環境変数 R99C\_SELF\_ONLY=TRUE で self-only モード。
+- self-only 時はバリデーションをオフする。
+### Changed
+- home.clj: 最終 weeks を 2022-02-14 に変更。
+
+## 0.19.1 - 2022-02-06
+### Added
+- home.clj: weeks に 2022-02-11 追加。
+
+## 0.19.0 - 2022-02-06
+### Added
+- 期末試験。自分の回答以外、表示できないモード。
+  環境変数 R99C\_SELF\_ONLY=TRUE で振る舞いを変える。
+
+## 0.18.7 - 2022-02-02
+### Changed
+- number of submissions, number of solved の順に合わせる。
+- solved (exclude group assignments) を明記する。
+
+## 0.18.6 - 2022-02-02
+### Fixed bug
+- /profile, /ranking, rank/solved に表示する distinct solved count が
+  グループ課題を含んでいる。
 
 ## 0.18.5 - 2022-01-27
 ### Changed

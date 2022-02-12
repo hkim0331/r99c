@@ -44,6 +44,7 @@
   (-> handler
       (restrict {:handler admin?})
       ;;(restrict {:handler authenticated?})
+      ;; necessary following lines?
       (wrap-authorization  auth-backend)
       (wrap-authentication auth-backend)))
 
