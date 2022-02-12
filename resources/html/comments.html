@@ -6,7 +6,8 @@
     <p>{{c.create_at|date:shortDate}},
       <b>{{c.p_num}}</b>,
       <b>{{c.from_login}}</b> &rArr; <b>{{c.to_login}}</b>,
-      <a href='/comment/{{c.a_id}}'>{{c.comment|abbreviate:19}}</a></p>
+      <!-- was abbreviate:19 -->
+      <a href='/comment/{{c.a_id}}'>{{c.comment|first-line}}</a></p>
     {% endfor %}
   </div>
 {% endblock %}
