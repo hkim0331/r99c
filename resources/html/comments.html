@@ -3,8 +3,9 @@
   <div class="content">
     <h2>Older Comments</h2>
     {% for c in comments %}
-    <p>{{c.create_at|date:shortDate}}
-      <b>{{c.p_num}}</b>, from <b>{{c.from_login}}</b>,
+    <p>{{c.create_at|date:shortDate}},
+      <b>{{c.p_num}}</b>,
+      <b>{{c.from_login}}</b> &rArr; <b>{{c.to_login}}</b>,
       <a href='/comment/{{c.a_id}}'>{{c.comment|abbreviate:19}}</a></p>
     {% endfor %}
   </div>

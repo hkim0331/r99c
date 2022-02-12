@@ -31,6 +31,8 @@ int error() {
 - abbrev: n 文字じゃなく、最初の改行までとか。
 - older comments: from=>to, to を表示
 
+## 0.20.5-SNAPSHOT
+
 ## 0.20.4 - 2022-02-11
 ### Changed
 - profile.html: weekly の ul を ol に変更。
