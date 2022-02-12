@@ -194,7 +194,7 @@
 
 (defn- require-my-answer?
  []
- (= (env :r99c-require-my-answer) "FALSE"))
+ (= (env :r99c-require-my-answer) "TRUE"))
 
 (defn comment-form
   "Taking answer id as path-parameter, show the answer with
@@ -204,7 +204,7 @@
         answer (db/get-answer-by-id {:id id})
         num (:num answer)
         my-answer (db/get-answer {:num num :login (login request)})]
-    (if (or (require-my-answer?) my-answer)
+    (if (or (not (require-my-answer?)) my-answer)
       (layout/render request "comment-form.html"
                      {:answer   (if (self-only?)
                                   my-answer

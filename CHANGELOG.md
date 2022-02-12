@@ -27,7 +27,7 @@ int error() {
 }
 ```
 - REQUIRE\_MY\_ANSWER はあんまりか。
-  REQUIRE\_SOLVED あるいはREQUIRE\_SUBMISSION では？
+  REQUIRE\_SOLVED あるいは REQUIRE\_SUBMISSION では？
 
 ## 0.20.6 - 2022-02-12
 ### Bug fixed
