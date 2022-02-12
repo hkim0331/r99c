@@ -28,6 +28,8 @@ int error() {
 ```
 - REQUIRE\_MY\_ANSWER はあんまりか。
   REQUIRE\_SOLVED あるいはREQUIRE\_SUBMISSION では？
+- abbrev: n 文字じゃなく、最初の改行までとか。
+- older comments: from=>to, to を表示
 
 ## 0.20.4 - 2022-02-11
 ### Changed
