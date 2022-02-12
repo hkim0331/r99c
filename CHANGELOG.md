@@ -29,6 +29,12 @@ int error() {
 - REQUIRE\_MY\_ANSWER はあんまりか。
   REQUIRE\_SOLVED あるいはREQUIRE\_SUBMISSION では？
 
+
+## 0.20.5 - 2022-02-12
+### Changed
+- older comments: from=>to, to を表示
+- first-line: 最大　n 文字じゃなく、最初の改行までを表示する。
+
 ## 0.20.4 - 2022-02-11
 ### Changed
 - profile.html: weekly の ul を ol に変更。

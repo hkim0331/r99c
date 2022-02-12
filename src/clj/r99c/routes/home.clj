@@ -50,6 +50,9 @@
   [col n]
   {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
 
+;;
+;; Selmer private extensions
+;;
 (defn- wrap-aux
   [n s]
   (if (< (count s) n)
@@ -61,7 +64,16 @@
   [n s]
   (str/join "\n" (map (partial wrap-aux n) (str/split-lines s))))
 
+(defn- first-line
+  [s]
+  (-> s
+      str/split-lines
+      first))
+
 (add-filter! :wrap66  (fn [x] (wrap 66 x)))
+(add-filter! :first-line (fn [x] (first-line x)))
+
+;; Selmer end
 
 (defn status-page
   "display user's status. how many problems he/she solved?"
