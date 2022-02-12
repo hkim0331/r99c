@@ -220,13 +220,20 @@
                       :message "まず自分で解いてから。"}))))
 
 (defn create-comment! [request]
-  (let [params (:params request)]
-    (db/create-comment! {:from_login (login request)
-                         :comment (:comment params)
-                         :to_login (:to_login params)
-                         :p_num (Integer/parseInt (:p_num params))
-                         :a_id (Integer/parseInt (:a_id params))})
-    (redirect "/")))
+  (let [params (:params request)
+        num (Integer/parseInt (:p_num params))]
+    (if (db/frozen? {:num num})
+     (layout/render request "error.html"
+                    {:status 403
+                     :title "Frozen"
+                     :message "回答受け付けを停止してます。"})
+     (do
+      (db/create-comment! {:from_login (login request)
+                           :comment (:comment params)
+                           :to_login (:to_login params)
+                           :p_num num
+                           :a_id (Integer/parseInt (:a_id params))})
+      (redirect "/")))))
 
 (defn comments-sent [request]
   (let [login (get-in request [:path-params :login])
