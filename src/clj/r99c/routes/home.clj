@@ -74,7 +74,7 @@
              count)]
    (if (zero? c)
     (str "")
-    (str "(+" c ")"))))
+    (str c "⤵️"))))
 
 (add-filter! :wrap66  (fn [x] (wrap 66 x)))
 (add-filter! :first-line (fn [x] (first-line x)))
