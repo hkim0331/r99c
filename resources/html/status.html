@@ -37,8 +37,9 @@
       <p>{{c.create_at|date:shortDateTime}},
         <b>{{c.p_num}}</b>,
         from <b>{{c.from_login}}</b> to <b>{{c.to_login}}</b>,<br>&nbsp;&nbsp;
-        <!-- was abbreviate:30 -->
-        <a href='/comment/{{c.a_id}}'>{{c.comment|first-line}}</a></p>
+        <!-- was abbreviate:30, now first-line -->
+        <a href='/comment/{{c.a_id}}'>
+          {{c.comment|first-line}}{{c.comment|rest-lines}}</a></p>
       {% endfor %}
       <form action='/comments'
       <p><a href='/comments'>older comments...</a></p>

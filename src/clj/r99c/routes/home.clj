@@ -63,9 +63,22 @@
       str/split-lines
       first))
 
+(defn- rest-lines-count
+ "number of lines except first line.
+  if non-zero, return (+ c),
+  if zero, return epmty string."
+ [s]
+ (let [c (-> s
+             str/split-lines
+             rest
+             count)]
+   (if (zero? c)
+    (str "")
+    (str "(+" c ")"))))
+
 (add-filter! :wrap66  (fn [x] (wrap 66 x)))
 (add-filter! :first-line (fn [x] (first-line x)))
-
+(add-filter! :rest-lines (fn [x] (rest-lines-count x)))
 
 ;; misc functions, predicates
 (defn login
@@ -272,19 +285,25 @@
       (layout/render request "error.html"
                      {:message "did not match old password"}))))
 
-(defn before? [s1 s2]
+;;
+;; weekly counts
+;;
+(defn- before? [s1 s2]
   (< (compare s1 s2) 0))
 
-(defn count-up [m]
+(defn- count-up [m]
   (reduce + (map :count m)))
 
-(defn bin-count [data bin]
+(defn bin-count
+  "data は週ごとの集計。単純な answers や comments じゃないので、
+   (count-up f)が必要。"
+  [data bin]
   (loop [data data bin bin ret []]
     (if (empty? bin)
       ret
-      (let [p (group-by #(before? (:create_at %) (first bin)) data)
-            f (p true)
-            s (p false)]
+      (let [g (group-by #(before? (:create_at %) (first bin)) data)
+            f (g true)
+            s (g false)]
         (recur s (rest bin) (conj ret (count-up f)))))))
 
 (defn profile [login]
