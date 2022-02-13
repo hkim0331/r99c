@@ -272,13 +272,16 @@
       (layout/render request "error.html"
                      {:message "did not match old password"}))))
 
-(defn before? [s1 s2]
+(defn- before? [s1 s2]
   (< (compare s1 s2) 0))
 
-(defn count-up [m]
+(defn- count-up [m]
   (reduce + (map :count m)))
 
-(defn bin-count [data bin]
+(defn bin-count
+  "data は週ごとの集計。単純な answers や comments じゃないので、
+   (count-up f)が必要。"
+  [data bin]
   (loop [data data bin bin ret []]
     (if (empty? bin)
       ret
