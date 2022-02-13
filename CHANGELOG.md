@@ -29,6 +29,10 @@ int error() {
 - REQUIRE\_MY\_ANSWER はあんまりか。
   REQUIRE\_SOLVED あるいは REQUIRE\_SUBMISSION では？
 
+## 0.21.2 - 2022-02-14
+### Added
+- resources/public/wp.html clojure/my/src/bin_count.clj から手作業で。
+
 ## 0.21.1 - 2022-02-13
 ### Added
 - 一行目の終わりに (+3) など。
