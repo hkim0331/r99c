@@ -17,6 +17,8 @@
    [selmer.filters :refer [add-filter!]]
    [taoensso.timbre :as timbre]))
 
+
+;; R99c environment
 (when-let [level (env :r99c-log-level)]
   (timbre/set-level! (keyword level)))
 
@@ -24,6 +26,8 @@
   []
   (= "TRUE" (env :r99c-self-only)))
 
+
+;; R99c は2021-10-11 から 130 日間営業
 (defn- to-date-str [s]
   (-> (str s)
       (subs 0 10)))
@@ -34,25 +38,16 @@
     (->> (take days (p/periodic-seq start-day (t/days 1)))
          (map to-date-str))))
 
-;; 2021-10-11 から 130 日間
 (def ^:private period (make-period 2021 10 11 130))
 
-(defn login
-  "return user's login as a string"
-  [request]
-  (name (get-in request [:session :identity])))
+(def weeks ["2021-10-11" "2021-10-18" "2021-10-25"
+            "2021-11-01" "2021-11-08" "2021-11-15" "2021-11-22" "2021-11-29"
+            "2021-12-06" "2021-12-13" "2021-12-20" "2021-12-27"
+            "2022-01-03" "2022-01-10" "2022-01-17" "2022-01-24" "2022-01-31"
+            "2022-02-07" "2022-02-14"])
 
-;; https://stackoverflow.com/questions/16264813/clojure-idiomatic-way-to-call-contains-on-a-lazy-sequence
-(defn- lazy-contains? [col key]
-  (some #{key} col))
 
-(defn- solved?
-  [col n]
-  {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
-
-;;
 ;; Selmer private extensions
-;;
 (defn- wrap-aux
   [n s]
   (if (< (count s) n)
@@ -73,7 +68,21 @@
 (add-filter! :wrap66  (fn [x] (wrap 66 x)))
 (add-filter! :first-line (fn [x] (first-line x)))
 
-;; Selmer end
+
+;; misc functions, predicates
+(defn login
+  "return user's login as a string"
+  [request]
+  (name (get-in request [:session :identity])))
+
+;; https://stackoverflow.com/questions/16264813/clojure-idiomatic-way-to-call-contains-on-a-lazy-sequence
+(defn- lazy-contains? [col key]
+  (some #{key} col))
+
+(defn- solved?
+  [col n]
+  {:n n :stat (if (lazy-contains? col n) "solved" "yet")})
+
 
 (defn status-page
   "display user's status. how many problems he/she solved?"
@@ -120,6 +129,7 @@
                       :differ answers
                       :frozen? frozen?}))))
 
+;; validations
 (defn- remove-comments
   "Remove lines starting from //, they are comments in C."
   [s]
@@ -258,12 +268,6 @@
         (redirect "/login"))
       (layout/render request "error.html"
                      {:message "did not match old password"}))))
-
-(def weeks ["2021-10-11" "2021-10-18" "2021-10-25"
-            "2021-11-01" "2021-11-08" "2021-11-15" "2021-11-22" "2021-11-29"
-            "2021-12-06" "2021-12-13" "2021-12-20" "2021-12-27"
-            "2022-01-03" "2022-01-10" "2022-01-17" "2022-01-24" "2022-01-31"
-            "2022-02-07" "2022-02-14"])
 
 (defn before? [s1 s2]
   (< (compare s1 s2) 0))
