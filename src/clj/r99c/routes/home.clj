@@ -282,9 +282,9 @@
   (loop [data data bin bin ret []]
     (if (empty? bin)
       ret
-      (let [p (group-by #(before? (:create_at %) (first bin)) data)
-            f (p true)
-            s (p false)]
+      (let [g (group-by #(before? (:create_at %) (first bin)) data)
+            f (g true)
+            s (g false)]
         (recur s (rest bin) (conj ret (count-up f)))))))
 
 (defn profile [login]
