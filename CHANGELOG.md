@@ -29,9 +29,13 @@ int error() {
 - REQUIRE\_MY\_ANSWER はあんまりか。
   REQUIRE\_SOLVED あるいは REQUIRE\_SUBMISSION では？
 
+## 0.21.1 - 2022-02-13
+### Added
+- 一行目の終わりに (+3) など。
+
 ## 0.21.0 - 2022-02-13
 ### Added
-- /profile/:login only admin.
+- /profile/:login admin only.
 
 ## 0.20.6 - 2022-02-12
 ### Bug fixed
