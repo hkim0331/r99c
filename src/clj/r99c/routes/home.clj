@@ -17,7 +17,6 @@
    [selmer.filters :refer [add-filter!]]
    [taoensso.timbre :as timbre]))
 
-
 ;; R99c environment
 (when-let [level (env :r99c-log-level)]
   (timbre/set-level! (keyword level)))
@@ -25,7 +24,6 @@
 (defn- self-only?
   []
   (= "TRUE" (env :r99c-self-only)))
-
 
 ;; R99c は2021-10-11 から 130 日間営業
 (defn- to-date-str [s]
@@ -74,6 +72,11 @@
   "return user's login as a string"
   [request]
   (name (get-in request [:session :identity])))
+
+(defn- admin?
+  "return `user` is admin?"
+  [user]
+  (:is_admin (db/get-user {:login user})))
 
 ;; https://stackoverflow.com/questions/16264813/clojure-idiomatic-way-to-call-contains-on-a-lazy-sequence
 (defn- lazy-contains? [col key]
@@ -284,12 +287,11 @@
             s (p false)]
         (recur s (rest bin) (conj ret (count-up f)))))))
 
-(defn profile [request]
-  (let [login (login request)
-        solved (db/answers-by {:login login})
+(defn profile [login]
+  (let [solved (db/answers-by {:login login})
         individual (db/answers-by-date-login {:login login})
         comments (db/comments-by-date-login {:login login})]
-    (layout/render request "profile.html"
+    (layout/render {} "profile.html"
                    {:login login
                     :user (db/get-user {:login login})
                     :chart (individual-chart individual period 600 150)
@@ -302,7 +304,6 @@
                                  (remove #(< 200 %))
                                  distinct
                                  count)
-                    ;; error if solved is empty
                     :last (if (seq solved)
                             (apply max-key :id solved)
                             [])
@@ -311,6 +312,19 @@
                                  (bin-count individual weeks)
                                  (bin-count comments weeks))
                     :groups (filter #(< 200 (:num %)) solved)})))
+
+(defn profile-self
+  [request]
+  (profile (login request)))
+
+(defn profile-login
+  [request]
+  (if (admin? (login request))
+    (profile (get-in request [:path-params :login]))
+    (layout/render request "error.html"
+                   {:status 403
+                    :title "Access Forbidden"
+                    :message "admin only. "})))
 
 (defn ranking [request]
   (layout/render request "ranking.html"
@@ -321,26 +335,23 @@
                   :n 30}))
 
 (defn rank-submissions [request]
-  (let [login (login request)
-        admin? (:is_admin (db/get-user {:login login}))]
+  (let [login (login request)]
     (layout/render request "ranking-all.html"
                    {:data (db/submissions)
                     :title "Ranking Submissions"
                     :login  login
-                    :admin? admin?})))
+                    :admin? (admin? login)})))
 
 (defn rank-solved [request]
-  (let [login (login request)
-        admin? (:is_admin (db/get-user {:login login}))]
+  (let [login (login request)]
     (layout/render request "ranking-all.html"
                    {:data (db/solved)
                     :title "Ranking Solved"
                     :login  login
-                    :admin? admin?})))
+                    :admin? (admin? login)})))
 
 (defn rank-comments [request]
   (let [login (login request)
-        admin? (:is_admin (db/get-user {:login login}))
         data (map (fn [x] {:login (:from_login x)
                            :count (:count x)})
                   (db/comments-counts))]
@@ -348,7 +359,7 @@
                    {:data data
                     :title "Comments Ranking"
                     :login  login
-                    :admin? admin?})))
+                    :admin? (admin? login)})))
 
 (defn answers-by-problems [request]
   (let [data (db/answers-by-problems)]
@@ -371,7 +382,8 @@
    ["/comments-sent/:login" {:get comments-sent}]
    ["/comments/:num" {:get comments-by-num}]
    ["/problems" {:get problems-page}]
-   ["/profile" {:get profile}]
+   ["/profile" {:get profile-self}]
+   ["/profile/:login" {:get profile-login}]
    ["/ranking" {:get ranking}]
    ["/rank/submissions" {:get rank-submissions}]
    ["/rank/solved"      {:get rank-solved}]
