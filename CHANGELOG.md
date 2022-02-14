@@ -29,6 +29,9 @@ int error() {
 - REQUIRE\_MY\_ANSWER はあんまりか。
   REQUIRE\_SOLVED あるいは REQUIRE\_SUBMISSION では？
 
+## 0.21.3-SNAPSHOT
+- updated navbar to include ME, EE, GR, WP.
+
 ## 0.21.2 - 2022-02-14
 ### Added
 - resources/public/wp.html clojure/my/src/bin_count.clj から手作業で。
