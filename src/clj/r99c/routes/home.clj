@@ -5,6 +5,7 @@
    [clj-time.core :as t]
    [clj-time.local :as l]
    [clj-time.periodic :as p]
+   [clojure.java.io :as io]
    [clojure.string :as str]
    [digest]
    [environ.core :refer [env]]
@@ -64,17 +65,17 @@
       first))
 
 (defn- rest-lines-count
- "number of lines except first line.
+  "number of lines except first line.
   if non-zero, return (+ c),
   if zero, return epmty string."
- [s]
- (let [c (-> s
-             str/split-lines
-             rest
-             count)]
-   (if (zero? c)
-    (str "")
-    (str " ⤵️ " c))))
+  [s]
+  (let [c (-> s
+              str/split-lines
+              rest
+              count)]
+    (if (zero? c)
+      (str "")
+      (str " ⤵️ " c))))
 
 (add-filter! :wrap66  (fn [x] (wrap 66 x)))
 (add-filter! :first-line (fn [x] (first-line x)))
@@ -219,8 +220,8 @@
                         :message "can not insert"})))))
 
 (defn- require-my-answer?
- []
- (= (env :r99c-require-my-answer) "TRUE"))
+  []
+  (= (env :r99c-require-my-answer) "TRUE"))
 
 (defn comment-form
   "Taking answer id as path-parameter, show the answer with
@@ -249,17 +250,17 @@
   (let [params (:params request)
         num (Integer/parseInt (:p_num params))]
     (if (db/frozen? {:num num})
-     (layout/render request "error.html"
-                    {:status 403
-                     :title "Frozen"
-                     :message "回答受け付けを停止してます。"})
-     (do
-      (db/create-comment! {:from_login (login request)
-                           :comment (:comment params)
-                           :to_login (:to_login params)
-                           :p_num num
-                           :a_id (Integer/parseInt (:a_id params))})
-      (redirect "/")))))
+      (layout/render request "error.html"
+                     {:status 403
+                      :title "Frozen"
+                      :message "回答受け付けを停止してます。"})
+      (do
+        (db/create-comment! {:from_login (login request)
+                             :comment (:comment params)}
+                            :to_login (:to_login params)
+                            :p_num num
+                            :a_id (Integer/parseInt (:a_id params)))
+        (redirect "/")))))
 
 (defn comments-sent [request]
   (let [login (get-in request [:path-params :login])
@@ -407,7 +408,9 @@
    ["/rank/submissions" {:get rank-submissions}]
    ["/rank/solved"      {:get rank-solved}]
    ["/rank/comments"    {:get rank-comments}]
-   ["/wp" {:get (fn [_]
-                 {:status 200
-                  :headers {"Content-Type" "text/html"}
-                  :body (slurp "resources/html/wp.html")})}]])
+   ["/wp" {:get (fn [request]
+                  {:status 200
+                   :headers {"Content-Type" "text/html"}
+                   :body (slurp (io/resource "docs/out.html"))})}]])
+;;(slurp (io/resource "docs/seed-problems.html"))})}]])
+                 ;;(layout/render request "wp.html"))}]])
