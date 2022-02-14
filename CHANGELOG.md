@@ -31,6 +31,9 @@ int error() {
 - gr へのリンク
 - wp.html を /wp として認証受けるように
 
+## 0.21.4 - 2022-02-14
+### Added
+- /wp to display wp.html.
 
 ## 0.21.3-SNAPSHOT
 ### Changed

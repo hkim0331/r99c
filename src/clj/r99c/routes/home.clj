@@ -406,4 +406,8 @@
    ["/ranking" {:get ranking}]
    ["/rank/submissions" {:get rank-submissions}]
    ["/rank/solved"      {:get rank-solved}]
-   ["/rank/comments"    {:get rank-comments}]])
+   ["/rank/comments"    {:get rank-comments}]
+   ["/wp" {:get (fn [_]
+                 {:status 200
+                  :headers {"Content-Type" "text/html"}
+                  :body (slurp "resources/html/wp.html")})}]])
