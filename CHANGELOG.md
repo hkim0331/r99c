@@ -33,7 +33,9 @@ int error() {
 
 
 ## 0.21.3-SNAPSHOT
-- updated navbar to include ME, EE, GR, WP.
+### Changed
+- updated navbar to include ME, EE, GR, WP
+- moved wp.html from resources/public to resources/html
 
 ## 0.21.2 - 2022-02-14
 ### Added
