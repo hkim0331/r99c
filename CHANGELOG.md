@@ -28,6 +28,9 @@ int error() {
 ```
 - REQUIRE\_MY\_ANSWER はあんまりか。
   REQUIRE\_SOLVED あるいは REQUIRE\_SUBMISSION では？
+- gr へのリンク
+- wp.html を /wp として認証受けるように
+
 
 ## 0.21.2 - 2022-02-14
 ### Added
