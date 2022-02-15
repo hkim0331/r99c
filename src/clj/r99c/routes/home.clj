@@ -408,9 +408,7 @@
    ["/rank/submissions" {:get rank-submissions}]
    ["/rank/solved"      {:get rank-solved}]
    ["/rank/comments"    {:get rank-comments}]
-   ["/wp" {:get (fn [request]
+   ["/wp" {:get (fn [_]
                   {:status 200
                    :headers {"Content-Type" "text/html"}
-                   :body (slurp (io/resource "docs/out.html"))})}]])
-;;(slurp (io/resource "docs/seed-problems.html"))})}]])
-                 ;;(layout/render request "wp.html"))}]])
+                   :body (slurp (io/resource "docs/weekly-points.html"))})}]])
