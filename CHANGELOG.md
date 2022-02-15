@@ -28,12 +28,19 @@ int error() {
 ```
 - REQUIRE\_MY\_ANSWER はあんまりか。
   REQUIRE\_SOLVED あるいは REQUIRE\_SUBMISSION では？
-- gr へのリンク
-- wp.html を /wp として認証受けるように
+- ee(endterm examination)
+
+## 0.22.0-SNAPSHOT
+
+## 0.21.5 - 2022-02-15
+### Changed
+- /wp to display resources/docs/weekly-points.html
 
 ## 0.21.4 - 2022-02-14
 ### Added
 - /wp to display wp.html.
+- slurp takes `unix/path`. clojure.java.io/resource takes
+  java class path(?)
 
 ## 0.21.3-SNAPSHOT
 ### Changed
