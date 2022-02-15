@@ -32,6 +32,9 @@ int error() {
 
 ## 0.22.0-SNAPSHOT
 
+### Added
+- upload-restart.sh
+
 ## 0.21.5 - 2022-02-15
 ### Changed
 - /wp to display resources/docs/weekly-points.html
