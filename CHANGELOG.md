@@ -30,7 +30,14 @@ int error() {
   REQUIRE\_SOLVED あるいは REQUIRE\_SUBMISSION では？
 - ee(endterm examination)
 
-## 0.22.0-SNAPSHOT
+
+## 0.22.0 - 2022-02-15
+### Bug fixed
+- parinf 入っていると、無意識に間違って () の対応ずらしちゃった時に、
+  勝手に () 調整しちゃってバグが見つけにくくなる。オフするか？
+
+### Added
+- upload-restart.sh
 
 ## 0.21.5 - 2022-02-15
 ### Changed
