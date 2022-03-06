@@ -31,6 +31,10 @@ int error() {
 - ee(endterm examination)
 
 
+## 0.22.1 - 2022-03-06
+### Changed
+- Dockerfile, docker-compose.yml
+
 ## 0.22.0 - 2022-02-15
 ### Bug fixed
 - parinf 入っていると、無意識に間違って () の対応ずらしちゃった時に、
