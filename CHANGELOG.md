@@ -31,6 +31,12 @@ int error() {
 - ee(endterm examination)
 
 
+## 0.23.0 - 2022-03-11
+### frozen
+- 2021 の r99c は打ち止め。
+- docker-compose.yml clojure:lein からイメージ作って、docker 内部で
+  r99 できる。
+
 ## 0.22.0 - 2022-02-15
 ### Bug fixed
 - parinf 入っていると、無意識に間違って () の対応ずらしちゃった時に、
