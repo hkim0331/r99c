@@ -1,20 +1,21 @@
 version: "3.8"
 services:
   db:
-    image: postgres:14.1-alpine
+    image: postgres:12.10
+    restart: unless-stopped
     environment:
-      - POSTGRES_DB=r99c_dev
+      - POSTGRES_DB=r99c
+      - POSTGRES_USER=postgres
       - POSTGRES_HOST_AUTH_METHOD=trust
-      #- POSTGRES_USER=postgres
-      #- POSTGRES_PASS=password
       - TZ=Asia/Tokyo
     ports:
       - "5432:5432"
     volumes:
       - ./initdb.d:/docker-entrypoint-initdb.d
       - data:/var/lib/postgresql/data
-  r99c:
-    image: clojure:lein
+  app:
+    build: .
+    tty: true
     environment:
       LEIN_REPL_PORT: 46123
       LEIN_REPL_HOST: 0.0.0.0

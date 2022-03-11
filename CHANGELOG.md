@@ -31,6 +31,12 @@ int error() {
 - ee(endterm examination)
 
 
+## 0.23.0 - 2022-03-11
+### frozen
+- 2021 の r99c は打ち止め。
+- docker-compose.yml clojure:lein からイメージ作って、docker 内部で
+  r99 できる。
+
 ## 0.22.0 - 2022-02-15
 ### Bug fixed
 - parinf 入っていると、無意識に間違って () の対応ずらしちゃった時に、
@@ -57,6 +63,8 @@ int error() {
 ## 0.21.2 - 2022-02-14
 ### Added
 - resources/public/wp.html clojure/my/src/bin_count.clj から手作業で。
+- clojure/my/src/my/bin_count.clj は robocar-2021/grading/src/weekly_points.clj に
+  名前変更して移動。
 
 ## 0.21.1 - 2022-02-13
 ### Added
