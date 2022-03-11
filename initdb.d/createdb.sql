@@ -1,3 +1,3 @@
-create database r99c_dev;
+create database r99c;
 
 
