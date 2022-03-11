@@ -10,12 +10,11 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      #- ./initdb.d:/docker-entrypoint-initdb.d
+      - ./initdb.d:/docker-entrypoint-initdb.d
       - data:/var/lib/postgresql/data
   r99c:
     build: .
     tty: true
-    #command: sleep infinity
     environment:
       LEIN_REPL_PORT: 46123
       LEIN_REPL_HOST: 0.0.0.0
