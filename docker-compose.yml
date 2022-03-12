@@ -4,7 +4,8 @@ services:
     image: postgres:12.10
     restart: unless-stopped
     environment:
-      - POSTGRES_DB=r99c_dev
+      - POSTGRES_DB=r99c
+      - POSTGRES_USER=postgres
       - POSTGRES_HOST_AUTH_METHOD=trust
       - TZ=Asia/Tokyo
     ports:
@@ -12,7 +13,7 @@ services:
     volumes:
       - ./initdb.d:/docker-entrypoint-initdb.d
       - data:/var/lib/postgresql/data
-  r99c:
+  app:
     build: .
     tty: true
     environment:
