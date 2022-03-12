@@ -31,6 +31,18 @@ int error() {
 - ee(endterm examination)
 
 
+## 0.24.0 - 2022-03-12
+- too late (did not finish) remote container to `lein uberjar`
+### Changed
+- lein ancient upgrade
+  reitite 5.1.17
+
+## 0.23.0 - 2022-03-11
+### frozen
+- 2021 の r99c は打ち止め。
+- docker-compose.yml clojure:lein からイメージ作って、docker 内部で
+  r99 できる。
+
 ## 0.22.1 - 2022-03-06
 ### Changed
 - Dockerfile, docker-compose.yml
