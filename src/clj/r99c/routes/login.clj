@@ -49,12 +49,12 @@
 
 (defn login-post [{{:keys [login password]} :params}]
   (let [user (db/get-user {:login login})]
-    (timbre/info "login attempt" login password)
+    (timbre/info "login attempt" login)
     (if (and (seq user)
              (= (:login user) login)
              (hashers/check password (:password user)))
       (do
-        ;; in read-only mode, this is banned.
+        ;; in read-only mode, can not this.
         ;;(db/login {:login login})
         (-> (redirect "/")
             (assoc-in [:session :identity] (keyword login))))
