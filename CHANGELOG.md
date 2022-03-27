@@ -33,6 +33,11 @@ int error() {
   ユーザ名、ユーザID を落として、データベースを書き換えないバージョン。
   - docker
   - postgres -> h2 にできないか？
+- login メニュー作らないと。
+- sid と名前を落とす。
+
+## 0.25.0-SNAPSHOT
+
 
 ## 0.24.0 - 2022-03-12
 - too late (did not finish) remote container to `lein uberjar`
