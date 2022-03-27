@@ -8,7 +8,7 @@
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
-(def ^:private version "0.24.0")
+(def ^:private version "0.25.0")
 
 (def users-schema
   [[:sid
@@ -49,14 +49,15 @@
 
 (defn login-post [{{:keys [login password]} :params}]
   (let [user (db/get-user {:login login})]
+    (timbre/info "login attempt" login)
     (if (and (seq user)
              (= (:login user) login)
              (hashers/check password (:password user)))
       (do
-       (timbre/info "login success" login)
-       (db/login {:login login})
-       (-> (redirect "/")
-           (assoc-in [:session :identity] (keyword login))))
+        ;; in read-only mode, can not this.
+        ;;(db/login {:login login})
+        (-> (redirect "/")
+            (assoc-in [:session :identity] (keyword login))))
       (do
        (timbre/info "login faild" login)
        (redirect "/login")))))
