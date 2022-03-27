@@ -83,9 +83,9 @@
 
 ;; misc functions, predicates
 (defn login
-  "return user's login as a string"
+  "return user's login as a string. or nobody."
   [request]
-  (name (get-in request [:session :identity])))
+  (name (get-in request [:session :identity] :nobody)))
 
 (defn- admin?
   "return `user` is admin?"
@@ -389,7 +389,7 @@
                     :title "Answers by Problems"})))
 
 (defn home-routes []
-  ["" {:middleware [middleware/auth
+  ["" {:middleware [;;middleware/auth
                     middleware/wrap-csrf
                     middleware/wrap-formats]}
    ["/" {:get status-page}]
