@@ -33,10 +33,10 @@ int error() {
   - docker で。
   - postgres -> h2 にできないか？
 - ログをモチっとしっかりとるか。誰がどのページを見たか、とか。
-- 0.26.0, bump-version.sh を忘れている。
+- ERROR: The Compose file './docker-compose.yml' is invalid because:
+services.app.environment.R99C_REQUIRE_MY_ANSWER contains false, which is an invalid type, it should be a string, number, or a null
 
-
-## 0.26.0 - 2022-03-29
+## 0.26.1 - 2022-03-29
 - frozen r99c
 ```sh
     % lein uberjar
