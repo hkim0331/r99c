@@ -33,7 +33,13 @@ int error() {
   - docker で。
   - postgres -> h2 にできないか？
 - ログをモチっとしっかりとるか。誰がどのページを見たか、とか。
+
+## 0.26.0 - 2022-03-29
 - frozen r99c
+```sh
+    % lein uberjar
+    % docker compose up -d
+```
 
 ## 0.25.0-SNAPSHOT
 - login メニューを作成。register へのリンクをコメントアウト。
