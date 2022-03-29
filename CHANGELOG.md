@@ -33,6 +33,10 @@ int error() {
   - docker で。
   - postgres -> h2 にできないか？
 - ログをモチっとしっかりとるか。誰がどのページを見たか、とか。
+- ChromeBook では docker-compise version 3.8 は未サポート。
+  3 に戻そう。
+- ERROR:  syntax error at or near "if"
+r99c-db-1   | LINE 1: alter table r99c.users drop colum if exist sid;
 
 
 ## 0.26.1 - 2022-03-29
