@@ -28,12 +28,12 @@ int error() {
 ```
 - REQUIRE\_MY\_ANSWER はあんまりか。
   REQUIRE\_SOLVED あるいは REQUIRE\_SUBMISSION では？
-- ee(endterm examination)
 - r99c-frozen
-  ユーザ名、ユーザID を落として、データベースを書き換えないバージョン。
-  - docker
+  ユーザ名、ユーザID を落として、データベースを書き換えないバージョンとする。
+  - docker で。
   - postgres -> h2 にできないか？
-
+- ログをモチっとしっかりとるか。誰がどのページを見たか、とか。
+- frozen r99c
 
 ## 0.25.0-SNAPSHOT
 - login メニューを作成。register へのリンクをコメントアウト。
