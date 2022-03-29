@@ -33,13 +33,29 @@ int error() {
   - docker で。
   - postgres -> h2 にできないか？
 - ログをモチっとしっかりとるか。誰がどのページを見たか、とか。
+
+
+## 0.26.1 - 2022-03-29
 - ERROR: The Compose file './docker-compose.yml' is invalid because:
 services.app.environment.R99C_REQUIRE_MY_ANSWER contains false, which is an invalid type, it should be a string, number, or a null
 
-## 0.26.1 - 2022-03-29
-- frozen r99c
+上記に基づき、docker-compose.yml 修正。macOS のはエラーになんないんだけどな。
+
+- nuc.local で frozen r99c 動作した。
 ```sh
+    % tree .
+.
+|-- Dockerfile
+|-- docker-compose.yml
+|-- initdb.d
+|   |-- init-db.sh
+|   `-- r99c-2022-03-29.dump
+`-- target
+    `-- uberjar
+        `-- r99c.jar
+
     % lein uberjar
+    % docker compose build
     % docker compose up -d
 ```
 
