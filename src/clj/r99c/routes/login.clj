@@ -64,7 +64,7 @@
        (-> (redirect "/login")
            (assoc :flash "login failure"))))))
 
-(defn logout []
+(defn logout [_]
   (-> (redirect "/")
    (assoc :session {})))
 
