@@ -45,7 +45,6 @@
             "2022-01-03" "2022-01-10" "2022-01-17" "2022-01-24" "2022-01-31"
             "2022-02-07" "2022-02-14"])
 
-
 ;; Selmer private extensions
 (defn- wrap-aux
   [n s]
@@ -108,6 +107,7 @@
         solved (map #(:num %) (db/answers-by {:login login}))
         individual (db/answers-by-date-login {:login login})
         all-answers (db/answers-by-date)]
+    (timbre/info "status-page" login)
     (layout/render
      request
      "status.html"
@@ -121,6 +121,7 @@
 (defn problems-page
   "display problems."
   [request]
+  (timbre/info "problem-page" (login request))
   (layout/render request "problems.html" {:problems (db/problems)}))
 
 (defn answer-page
@@ -131,6 +132,7 @@
         problem (db/get-problem {:num num})
         answers (db/answers-to {:num num})
         frozen?  (db/frozen? {:num num})]
+    (timbre/info "answer-page" (login request))
     (if-let [answer (db/get-answer {:num num :login (login request)})]
       (let [answers (group-by #(= (:md5 answer) (:md5 %)) answers)]
         (layout/render request
@@ -231,6 +233,7 @@
         answer (db/get-answer-by-id {:id id})
         num (:num answer)
         my-answer (db/get-answer {:num num :login (login request)})]
+    (timbre/info "comment-form" (login request))
     (if (or (not (require-my-answer?)) my-answer)
       (layout/render request "comment-form.html"
                      {:answer   (if (self-only?)
@@ -269,17 +272,20 @@
     (layout/render request "comments-sent.html" {:sent sent})))
 
 (defn comments [request]
+  (timbre/info "comments" (login request))
   (layout/render request "comments.html"
                  {:comments (drop 20 (db/comments))}))
 
 (defn comments-by-num [request]
   (let [num (Integer/parseInt (get-in request [:path-params :num]))]
+    (timbre/info "comments-by-num" (login request))
     (layout/render request "comments.html"
                    {:comments (db/comments-by-num {:num num})})))
 
 (defn ch-pass [{{:keys [old new]} :params :as request}]
   (let [login (login request)
         user (db/get-user {:login login})]
+    (timbre/info "ch-pass" login)
     (if (and (seq user) (hashers/check old (:password user)))
       (do
         (db/update-user! {:login login :password (hashers/derive new)})
@@ -312,6 +318,7 @@
   (let [solved (db/answers-by {:login login})
         individual (db/answers-by-date-login {:login login})
         comments (db/comments-by-date-login {:login login})]
+    (timbre/info "profile who?" {:login login})
     (layout/render {} "profile.html"
                    {:login login
                     :user (db/get-user {:login login})
@@ -340,6 +347,7 @@
 
 (defn profile-login
   [request]
+  (timbre/info "profile-login" (login request))
   (if (admin? (login request))
     (profile (get-in request [:path-params :login]))
     (layout/render request "error.html"
@@ -348,6 +356,7 @@
                     :message "admin only. "})))
 
 (defn ranking [request]
+  (timbre/info "ranking" (login request))
   (layout/render request "ranking.html"
                  {:submissions (take 30 (db/submissions))
                   :solved      (take 30 (db/solved))
@@ -357,6 +366,7 @@
 
 (defn rank-submissions [request]
   (let [login (login request)]
+    (timbre/info "rank-submissions" login)
     (layout/render request "ranking-all.html"
                    {:data (db/submissions)
                     :title "Ranking Submissions"
@@ -365,6 +375,7 @@
 
 (defn rank-solved [request]
   (let [login (login request)]
+    (timbre/info "rank-solved" login)
     (layout/render request "ranking-all.html"
                    {:data (db/solved)
                     :title "Ranking Solved"
@@ -376,6 +387,7 @@
         data (map (fn [x] {:login (:from_login x)
                            :count (:count x)})
                   (db/comments-counts))]
+    (timbre/info "rank-comments" login)
     (layout/render request "ranking-all.html"
                    {:data data
                     :title "Comments Ranking"
@@ -384,6 +396,7 @@
 
 (defn answers-by-problems [request]
   (let [data (db/answers-by-problems)]
+    (timbre/info "answers-by-problems" (login request))
     (layout/render request "answers-by-problems.html"
                    {:data data
                     :title "Answers by Problems"})))
