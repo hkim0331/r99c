@@ -30,6 +30,7 @@ int error() {
 - nobody/nobody
 ### Changed
 - postgres read-only (app.melt)
+- db エラーを try/catch で捕捉する。
 
 ## 0.26.2 - 2022-03-29
 ### Changed
