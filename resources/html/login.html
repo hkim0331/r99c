@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="content">
+<div class="content">
+  <div class="container">
     <h2>Login</h2>
     <div style="color:red;">{{flash}}</div>
     <form method='post'>
@@ -12,10 +13,11 @@
     <br>
 
     <ul>
-      <li>アカウント持ってる人はそれで、持ってない人はカンを働かせて。</li>
-      <li>データベースを read only に設定したので、新しい回答やコメントはできない。</li>
+      <li>アカウント持ってる人はそれで、持ってない人はカンを働かせ。</li>
       <li>学生番号、氏名をデータベースから落とした。</li>
+      <li>データベースを read only に設定した。新しい回答やコメントはできない。</li>
     </ul>
+  </div>
     <!--
     <p>or</p>
     <p><a href="/register">register</a></p>
