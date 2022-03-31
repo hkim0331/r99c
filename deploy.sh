@@ -1,6 +1,7 @@
 #!/bin/sh
 
-#lein uberjar
+# やめとこ。エラーの場合もある。
+# lein uberjar
 
 if [ -z "$1" ]; then
 	echo usage: $0 target/file.jar
@@ -9,3 +10,4 @@ fi
 
 scp target/uberjar/r99c.jar app.melt:r99c/
 ssh app.melt 'sudo systemctl restart r99c'
+ssh app.melt 'systemctl status r99c'

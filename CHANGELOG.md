@@ -19,13 +19,14 @@ int error() {
   return a[1] == '{' && a[5] == '}';
 }
 ```
+- コメントしようとするとエラーのログがたくさん
+- ページビューのログが残らないぞ。
 
 
 ## 0.26.3-SNAPSHOT
 ### Added
 - login failure を赤で表示。
 - ログをモチっとしっかりとる。timbre/info "page" (login request)
-
 
 ## 0.26.2 - 2022-03-29
 ### Changed
