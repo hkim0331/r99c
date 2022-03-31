@@ -22,11 +22,14 @@ int error() {
 - コメントしようとするとエラーのログがたくさん
 - ページビューのログが残らないぞ。
 
-
-## 0.26.3-SNAPSHOT
+## 0.26.3 - 2022-03-31
 ### Added
 - login failure を赤で表示。
 - ログをモチっとしっかりとる。timbre/info "page" (login request)
+- robots.txt
+- nobody/nobody
+### Changed
+- postgres read-only (app.melt)
 
 ## 0.26.2 - 2022-03-29
 ### Changed

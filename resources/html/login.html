@@ -5,13 +5,16 @@
     <div style="color:red;">{{flash}}</div>
     <form method='post'>
       {% csrf-field %}
-      <input name='login' placeholder='login'>
-      <input name='password' placeholder='password' type='password'>
+      <input name='login' placeholder='nobody'>
+      <input name='password' placeholder='nobody' type='password'>
       <input type='submit' value='login'>
     </form>
     <br>
 
-<!--
+    <p>アカウント持ってる人はそれで、持ってない人はカンを働かせて。</p>
+    <p>データベースを read only に設定したので、新しい回答やコメントはできません。</p>
+
+    <!--
     <p>or</p>
     <p><a href="/register">register</a></p>
 
