@@ -1,10 +1,7 @@
-FROM clojure:lein
+FROM openjdk:8-alpine
 
-COPY project.clj /usr/src/app/
-WORKDIR /usr/src/app
-RUN lein deps
+COPY target/uberjar/r99c.jar /app/r99c.jar
 
-# no use. docker-compose.yml does.
-# COPY . /usr/src/app
+EXPOSE 3000
 
-CMD ["lein", "repl", ":headless"]
+CMD ["java", "-jar", "/app/r99c.jar"]

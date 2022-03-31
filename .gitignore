@@ -16,7 +16,9 @@ profiles.clj
 .clj-kondo/
 .lsp/
 .vscode/
-/db-dumps
+/db-dumps/*
+!/db-dumps/dump.sh
+!/db-dumps/restore.sh
 /log
 /node_modules
 migrate.sh

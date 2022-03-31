@@ -8,7 +8,7 @@
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
-(def ^:private version "0.23.0")
+(def ^:private version "0.26.3")
 
 (def users-schema
   [[:sid
@@ -37,6 +37,7 @@
     (first ret)))
 
 (defn about-page [request]
+  ;;(timbre/info "about-page" (login request))
   (layout/render request "about.html" {:version version}))
 
 (defn admin-only [request]
@@ -45,25 +46,29 @@
                                        :message "This page is admin only."}))
 
 (defn login [request]
-  (layout/render request "login.html"))
+  (layout/render request "login.html" {:flash (:flash request)}))
 
 (defn login-post [{{:keys [login password]} :params}]
   (let [user (db/get-user {:login login})]
-    (if (and (seq user)
-             (= (:login user) login)
-             (hashers/check password (:password user)))
+    (if (or
+         (and (= login "nobody") (= password "nobody"))
+         (and (seq user)
+              (= (:login user) login)
+              (hashers/check password (:password user))))
       (do
-       (timbre/info "login success" login)
-       (db/login {:login login})
-       (-> (redirect "/")
-           (assoc-in [:session :identity] (keyword login))))
+        (timbre/info "login success" login)
+       ;; in read-only mode, can not this.
+       ;;(db/login {:login login})
+        (-> (redirect "/")
+            (assoc-in [:session :identity] (keyword login))))
       (do
-       (timbre/info "login faild" login)
-       (redirect "/login")))))
+        (timbre/info "login faild" login password)
+        (-> (redirect "/login")
+            (assoc :flash "login failure"))))))
 
 (defn logout [_]
   (-> (redirect "/")
-      (assoc :session {})))
+   (assoc :session {})))
 
 (defn register [{:keys [flash] :as request}]
   (layout/render request

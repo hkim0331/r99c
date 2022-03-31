@@ -12,13 +12,6 @@ int func_test(void) {
   何番を解いているタブを開いているか分かるようにしてほしいです！
 - comments all に pager の導入
 - chart y 軸を動的に。
-- 二次元配列の初期化コードでインデントルール違反を出さない
-- グループ課題に〆切
-- 最初のdocker-compose up 時にデータベースがすでにあるエラー
-  2度目はちゃんと立ち上がるからいいか。
-- sql/queries.sql には重複するものがありそう。
-  DB 側をシンプルにし clj で踏ん張るのがいいのか（自由が利きそう）、
-  できるだけ SQL で処理しデータ転送量を減らすのがいいのか、どっち？
 - "" の中、'{'、'}' をエスケープする。
 ```c
 int error() {
@@ -26,10 +19,63 @@ int error() {
   return a[1] == '{' && a[5] == '}';
 }
 ```
-- REQUIRE\_MY\_ANSWER はあんまりか。
-  REQUIRE\_SOLVED あるいは REQUIRE\_SUBMISSION では？
-- ee(endterm examination)
+- コメントしようとするとエラーのログがたくさん
+- ページビューのログが残らないぞ。
 
+## 0.26.3 - 2022-03-31
+### Added
+- login failure を赤で表示。
+- ログをモチっとしっかりとる。timbre/info "page" (login request)
+- robots.txt
+- nobody/nobody
+### Changed
+- postgres read-only (app.melt)
+- db エラーを try/catch で捕捉する。
+
+## 0.26.2 - 2022-03-29
+### Changed
+- ユーザ名、ユーザID を落として、データベースを書き換えないバージョンとする。
+  docker compose up --build
+- ChromeBook では docker-compise version 3.8 は未サポート。3 に戻そう。
+### Fixed
+- ERROR:  syntax error at or near "if"
+  r99c-db-1   | LINE 1: alter table r99c.users drop colum if exist sid;
+  `column` が正しい。
+
+## 0.26.1 - 2022-03-29
+- ERROR: The Compose file './docker-compose.yml' is invalid because:
+services.app.environment.R99C_REQUIRE_MY_ANSWER contains false, which is an invalid type, it should be a string, number, or a null
+
+上記に基づき、docker-compose.yml 修正。macOS のはエラーになんないんだけどな。
+
+- nuc.local で frozen r99c 動作した。
+```sh
+    % tree .
+.
+|-- Dockerfile
+|-- docker-compose.yml
+|-- initdb.d
+|   |-- init-db.sh
+|   `-- r99c-2022-03-29.dump
+`-- target
+    `-- uberjar
+        `-- r99c.jar
+
+    % lein uberjar
+    % docker compose build
+    % docker compose up -d
+```
+
+## 0.25.0-SNAPSHOT
+- login メニューを作成。register へのリンクをコメントアウト。
+- users テーブルから sid と name を落とす。
+
+## 0.24.0 - 2022-03-12
+- too late (did not finish) remote container to `lein uberjar`
+
+### Changed
+- lein ancient upgrade
+  reitite 5.1.17
 
 ## 0.23.0 - 2022-03-11
 ### frozen

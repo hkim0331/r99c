@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3"
 services:
   db:
     image: postgres:12.10
@@ -8,22 +8,14 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_HOST_AUTH_METHOD=trust
       - TZ=Asia/Tokyo
-    ports:
-      - "5432:5432"
     volumes:
       - ./initdb.d:/docker-entrypoint-initdb.d
-      - data:/var/lib/postgresql/data
   app:
     build: .
-    tty: true
+    ports: [ "3000:3000" ]
     environment:
-      LEIN_REPL_PORT: 46123
-      LEIN_REPL_HOST: 0.0.0.0
-    ports:
-      - "3000:3000"
-      - "46123:46123"
-    volumes:
-      - .:/usr/src/app
-volumes:
-  data:
-    driver: local
+      - PORT=3000
+      - DATABASE_URL=postgresql://db/r99c?user=postgres&password=password
+      - R99C_REQUIRE_MY_ANSWER=FALSE
+    working_dir: /app
+    entrypoint: ["java", "-jar", "r99c.jar"]
