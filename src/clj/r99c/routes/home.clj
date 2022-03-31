@@ -199,8 +199,8 @@
 
 (defn create-answer!
   [{{:keys [num answer]} :params :as request}]
-  (if-let [error (and (not (self-only?))
-                      (validate answer))]
+  (timbre/info "create-answer!")
+  (if-let [error (and (not (self-only?)) (validate answer))]
     (do
       (timbre/info "validation failed" (login request) error)
       (layout/render request "error.html"
@@ -213,12 +213,11 @@
                            :num (Integer/parseInt num)
                            :answer answer
                            :md5 (-> answer strip digest/md5)})]
-        (timbre/info (str "/comment/" id))
         (redirect (str "/answer/" num)))
       (catch Exception _
         (layout/render request "error.html"
                        {:status 406
-                        :title "database error"
+                        :title "frozen r99"
                         :message "can not insert"})))))
 
 (defn- require-my-answer?
@@ -258,13 +257,18 @@
                      {:status 403
                       :title "Frozen"
                       :message "回答受け付けを停止してます。"})
-      (do
-        (db/create-comment! {:from_login (login request)
-                             :comment (:comment params)
-                             :to_login (:to_login params)
-                             :p_num num
-                             :a_id (Integer/parseInt (:a_id params))})
-        (redirect "/")))))
+      (try
+         (db/create-comment! {:from_login (login request)
+                              :comment (:comment params)
+                              :to_login (:to_login params)
+                              :p_num num
+                              :a_id (Integer/parseInt (:a_id params))})
+         (redirect "/")
+         (catch Exception _
+           (layout/render request "error.html"
+                          {:status 406
+                           :title "frozen r99"
+                           :message "can not add comments"}))))))
 
 (defn comments-sent [request]
   (let [login (get-in request [:path-params :login])
@@ -402,7 +406,7 @@
                     :title "Answers by Problems"})))
 
 (defn home-routes []
-  ["" {:middleware [;;middleware/auth
+  ["" {:middleware [middleware/auth
                     middleware/wrap-csrf
                     middleware/wrap-formats]}
    ["/" {:get status-page}]

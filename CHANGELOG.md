@@ -22,11 +22,11 @@ int error() {
 - コメントしようとするとエラーのログがたくさん
 - ページビューのログが残らないぞ。
 
-
 ## 0.26.3-SNAPSHOT
 ### Added
 - login failure を赤で表示。
 - ログをモチっとしっかりとる。timbre/info "page" (login request)
+- robots.txt
 
 ## 0.26.2 - 2022-03-29
 ### Changed
