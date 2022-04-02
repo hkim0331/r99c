@@ -8,7 +8,7 @@
    [struct.core :as st]
    [taoensso.timbre :as timbre]))
 
-(def ^:private version "0.26.3")
+(def ^:private version "0.26.5")
 
 (def users-schema
   [[:sid
@@ -24,7 +24,7 @@
     st/string
     {:message "同じユーザ名があります。"
      :validate (fn [login]
-                  (let [ret (db/get-user {:login login})]
+                 (let [ret (db/get-user {:login login})]
                    (timbre/debug "validate ret:" ret)
                    (empty? ret)))}]
    [:password
@@ -68,7 +68,7 @@
 
 (defn logout [_]
   (-> (redirect "/")
-   (assoc :session {})))
+      (assoc :session {})))
 
 (defn register [{:keys [flash] :as request}]
   (layout/render request
@@ -98,3 +98,4 @@
    ["/logout" {:get logout}]
    ["/register" {:get  register
                  :post register-post}]])
+
