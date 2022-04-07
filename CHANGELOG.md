@@ -19,13 +19,12 @@ int error() {
   return a[1] == '{' && a[5] == '}';
 }
 ```
-- コメントしようとするとエラーのログがたくさん
-- ページビューのログが残らないぞ。
+- ログをモチっとしっかり。
+
 
 ## 0.26.3 - 2022-03-31
 ### Added
 - login failure を赤で表示。
-- ログをモチっとしっかりとる。timbre/info "page" (login request)
 - robots.txt
 - nobody/nobody
 ### Changed
