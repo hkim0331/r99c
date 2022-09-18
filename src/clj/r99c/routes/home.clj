@@ -112,7 +112,7 @@
      request
      "status.html"
      {:login login
-      :status (map? #(solved? solved %) (map :num (db/problems)))
+      :status (map #(solved? solved %) (map :num (db/problems)))
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)
       :recents (db/recent-answers {:n 20})
@@ -233,7 +233,8 @@
         num (:num answer)
         my-answer (db/get-answer {:num num :login (login request)})]
     ;;(timbre/info "comment-form" (login request))
-    (if (or (not (require-my-answer?)) my-answer)
+    ;;(if (or (not (require-my-answer?)) my-answer)
+    (if my-answer
       (layout/render request "comment-form.html"
                      {:answer   (if (self-only?)
                                   my-answer
