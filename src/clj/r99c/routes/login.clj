@@ -51,14 +51,15 @@
 (defn login-post [{{:keys [login password]} :params}]
   (let [user (db/get-user {:login login})]
     (if (or
-         (and (= login "nobody") (= password "nobody"))
+         ;;(and (= login "nobody") (= password "nobody"))
          (and (seq user)
               (= (:login user) login)
               (hashers/check password (:password user))))
       (do
         (timbre/info "login success" login)
-       ;; in read-only mode, can not this.
-       ;;(db/login {:login login})
+        ;; in read-only mode, can not this.
+        (db/login {:login login})
+        ;;
         (-> (redirect "/")
             (assoc-in [:session :identity] (keyword login))))
       (do
