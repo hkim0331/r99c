@@ -112,7 +112,7 @@
      request
      "status.html"
      {:login login
-      :status (map #(solved? solved %) (map :num (db/problems)))
+      :status (map? #(solved? solved %) (map :num (db/problems)))
       :individual-chart (individual-chart individual period 600 150)
       :class-chart (class-chart all-answers period 600 150)
       :recents (db/recent-answers {:n 20})
